@@ -20,3 +20,13 @@ This is a private, invite-only book club to keep track of the books we've read t
 - Next.js
 - Prisma
 - TailwindCSS
+- Eslint
+- pnpm
+
+### Installation
+
+`bookclub` uses pnpm for package dependencies.
+
+```
+pnpm install
+```
