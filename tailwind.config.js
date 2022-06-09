@@ -1,10 +1,12 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './pages/**/*.tsx',
-    './components/**/*.tsx'
-  ],
+  content: ['./pages/**/*.tsx', './components/**/*.tsx'],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+  ],
 }
