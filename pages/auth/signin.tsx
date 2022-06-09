@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { SiteLayout } from '~/components/layouts'
 import { Button } from '~/components/button'
-import { signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/react'
 
 const SignIn: NextPage = () => {
   return (
@@ -21,6 +21,21 @@ const SignIn: NextPage = () => {
       </div>
     </SiteLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return { props: {} }
 }
 
 export default SignIn

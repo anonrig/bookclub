@@ -1,3 +1,8 @@
-import { TypeSource } from '@graphql-tools/utils'
+import { gql } from '@apollo/client'
 
-export default {} as TypeSource
+export default gql`
+  type User {
+    id: ID!
+    email: String
+  }
+`
