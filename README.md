@@ -30,3 +30,19 @@ This is a private, invite-only book club to keep track of the books we've read t
 ```
 pnpm install
 ```
+
+#### Database
+
+`bookclub` uses prisma with planetscale. In order to setup the project initially, follow the [quickstart documentation](https://docs.planetscale.com/tutorials/prisma-quickstart).
+
+- Start PlanetScale connection
+
+```bash
+npm run db:dev
+```
+
+- If needed, push database changes
+
+```bash
+npm run db:push
+```
