@@ -5,7 +5,7 @@ import { getSession, signIn } from 'next-auth/react'
 
 const SignIn: NextPage = () => {
   return (
-    <SiteLayout>
+    <SiteLayout sidebar={false}>
       <div className="items-center justify-center flex w-full flex-col">
         <div className="space-y-6">
           <div className="space-y-3">
