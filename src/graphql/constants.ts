@@ -10,6 +10,6 @@ export const GRAPHQL_ENDPOINT = IS_DEV
   ? '/api/graphql'
   : IS_PREVIEW
   ? `https://${PREVIEW_URL}/api/graphql`
-  : 'https://nizipli.com'
+  : 'https://nizipli.com/api/graphql'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
