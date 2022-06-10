@@ -1,10 +1,4 @@
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ForwardedRef,
-  forwardRef,
-  RefObject,
-} from 'react'
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef } from 'react'
 import Link from 'next/link'
 
 interface BaseButtonProps {
@@ -90,5 +84,14 @@ export const Button = forwardRef((props: ButtonProps, ref) => {
   const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
-
 Button.displayName = 'Button'
+
+export const GhostButton = forwardRef((props: ButtonProps, ref) => {
+  const classes = `text-gray-700 hover:text-gray-1000 bg-gray-200 bg-opacity-0 hover:bg-opacity-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white`
+  const size = getSize(props.size)
+  const opacity = getOpacity(props.disabled)
+  const radius = getRadius(props.size)
+  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  return <BaseButton forwardedRef={ref} className={composed} {...props} />
+})
+GhostButton.displayName = 'GhostButton'

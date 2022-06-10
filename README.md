@@ -46,3 +46,11 @@ npm run db:dev
 ```bash
 npm run db:push
 ```
+
+#### Graphql Schemas
+
+`bookclub` uses graphql to communicate.
+
+```bash
+npm run generate
+```
