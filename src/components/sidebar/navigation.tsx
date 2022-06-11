@@ -21,8 +21,8 @@ export default function Navigation() {
           isExternal: false,
         },
         {
-          href: '/sessions',
-          label: 'Sessions',
+          href: '/session',
+          label: 'Session',
           icon: <BookmarkIcon />,
           isActive: router.asPath.indexOf('/books') >= 0,
           isExternal: false,

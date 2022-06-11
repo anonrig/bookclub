@@ -28,6 +28,7 @@ export type Scalars = {
 
 export type EditUserInput = {
   email?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type Mutation = {

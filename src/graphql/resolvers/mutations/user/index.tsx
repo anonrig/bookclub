@@ -7,22 +7,32 @@ export async function editUser(
   { data }: MutationEditUserArgs,
   ctx: Context
 ) {
-  if (data?.email && ctx.viewer) {
-    const userByEmail = await ctx.prisma.user.findUnique({
-      where: { email: data.email },
-    })
+  if (ctx.viewer) {
+    const updated: { email?: string; emailVerified?: null; name?: string } = {}
 
-    if (userByEmail) {
-      throw new UserInputError('That email is taken')
+    if (data?.name) {
+      updated.name = data.name
     }
 
-    return ctx.prisma.user.update({
-      where: { email: ctx.viewer.email },
-      data: {
-        email: data.email,
-        emailVerified: null,
-      },
-    })
+    if (data?.email) {
+      const userByEmail = await ctx.prisma.user.findUnique({
+        where: { email: data.email },
+      })
+
+      if (userByEmail) {
+        throw new UserInputError('That email is taken')
+      }
+
+      updated.email = data.email
+      updated.emailVerified = null
+    }
+
+    if (Object.keys(updated).length > 0) {
+      return ctx.prisma.user.update({
+        where: { email: ctx.viewer.email },
+        data: updated,
+      })
+    }
   }
 
   return ctx.viewer

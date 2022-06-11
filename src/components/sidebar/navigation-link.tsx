@@ -25,7 +25,9 @@ export function NavigationLink({
               : 'text-gray-700 dark:text-gray-200 sm:hover:bg-gray-200 sm:hover:text-gray-900 sm:dark:hover:bg-gray-700 sm:dark:hover:text-gray-200'
           }`}
         >
-          <span className="flex items-center justify-center w-4">{icon}</span>
+          <span className="flex items-center justify-center w-4 h-4">
+            {icon}
+          </span>
           <span className="flex-1">{label}</span>
         </a>
       </Link>

@@ -19,6 +19,7 @@ export default gql`
   }
 
   input EditUserInput {
+    name: String
     email: String
   }
 

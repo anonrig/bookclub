@@ -95,3 +95,15 @@ export const GhostButton = forwardRef((props: ButtonProps, ref) => {
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
 GhostButton.displayName = 'GhostButton'
+
+export const DeleteButton = forwardRef((props: ButtonProps, ref) => {
+  const classes = `bg-white border border-gray-200 dark:border-red-500 dark:hover:border-red-500  dark:bg-red-500 dark:border-opacity-20 dark:bg-opacity-10 text-red-500 hover:border-red-500 hover:text-white hover:bg-red-600 focus:bg-red-600 dark:focus:text-white`
+  const size = getSize(props.size)
+  const opacity = getOpacity(props.disabled)
+  const radius = getRadius(props.size)
+  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  return <BaseButton forwardedRef={ref} className={composed} {...props} />
+})
+DeleteButton.displayName = 'DeleteButton'
+
+export default Button
