@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import { Button } from '~/components/button'
 import { getSession, signIn } from 'next-auth/react'
 import { NextPageWithLayout, SiteLayout } from '~/components/layouts'

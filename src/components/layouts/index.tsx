@@ -3,7 +3,7 @@ import Sidebar from '~/components/sidebar'
 import { NextPage } from 'next'
 
 export type NextPageWithLayout = NextPage & {
-  getLayout?: (children: ReactElement) => ReactElement
+  getLayout?: (children: any) => ReactElement
 }
 
 export function SiteLayout({

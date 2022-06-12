@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { NavigationLink } from '~/components/sidebar/navigation-link'
 import {
   BookmarkIcon,
+  BookOpenIcon,
   HomeIcon,
   PhoneIncomingIcon,
 } from '@heroicons/react/outline'
@@ -24,6 +25,13 @@ export default function Navigation() {
           href: '/session',
           label: 'Session',
           icon: <BookmarkIcon />,
+          isActive: router.asPath.indexOf('/session') >= 0,
+          isExternal: false,
+        },
+        {
+          href: '/books',
+          label: 'Books',
+          icon: <BookOpenIcon />,
           isActive: router.asPath.indexOf('/books') >= 0,
           isExternal: false,
         },

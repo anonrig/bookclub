@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 
 import { APOLLO_STATE_PROP_NAME, GRAPHQL_ENDPOINT } from '~/graphql/constants'
 import { AppProps } from 'next/app'
+import { schema } from '~/graphql/schema'
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
@@ -23,9 +24,8 @@ function createIsomorphLink({ context }: { context: Context }) {
     // These have to imported dynamically, instead of at the root of the page,
     // in order to make sure that we're not shipping server-side code to the client
     // eslint-disable-next-line
-    const { SchemaLink } = require('@apollo/link-schema')
+    const { SchemaLink } = require('@apollo/client/link/schema')
     // eslint-disable-next-line
-    const { schema } = require('~/graphql/schema')
     return new SchemaLink({ schema, context })
   } else {
     return new HttpLink({

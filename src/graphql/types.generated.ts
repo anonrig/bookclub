@@ -26,6 +26,27 @@ export type Scalars = {
   Date: any
 }
 
+export type Book = {
+  __typename?: 'Book'
+  authors: Array<Scalars['String']>
+  createdAt: Scalars['Date']
+  description: Scalars['String']
+  googleId: Scalars['String']
+  id: Scalars['ID']
+  pageCount: Scalars['Int']
+  publishedAt: Scalars['Int']
+  recommendedBy: User
+  subtitle: Scalars['String']
+  thumbnail?: Maybe<Scalars['String']>
+  title: Scalars['String']
+  url: Scalars['String']
+}
+
+export type CreateBookRecommendationInput = {
+  comment?: InputMaybe<Scalars['String']>
+  id: Scalars['String']
+}
+
 export type EditUserInput = {
   email?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
@@ -33,7 +54,12 @@ export type EditUserInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  createBookRecommendation?: Maybe<Book>
   editUser?: Maybe<User>
+}
+
+export type MutationCreateBookRecommendationArgs = {
+  data?: InputMaybe<CreateBookRecommendationInput>
 }
 
 export type MutationEditUserArgs = {
@@ -42,12 +68,19 @@ export type MutationEditUserArgs = {
 
 export type Query = {
   __typename?: 'Query'
+  book?: Maybe<Book>
+  books: Array<Book>
   viewer?: Maybe<User>
+}
+
+export type QueryBookArgs = {
+  id: Scalars['ID']
 }
 
 export enum Role {
   Admin = 'ADMIN',
   Blocked = 'BLOCKED',
+  Pending = 'PENDING',
   User = 'USER',
 }
 
@@ -59,6 +92,36 @@ export type User = {
   image?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   role?: Maybe<Role>
+}
+
+export type BookInfoFragment = {
+  __typename: 'Book'
+  id: string
+  title: string
+  thumbnail?: string | null
+  authors: Array<string>
+}
+
+export type BookInfoDetailFragment = {
+  __typename: 'Book'
+  subtitle: string
+  description: string
+  url: string
+  googleId: string
+  publishedAt: number
+  pageCount: number
+  createdAt: any
+  id: string
+  title: string
+  thumbnail?: string | null
+  authors: Array<string>
+  recommendedBy: {
+    __typename: 'User'
+    id: string
+    name?: string | null
+    image?: string | null
+    role?: Role | null
+  }
 }
 
 export type UserInfoFragment = {
@@ -75,6 +138,21 @@ export type UserSettingsFragment = {
   emailVerified?: any | null
 }
 
+export type CreateBookRecommendationMutationVariables = Exact<{
+  data?: InputMaybe<CreateBookRecommendationInput>
+}>
+
+export type CreateBookRecommendationMutation = {
+  __typename?: 'Mutation'
+  createBookRecommendation?: {
+    __typename: 'Book'
+    id: string
+    title: string
+    thumbnail?: string | null
+    authors: Array<string>
+  } | null
+}
+
 export type EditUserMutationVariables = Exact<{
   data?: InputMaybe<EditUserInput>
 }>
@@ -87,6 +165,48 @@ export type EditUserMutation = {
     name?: string | null
     image?: string | null
     role?: Role | null
+  } | null
+}
+
+export type GetBooksQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetBooksQuery = {
+  __typename?: 'Query'
+  books: Array<{
+    __typename: 'Book'
+    id: string
+    title: string
+    thumbnail?: string | null
+    authors: Array<string>
+  }>
+}
+
+export type GetBookQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type GetBookQuery = {
+  __typename?: 'Query'
+  book?: {
+    __typename: 'Book'
+    id: string
+    title: string
+    thumbnail?: string | null
+    authors: Array<string>
+    subtitle: string
+    description: string
+    url: string
+    googleId: string
+    publishedAt: number
+    pageCount: number
+    createdAt: any
+    recommendedBy: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
   } | null
 }
 
@@ -120,6 +240,15 @@ export type GetViewerWithSettingsQuery = {
   } | null
 }
 
+export const BookInfoFragmentDoc = gql`
+  fragment BookInfo on Book {
+    __typename
+    id
+    title
+    thumbnail
+    authors
+  }
+`
 export const UserInfoFragmentDoc = gql`
   fragment UserInfo on User {
     __typename
@@ -129,12 +258,81 @@ export const UserInfoFragmentDoc = gql`
     role
   }
 `
+export const BookInfoDetailFragmentDoc = gql`
+  fragment BookInfoDetail on Book {
+    ...BookInfo
+    subtitle
+    description
+    url
+    googleId
+    publishedAt
+    pageCount
+    createdAt
+    recommendedBy {
+      ...UserInfo
+    }
+  }
+  ${BookInfoFragmentDoc}
+  ${UserInfoFragmentDoc}
+`
 export const UserSettingsFragmentDoc = gql`
   fragment UserSettings on User {
     email
     emailVerified
   }
 `
+export const CreateBookRecommendationDocument = gql`
+  mutation createBookRecommendation($data: CreateBookRecommendationInput) {
+    createBookRecommendation(data: $data) {
+      ...BookInfo
+    }
+  }
+  ${BookInfoFragmentDoc}
+`
+export type CreateBookRecommendationMutationFn = Apollo.MutationFunction<
+  CreateBookRecommendationMutation,
+  CreateBookRecommendationMutationVariables
+>
+
+/**
+ * __useCreateBookRecommendationMutation__
+ *
+ * To run a mutation, you first call `useCreateBookRecommendationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBookRecommendationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBookRecommendationMutation, { data, loading, error }] = useCreateBookRecommendationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateBookRecommendationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateBookRecommendationMutation,
+    CreateBookRecommendationMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateBookRecommendationMutation,
+    CreateBookRecommendationMutationVariables
+  >(CreateBookRecommendationDocument, options)
+}
+export type CreateBookRecommendationMutationHookResult = ReturnType<
+  typeof useCreateBookRecommendationMutation
+>
+export type CreateBookRecommendationMutationResult =
+  Apollo.MutationResult<CreateBookRecommendationMutation>
+export type CreateBookRecommendationMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateBookRecommendationMutation,
+    CreateBookRecommendationMutationVariables
+  >
 export const EditUserDocument = gql`
   mutation editUser($data: EditUserInput) {
     editUser(data: $data) {
@@ -182,6 +380,110 @@ export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>
 export type EditUserMutationOptions = Apollo.BaseMutationOptions<
   EditUserMutation,
   EditUserMutationVariables
+>
+export const GetBooksDocument = gql`
+  query getBooks {
+    books {
+      ...BookInfo
+    }
+  }
+  ${BookInfoFragmentDoc}
+`
+
+/**
+ * __useGetBooksQuery__
+ *
+ * To run a query within a React component, call `useGetBooksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBooksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBooksQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(
+    GetBooksDocument,
+    options
+  )
+}
+export function useGetBooksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBooksQuery,
+    GetBooksQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetBooksQuery, GetBooksQueryVariables>(
+    GetBooksDocument,
+    options
+  )
+}
+export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>
+export type GetBooksLazyQueryHookResult = ReturnType<
+  typeof useGetBooksLazyQuery
+>
+export type GetBooksQueryResult = Apollo.QueryResult<
+  GetBooksQuery,
+  GetBooksQueryVariables
+>
+export const GetBookDocument = gql`
+  query getBook($id: ID!) {
+    book(id: $id) {
+      ...BookInfo
+      ...BookInfoDetail
+    }
+  }
+  ${BookInfoFragmentDoc}
+  ${BookInfoDetailFragmentDoc}
+`
+
+/**
+ * __useGetBookQuery__
+ *
+ * To run a query within a React component, call `useGetBookQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetBookQuery(
+  baseOptions: Apollo.QueryHookOptions<GetBookQuery, GetBookQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetBookQuery, GetBookQueryVariables>(
+    GetBookDocument,
+    options
+  )
+}
+export function useGetBookLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetBookQuery, GetBookQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetBookQuery, GetBookQueryVariables>(
+    GetBookDocument,
+    options
+  )
+}
+export type GetBookQueryHookResult = ReturnType<typeof useGetBookQuery>
+export type GetBookLazyQueryHookResult = ReturnType<typeof useGetBookLazyQuery>
+export type GetBookQueryResult = Apollo.QueryResult<
+  GetBookQuery,
+  GetBookQueryVariables
 >
 export const ViewerDocument = gql`
   query viewer {

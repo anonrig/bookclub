@@ -1,5 +1,8 @@
 import { viewer } from '~/graphql/resolvers/queries/viewer'
+import { book, books } from '~/graphql/resolvers/queries/book'
 
 export default {
-  viewer: viewer,
+  book,
+  books,
+  viewer,
 }

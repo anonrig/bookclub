@@ -12,8 +12,25 @@ export default gql`
     role: Role
   }
 
+  type Book {
+    id: ID!
+    title: String!
+    subtitle: String!
+    description: String!
+    pageCount: Int!
+    url: String!
+    authors: [String!]!
+    thumbnail: String
+    publishedAt: Int!
+    googleId: String!
+    createdAt: Date!
+
+    recommendedBy: User!
+  }
+
   enum Role {
     BLOCKED
+    PENDING
     USER
     ADMIN
   }
@@ -23,11 +40,19 @@ export default gql`
     email: String
   }
 
+  input CreateBookRecommendationInput {
+    id: String!
+    comment: String
+  }
+
   type Query {
+    book(id: ID!): Book
+    books: [Book!]!
     viewer: User
   }
 
   type Mutation {
     editUser(data: EditUserInput): User
+    createBookRecommendation(data: CreateBookRecommendationInput): Book
   }
 `

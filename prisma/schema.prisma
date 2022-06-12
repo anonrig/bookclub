@@ -11,18 +11,18 @@ generator client {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -43,13 +43,14 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String   @unique
+  email         String    @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  role      Role     @default(USER)
+  role          Role      @default(PENDING)
 
-  accounts      Account[]
-  sessions      Session[]
+  accounts            Account[]
+  sessions            Session[]
+  bookRecommendations BookRecommendation[]
 
   @@map("users")
 }
@@ -63,8 +64,41 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
+model Book {
+  id          String   @id @default(cuid())
+  googleId    String   @unique @map("google_id")
+  title       String   @db.Text
+  subtitle    String   @db.Text
+  description String   @db.Text
+  pageCount   Int      @map("page_count")
+  url         String   @db.Text
+  authors     Json     @db.Json
+  identifiers Json     @db.Json
+  thumbnail   String?  @db.Text
+  publishedAt Int      @map("published_at") @db.Year
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  recommendations BookRecommendation[]
+
+  @@map("books")
+}
+
+model BookRecommendation {
+  userId    String   @map("user_id")
+  bookId    String   @unique @map("book_id")
+  comment   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@id([userId, bookId])
+  @@map("book_recommendations")
+}
+
 enum Role {
   BLOCKED
+  PENDING
   USER
   ADMIN
 }

@@ -5,10 +5,9 @@ type Props = {
   title: string
   active: boolean
   href: string
-  as: string
   description?: string | ReactElement
   byline?: string | ReactElement
-  leadingAccessory?: ReactElement
+  leadingAccessory?: ReactElement | null
   onClick?: (e: any) => void
 }
 
@@ -17,13 +16,12 @@ export function ListItem({
   description,
   byline,
   href,
-  as,
   active,
   leadingAccessory,
   onClick,
 }: Props) {
   return (
-    <Link href={href} as={as}>
+    <Link href={href}>
       <a
         onClick={onClick && onClick}
         className={`flex space-x-3 border-b border-gray-100 py-3 px-3.5 text-sm dark:border-gray-900 lg:rounded-lg lg:border-none lg:py-2 ${
@@ -36,7 +34,7 @@ export function ListItem({
         <div className="flex flex-col justify-center space-y-1">
           <div
             className={`font-medium line-clamp-3 ${
-              active ? 'text-white' : 'text-gray-1000 dark:text-gray-100'
+              active ? 'text-white' : 'text-gray-900 dark:text-gray-100'
             }`}
           >
             {title}
@@ -46,7 +44,7 @@ export function ListItem({
               className={`line-clamp-2 ${
                 active
                   ? 'text-white text-opacity-80'
-                  : 'text-gray-1000 text-opacity-60 dark:text-white'
+                  : 'text-gray-900 text-opacity-60 dark:text-white'
               }`}
             >
               {description}
@@ -57,7 +55,7 @@ export function ListItem({
               className={`line-clamp-1 ${
                 active
                   ? 'text-white text-opacity-60'
-                  : 'text-gray-1000 text-opacity-40 dark:text-white dark:text-opacity-60'
+                  : 'text-gray-900 text-opacity-40 dark:text-white dark:text-opacity-60'
               }`}
             >
               {byline}

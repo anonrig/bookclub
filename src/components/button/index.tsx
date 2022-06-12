@@ -77,7 +77,7 @@ const baseClasses =
   'flex space-x-2 flex-none items-center justify-center cursor-pointer leading-none transition-all font-semibold'
 
 export const Button = forwardRef((props: ButtonProps, ref) => {
-  const classes = `text-gray-700 hover:text-gray-1000 shadow-xs bg-white border border-gray-400 border-opacity-30 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-white dark:bg-opacity-10 dark:text-gray-200 dark:hover:text-white hover:border-opacity-50 hover:shadow-sm`
+  const classes = `text-gray-700 hover:text-gray-900 shadow-xs bg-white border border-gray-400 border-opacity-30 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-white dark:bg-opacity-10 dark:text-gray-200 dark:hover:text-white hover:border-opacity-50 hover:shadow-sm`
   const size = getSize(props.size)
   const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
@@ -87,7 +87,7 @@ export const Button = forwardRef((props: ButtonProps, ref) => {
 Button.displayName = 'Button'
 
 export const GhostButton = forwardRef((props: ButtonProps, ref) => {
-  const classes = `text-gray-700 hover:text-gray-1000 bg-gray-200 bg-opacity-0 hover:bg-opacity-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white`
+  const classes = `text-gray-700 hover:text-gray-900 bg-gray-200 bg-opacity-0 hover:bg-opacity-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white`
   const size = getSize(props.size)
   const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)

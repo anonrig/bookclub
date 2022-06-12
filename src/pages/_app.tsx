@@ -14,13 +14,13 @@ function MyApp({
 }) {
   const getLayout =
     Component.getLayout ||
-    ((page: ReactElement) => (
-      <Providers pageProps={pageProps} session={session}>
-        <SiteLayout>{page}</SiteLayout>
-      </Providers>
-    ))
+    ((page: ReactElement) => <SiteLayout>{page}</SiteLayout>)
 
-  return getLayout(<Component {...pageProps} />)
+  return (
+    <Providers pageProps={pageProps} session={session}>
+      {getLayout(<Component {...pageProps} />)}
+    </Providers>
+  )
 }
 
 export default MyApp
