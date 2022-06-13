@@ -28,6 +28,7 @@ export default gql`
 
   type BookComment {
     user: User!
+    userId: ID!
     bookId: ID!
     comment: String!
     createdAt: Date!

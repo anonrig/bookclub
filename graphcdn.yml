@@ -4,6 +4,16 @@ scopes:
 rootTypeNames:
   query: Query
   mutation: Mutation
+keyFields:
+  types:
+    User:
+      - id
+    Book:
+      - id
+    BookRecommendations: []
+    BookComment:
+      - userId
+      - bookId
 rules:
   - types:
       Query:

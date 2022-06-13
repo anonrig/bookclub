@@ -47,6 +47,7 @@ export type BookComment = {
   comment: Scalars['String']
   createdAt: Scalars['Date']
   user: User
+  userId: Scalars['ID']
 }
 
 export type BookRecommendations = {
