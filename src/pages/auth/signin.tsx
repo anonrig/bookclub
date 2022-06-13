@@ -5,19 +5,23 @@ import { NextPageWithLayout, SiteLayout } from '~/components/layouts'
 
 const SignIn: NextPageWithLayout = () => {
   return (
-    <div className="items-center justify-center flex w-full flex-col">
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <h1 className="text-primary font-sans text-2xl font-bold xl:text-3xl">
-            Book Club
+    <section className="items-center relative flex justify-center px-4 pt-12 overflow-hidden border-b md:pb-24 md:pt-32 md:px-8 border-neutral-200">
+      <div className="z-20 w-full max-w-6xl space-y-10">
+        <div className="flex flex-col w-full max-w-3xl space-y-4">
+          <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
+            nizipli.com
           </h1>
-          <p className="text-xl text-tertiary">An invite only book club</p>
+          <h3 className="text-xl text-gray-500 md:text-3xl lg:text-4xl lg:leading-[1.4]">
+            a private read-only book club.
+          </h3>
         </div>
-        <Button size="large" onClick={() => signIn('google')}>
-          Sign in with Google
-        </Button>
+        <div>
+          <Button size="large" onClick={() => signIn('google')}>
+            Sign in with Google
+          </Button>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
