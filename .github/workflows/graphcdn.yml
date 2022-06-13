@@ -16,4 +16,4 @@ jobs:
       - name: Push schema
         run: npx stellate push --service bookclub
         env:
-          GRAPHCDN_TOKEN: ${{ secrets.GRAPHCDN_CI_TOKEN }}
+          STELLATE_TOKEN: ${{ secrets.GRAPHCDN_CI_TOKEN }}
