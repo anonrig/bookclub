@@ -1,4 +1,8 @@
-import { ListDetailView, SiteLayout } from '~/components/layouts'
+import {
+  ListDetailView,
+  NextPageWithLayout,
+  SiteLayout,
+} from '~/components/layouts'
 import BookList from '~/components/books/book-list'
 import BookDetail from '~/components/books/book-detail'
 import { GetServerSideProps } from 'next'
@@ -7,7 +11,7 @@ import { addApolloState, initApolloClient } from '~/lib/apollo'
 import { getContext } from '~/graphql/context'
 import { GET_BOOK, GET_BOOKS } from '~/graphql/queries/book'
 
-const BookDetailPage = ({ id }: { id: string }) => {
+const BookDetailPage: NextPageWithLayout<{ id: string }> = ({ id }) => {
   return <BookDetail id={id} />
 }
 

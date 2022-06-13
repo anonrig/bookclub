@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement } from 'react'
 import Sidebar from '~/components/sidebar'
 import { NextPage } from 'next'
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<T = unknown> = NextPage<T> & {
   getLayout?: (children: any) => ReactElement
 }
 
@@ -26,7 +26,7 @@ export function ListDetailView({
   hasDetail = false,
 }: {
   list?: ReactElement
-  detail?: ReactElement
+  detail?: ReactElement | JSX.Element
   hasDetail?: boolean
 }) {
   return (

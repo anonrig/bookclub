@@ -4,7 +4,12 @@ import Image from 'next/image'
 
 type Props = {
   active: boolean
-  book: Book
+  book: {
+    id: string
+    title: string
+    thumbnail?: string | null
+    authors: string[]
+  }
 }
 
 export default function BookListItem({ active, book }: Props) {
