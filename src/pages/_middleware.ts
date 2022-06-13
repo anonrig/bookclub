@@ -4,7 +4,11 @@ import { NextResponse } from 'next/server'
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
 
-  if (url.pathname.startsWith('/auth') || url.pathname.startsWith('/api')) {
+  if (
+    url.pathname.startsWith('/favicon') ||
+    url.pathname.startsWith('/auth') ||
+    url.pathname.startsWith('/api')
+  ) {
     return NextResponse.rewrite(url)
   }
 
