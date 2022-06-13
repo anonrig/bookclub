@@ -2,10 +2,11 @@ import Link from 'next/link'
 import * as React from 'react'
 import { CogIcon } from '@heroicons/react/outline'
 import { GhostButton } from '~/components/button'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useContext } from 'react'
 import { Avatar } from '~/components/avatar'
 import { LoadingSpinner } from '~/components/loading-spinner'
 import { useViewerQuery } from '~/graphql/types.generated'
+import { GlobalNavigationContext } from '~/components/providers'
 
 function Container(props: PropsWithChildren<unknown>) {
   return (
@@ -18,6 +19,7 @@ function Container(props: PropsWithChildren<unknown>) {
 }
 
 export function UserFooter() {
+  const { setIsOpen } = useContext(GlobalNavigationContext)
   const { data, loading, error } = useViewerQuery()
 
   if (loading || error || !data) {
@@ -33,7 +35,10 @@ export function UserFooter() {
   return (
     <Container>
       <Link href={`/u/${data.viewer?.id ?? ''}`}>
-        <a className="flex flex-none items-center rounded-full">
+        <a
+          className="flex flex-none items-center rounded-full"
+          onClick={() => setIsOpen(false)}
+        >
           <Avatar
             user={{
               name: data.viewer?.name ?? '',
@@ -48,6 +53,7 @@ export function UserFooter() {
         </a>
       </Link>
       <GhostButton
+        onClick={() => setIsOpen(false)}
         aria-label="Manage settings"
         size="small-square"
         href="/settings"
