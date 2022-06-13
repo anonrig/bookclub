@@ -28,7 +28,7 @@ export default function BookDetail({ id }: Props) {
       <TitleBar
         backButton
         globalMenu={false}
-        backButtonHref={'/writing'}
+        backButtonHref={'/books'}
         magicTitle
         title={data.book.title}
         titleRef={titleRef}

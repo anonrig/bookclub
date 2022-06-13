@@ -3,11 +3,13 @@ import {
   MutableRefObject,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react'
 import { ArrowLeftIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { GlobalNavigationContext } from '~/components/providers'
 
 type Props = {
   title: string
@@ -34,7 +36,7 @@ export function TitleBar({
   trailingAccessory = null,
   children,
 }: Props) {
-  const [isOpen, setOpen] = useState(false)
+  const { isOpen, setIsOpen } = useContext(GlobalNavigationContext)
   const [darkMode, setDarkMode] = useState(false)
   const [offset, setOffset] = useState(200)
   const [opacity, _setOpacity] = useState(0)
@@ -125,7 +127,7 @@ export function TitleBar({
           <span className="flex items-center space-x-3">
             {globalMenu && (
               <span
-                onClick={() => {}}
+                onClick={() => setIsOpen(!isOpen)}
                 className="flex cursor-pointer items-center justify-center rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-800 lg:hidden"
               >
                 {isOpen ? (

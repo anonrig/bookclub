@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { useContext } from 'react'
+import { GlobalNavigationContext } from '~/components/providers'
 
 export type Link = {
   href: string
@@ -13,8 +15,13 @@ export function NavigationLink({
 }: {
   link: Link
 }) {
+  const { setIsOpen } = useContext(GlobalNavigationContext)
+
   return (
-    <li className="flex items-stretch space-x-1">
+    <li
+      className="flex items-stretch space-x-1"
+      onClick={() => setIsOpen(false)}
+    >
       <Link href={href}>
         <a
           target={isExternal ? '_blank' : undefined}
