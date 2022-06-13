@@ -79,6 +79,7 @@ model Book {
   thumbnail   String?  @db.Text
   publishedAt Int      @map("published_at") @db.Year
   createdAt   DateTime @default(now()) @map("created_at")
+  isRead      Boolean  @default(false) @map("is_read")
 
   comments        BookComment[]
   recommendations BookRecommendation[]
