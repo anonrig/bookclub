@@ -18,7 +18,6 @@ keyFields:
 rules:
   - types:
       Query:
-        - bookRecommendations
         - book
         - books
     maxAge: 43200
