@@ -5,6 +5,7 @@ import { TitleBar } from '~/components/list-detail/title-bar'
 import BookActions from '~/components/books/book-actions'
 import Image from 'next/image'
 import { MarkdownRenderer } from '~/components/markdown-renderer'
+import { NextSeo } from 'next-seo'
 
 type Props = {
   id: string
@@ -25,6 +26,7 @@ export default function BookDetail({ id }: Props) {
 
   return (
     <Detail.Container ref={scrollContainerRef}>
+      <NextSeo title={data.book.title} />
       <TitleBar
         backButton
         globalMenu={false}

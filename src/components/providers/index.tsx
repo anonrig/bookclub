@@ -5,6 +5,7 @@ import { useApollo } from '~/lib/apollo'
 import { NextPageContext } from 'next'
 import { Session } from 'next-auth'
 import { Toast } from '~/components/providers/toast'
+import SEO from '~/components/providers/seo'
 
 const globalNavigationContext = {
   isOpen: false,
@@ -27,6 +28,7 @@ export default function Providers({
 
   return (
     <>
+      <SEO />
       <Toast />
       <ApolloProvider client={client}>
         <SessionProvider session={session}>

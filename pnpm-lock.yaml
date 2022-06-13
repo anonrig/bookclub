@@ -39,6 +39,7 @@ specifiers:
   micro: ^9.3.4
   next: 12.1.6
   next-auth: ^4.4.0
+  next-seo: ^5.4.0
   postcss: ^8.4.14
   prettier: ^2.6.2
   prisma: ^3.15.1
@@ -79,6 +80,7 @@ dependencies:
   micro: 9.3.4
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
   next-auth: 4.4.0_ef5jwxihqo6n7gxfmzogljlgcm
+  next-seo: 5.4.0_2mgcgz5qhsdxw4fgpqzqeafmkq
   postcss: 8.4.14
   prisma: 3.15.1
   react: 18.1.0
@@ -5328,6 +5330,18 @@ packages:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
       uuid: 8.3.2
+    dev: false
+
+  /next-seo/5.4.0_2mgcgz5qhsdxw4fgpqzqeafmkq:
+    resolution: {integrity: sha512-R9DhajPwJnR/lsF2hZ8cN8uqr5CVITsRrCG1AF5+ufcaybKYOvnH8sH9MaH4/hpkps3PQ9H71S7J7SPYixAYzQ==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || >=9.0.0
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
     dev: false
 
   /next/12.1.6_ef5jwxihqo6n7gxfmzogljlgcm:
