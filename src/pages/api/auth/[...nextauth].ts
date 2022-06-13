@@ -7,18 +7,20 @@ const useSecureCookies = Boolean(process.env.VERCEL_URL)
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
-  cookies: {
-    sessionToken: {
-      name: `${useSecureCookies ? '__Secure-' : ''}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        domain: '.nizipli.com',
-        secure: useSecureCookies,
-      },
-    },
-  },
+  cookies: useSecureCookies
+    ? {
+        sessionToken: {
+          name: `${useSecureCookies ? '__Secure-' : ''}next-auth.session-token`,
+          options: {
+            httpOnly: true,
+            sameSite: 'lax',
+            path: '/',
+            domain: '.nizipli.com',
+            secure: useSecureCookies,
+          },
+        },
+      }
+    : undefined,
   pages: {
     signIn: '/auth/signin',
   },
