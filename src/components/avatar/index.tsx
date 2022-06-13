@@ -1,13 +1,14 @@
 import Image, { ImageProps } from 'next/image'
 import { useEffect, useState } from 'react'
+import { Maybe } from '~/graphql/types.generated'
 
 export function Avatar({
   user,
   src,
   ...props
 }: {
-  user: { name: string; username: string }
-  src: string
+  user: { name: string }
+  src?: Maybe<string>
 } & ImageProps) {
   const fallbackUrl = '/static/img/fallback-avatar.png'
   const [srcState, setSrcState] = useState(src || fallbackUrl)
@@ -21,7 +22,7 @@ export function Avatar({
 
   return (
     <Image
-      alt={`${user.name || user.username}'s profile photo`}
+      alt={`${user.name}'s profile photo`}
       src={srcState}
       {...props}
       onError={() => {

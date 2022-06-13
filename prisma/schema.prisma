@@ -50,7 +50,7 @@ model User {
 
   accounts            Account[]
   sessions            Session[]
-  bookComments        BookComment[]
+  comments            Comment[]
   bookRecommendations BookRecommendation[]
 
   @@index([email])
@@ -81,7 +81,7 @@ model Book {
   createdAt   DateTime @default(now()) @map("created_at")
   isRead      Boolean  @default(false) @map("is_read")
 
-  comments        BookComment[]
+  comments        Comment[]
   recommendations BookRecommendation[]
 
   @@index([createdAt])
@@ -101,18 +101,20 @@ model BookRecommendation {
   @@map("book_recommendations")
 }
 
-model BookComment {
-  userId    String   @map("user_id")
-  bookId    String   @map("book_id")
-  comment   String   @db.Text
+model Comment {
+  id        String   @id @default(cuid())
+  author    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String   @db.Text
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  userId String  @map("user_id")
+  bookId String? @map("book_id")
 
-  @@id([userId, bookId, createdAt])
-  @@index([bookId])
-  @@map("book_comments")
+  book Book? @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@index([bookId, createdAt])
+  @@map("comment")
 }
 
 enum Role {

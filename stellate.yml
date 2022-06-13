@@ -12,14 +12,14 @@ keyFields:
     Book:
       - id
     BookRecommendations: []
-    BookComment:
-      - userId
-      - bookId
+    Comment:
+      - id
 rules:
   - types:
       Query:
         - book
         - books
+        - comments
     maxAge: 43200
     swr: 43200
     scope: AUTHENTICATED

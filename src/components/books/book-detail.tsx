@@ -1,4 +1,4 @@
-import { useGetBookQuery } from '~/graphql/types.generated'
+import { CommentType, useGetBookQuery } from '~/graphql/types.generated'
 import { Detail } from '~/components/list-detail/detail'
 import { useRef } from 'react'
 import { TitleBar } from '~/components/list-detail/title-bar'
@@ -6,6 +6,7 @@ import BookActions from '~/components/books/book-actions'
 import Image from 'next/image'
 import { MarkdownRenderer } from '~/components/markdown-renderer'
 import { NextSeo } from 'next-seo'
+import { Comments } from '~/components/comments'
 
 type Props = {
   id: string
@@ -69,6 +70,8 @@ export default function BookDetail({ id }: Props) {
         </MarkdownRenderer>
 
         <div className="py-6" />
+
+        <Comments refId={data.book.id} type={CommentType.Book} />
       </Detail.ContentContainer>
     </Detail.Container>
   )

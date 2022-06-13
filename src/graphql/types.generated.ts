@@ -41,19 +41,23 @@ export type Book = {
   url: Scalars['String']
 }
 
-export type BookComment = {
-  __typename?: 'BookComment'
-  bookId: Scalars['ID']
-  comment: Scalars['String']
-  createdAt: Scalars['Date']
-  user: User
-  userId: Scalars['ID']
-}
-
 export type BookRecommendations = {
   __typename?: 'BookRecommendations'
   count: Scalars['Int']
   recommended: Scalars['Boolean']
+}
+
+export type Comment = {
+  __typename?: 'Comment'
+  author: User
+  createdAt: Scalars['Date']
+  id: Scalars['ID']
+  text: Scalars['String']
+  updatedAt: Scalars['Date']
+}
+
+export enum CommentType {
+  Book = 'BOOK',
 }
 
 export type CreateBookRecommendationInput = {
@@ -66,11 +70,25 @@ export type EditUserInput = {
   name?: InputMaybe<Scalars['String']>
 }
 
+export type GetCommentsInput = {
+  refId: Scalars['ID']
+  type: CommentType
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
+  addComment?: Maybe<Comment>
   createBookRecommendation?: Maybe<Book>
   editUser?: Maybe<User>
+  removeComment?: Maybe<Scalars['Boolean']>
   toggleBookRecommendation?: Maybe<BookRecommendations>
+  updateComment?: Maybe<Comment>
+}
+
+export type MutationAddCommentArgs = {
+  refId: Scalars['ID']
+  text: Scalars['String']
+  type: CommentType
 }
 
 export type MutationCreateBookRecommendationArgs = {
@@ -81,8 +99,17 @@ export type MutationEditUserArgs = {
   data?: InputMaybe<EditUserInput>
 }
 
+export type MutationRemoveCommentArgs = {
+  id: Scalars['ID']
+}
+
 export type MutationToggleBookRecommendationArgs = {
   id: Scalars['ID']
+}
+
+export type MutationUpdateCommentArgs = {
+  id: Scalars['ID']
+  text: Scalars['String']
 }
 
 export type Query = {
@@ -90,6 +117,7 @@ export type Query = {
   book?: Maybe<Book>
   bookRecommendations?: Maybe<BookRecommendations>
   books: Array<Book>
+  comments: Array<Comment>
   viewer?: Maybe<User>
 }
 
@@ -99,6 +127,11 @@ export type QueryBookArgs = {
 
 export type QueryBookRecommendationsArgs = {
   id: Scalars['ID']
+}
+
+export type QueryCommentsArgs = {
+  refId: Scalars['ID']
+  type: CommentType
 }
 
 export enum Role {
@@ -147,6 +180,19 @@ export type BookInfoDetailFragment = {
   authors: Array<string>
 }
 
+export type CommentInfoFragment = {
+  __typename: 'Comment'
+  id: string
+  text: string
+  author: {
+    __typename: 'User'
+    id: string
+    name?: string | null
+    image?: string | null
+    role?: Role | null
+  }
+}
+
 export type UserInfoFragment = {
   __typename: 'User'
   id: string
@@ -187,6 +233,58 @@ export type ToggleBookRecommendationMutation = {
     count: number
     recommended: boolean
   } | null
+}
+
+export type AddCommentMutationVariables = Exact<{
+  refId: Scalars['ID']
+  type: CommentType
+  text: Scalars['String']
+}>
+
+export type AddCommentMutation = {
+  __typename?: 'Mutation'
+  addComment?: {
+    __typename: 'Comment'
+    id: string
+    text: string
+    author: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
+  } | null
+}
+
+export type UpdateCommentMutationVariables = Exact<{
+  id: Scalars['ID']
+  text: Scalars['String']
+}>
+
+export type UpdateCommentMutation = {
+  __typename?: 'Mutation'
+  updateComment?: {
+    __typename: 'Comment'
+    id: string
+    text: string
+    author: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
+  } | null
+}
+
+export type RemoveCommentMutationVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type RemoveCommentMutation = {
+  __typename?: 'Mutation'
+  removeComment?: boolean | null
 }
 
 export type EditUserMutationVariables = Exact<{
@@ -250,6 +348,27 @@ export type GetBookQuery = {
     pageCount: number
     createdAt: any
   } | null
+}
+
+export type GetCommentsQueryVariables = Exact<{
+  refId: Scalars['ID']
+  type: CommentType
+}>
+
+export type GetCommentsQuery = {
+  __typename?: 'Query'
+  comments: Array<{
+    __typename: 'Comment'
+    id: string
+    text: string
+    author: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
+  }>
 }
 
 export type ViewerQueryVariables = Exact<{ [key: string]: never }>
@@ -319,6 +438,17 @@ export const UserInfoFragmentDoc = gql`
     image
     role
   }
+`
+export const CommentInfoFragmentDoc = gql`
+  fragment CommentInfo on Comment {
+    __typename
+    id
+    text
+    author {
+      ...UserInfo
+    }
+  }
+  ${UserInfoFragmentDoc}
 `
 export const UserSettingsFragmentDoc = gql`
   fragment UserSettings on User {
@@ -430,6 +560,158 @@ export type ToggleBookRecommendationMutationOptions =
     ToggleBookRecommendationMutation,
     ToggleBookRecommendationMutationVariables
   >
+export const AddCommentDocument = gql`
+  mutation addComment($refId: ID!, $type: CommentType!, $text: String!) {
+    addComment(refId: $refId, type: $type, text: $text) {
+      ...CommentInfo
+    }
+  }
+  ${CommentInfoFragmentDoc}
+`
+export type AddCommentMutationFn = Apollo.MutationFunction<
+  AddCommentMutation,
+  AddCommentMutationVariables
+>
+
+/**
+ * __useAddCommentMutation__
+ *
+ * To run a mutation, you first call `useAddCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCommentMutation, { data, loading, error }] = useAddCommentMutation({
+ *   variables: {
+ *      refId: // value for 'refId'
+ *      type: // value for 'type'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useAddCommentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddCommentMutation,
+    AddCommentMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<AddCommentMutation, AddCommentMutationVariables>(
+    AddCommentDocument,
+    options
+  )
+}
+export type AddCommentMutationHookResult = ReturnType<
+  typeof useAddCommentMutation
+>
+export type AddCommentMutationResult = Apollo.MutationResult<AddCommentMutation>
+export type AddCommentMutationOptions = Apollo.BaseMutationOptions<
+  AddCommentMutation,
+  AddCommentMutationVariables
+>
+export const UpdateCommentDocument = gql`
+  mutation updateComment($id: ID!, $text: String!) {
+    updateComment(id: $id, text: $text) {
+      ...CommentInfo
+    }
+  }
+  ${CommentInfoFragmentDoc}
+`
+export type UpdateCommentMutationFn = Apollo.MutationFunction<
+  UpdateCommentMutation,
+  UpdateCommentMutationVariables
+>
+
+/**
+ * __useUpdateCommentMutation__
+ *
+ * To run a mutation, you first call `useUpdateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCommentMutation, { data, loading, error }] = useUpdateCommentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useUpdateCommentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateCommentMutation,
+    UpdateCommentMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateCommentMutation,
+    UpdateCommentMutationVariables
+  >(UpdateCommentDocument, options)
+}
+export type UpdateCommentMutationHookResult = ReturnType<
+  typeof useUpdateCommentMutation
+>
+export type UpdateCommentMutationResult =
+  Apollo.MutationResult<UpdateCommentMutation>
+export type UpdateCommentMutationOptions = Apollo.BaseMutationOptions<
+  UpdateCommentMutation,
+  UpdateCommentMutationVariables
+>
+export const RemoveCommentDocument = gql`
+  mutation removeComment($id: ID!) {
+    removeComment(id: $id)
+  }
+`
+export type RemoveCommentMutationFn = Apollo.MutationFunction<
+  RemoveCommentMutation,
+  RemoveCommentMutationVariables
+>
+
+/**
+ * __useRemoveCommentMutation__
+ *
+ * To run a mutation, you first call `useRemoveCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeCommentMutation, { data, loading, error }] = useRemoveCommentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveCommentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveCommentMutation,
+    RemoveCommentMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    RemoveCommentMutation,
+    RemoveCommentMutationVariables
+  >(RemoveCommentDocument, options)
+}
+export type RemoveCommentMutationHookResult = ReturnType<
+  typeof useRemoveCommentMutation
+>
+export type RemoveCommentMutationResult =
+  Apollo.MutationResult<RemoveCommentMutation>
+export type RemoveCommentMutationOptions = Apollo.BaseMutationOptions<
+  RemoveCommentMutation,
+  RemoveCommentMutationVariables
+>
 export const EditUserDocument = gql`
   mutation editUser($data: EditUserInput) {
     editUser(data: $data) {
@@ -640,6 +922,64 @@ export type GetBookLazyQueryHookResult = ReturnType<typeof useGetBookLazyQuery>
 export type GetBookQueryResult = Apollo.QueryResult<
   GetBookQuery,
   GetBookQueryVariables
+>
+export const GetCommentsDocument = gql`
+  query getComments($refId: ID!, $type: CommentType!) {
+    comments(refId: $refId, type: $type) {
+      ...CommentInfo
+    }
+  }
+  ${CommentInfoFragmentDoc}
+`
+
+/**
+ * __useGetCommentsQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsQuery({
+ *   variables: {
+ *      refId: // value for 'refId'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useGetCommentsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCommentsQuery,
+    GetCommentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetCommentsQuery, GetCommentsQueryVariables>(
+    GetCommentsDocument,
+    options
+  )
+}
+export function useGetCommentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCommentsQuery,
+    GetCommentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetCommentsQuery, GetCommentsQueryVariables>(
+    GetCommentsDocument,
+    options
+  )
+}
+export type GetCommentsQueryHookResult = ReturnType<typeof useGetCommentsQuery>
+export type GetCommentsLazyQueryHookResult = ReturnType<
+  typeof useGetCommentsLazyQuery
+>
+export type GetCommentsQueryResult = Apollo.QueryResult<
+  GetCommentsQuery,
+  GetCommentsQueryVariables
 >
 export const ViewerDocument = gql`
   query viewer {

@@ -106,4 +106,28 @@ export const DeleteButton = forwardRef((props: ButtonProps, ref) => {
 })
 DeleteButton.displayName = 'DeleteButton'
 
+export const PrimaryButton = forwardRef((props: ButtonProps, ref) => {
+  const classes = `text-white hover:text-white shadow-xs bg-blue-500 border border-blue-600 dark:border-blue-400 dark:border-opacity-50 hover:shadow-sm`
+  const size = getSize(props.size)
+  const opacity = getOpacity(props.disabled)
+  const radius = getRadius(props.size)
+  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  return <BaseButton forwardedRef={ref} className={composed} {...props} />
+})
+PrimaryButton.displayName = 'PrimaryButton'
+
+export const CommentButton = forwardRef((props: ButtonProps, ref) => {
+  const classes = `${
+    props.disabled
+      ? 'text-gray-500 border-gray-400 bg-white dark:border-gray-700'
+      : 'border-blue-600 bg-blue-500 dark:bg-opacity-100 text-white hover:bg-blue-600 dark:border-blue-400'
+  } shadow-xs bg-white border border-opacity-30 dark:bg-opacity-10 hover:border-opacity-50 hover:shadow-sm w-8 rounded`
+  const size = getSize(props.size)
+  const opacity = getOpacity(props.disabled)
+  const radius = getRadius(props.size)
+  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  return <BaseButton className={composed} forwardedRef={ref} {...props} />
+})
+CommentButton.displayName = 'CommentButton'
+
 export default Button

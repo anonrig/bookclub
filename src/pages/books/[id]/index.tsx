@@ -10,6 +10,8 @@ import { GET_VIEWER } from '~/graphql/queries/viewer'
 import { addApolloState, initApolloClient } from '~/lib/apollo'
 import { getContext } from '~/graphql/context'
 import { GET_BOOK, GET_BOOKS } from '~/graphql/queries/book'
+import { GET_COMMENTS } from '~/graphql/queries/comment'
+import { CommentType } from '~/graphql/types.generated'
 
 const BookDetailPage: NextPageWithLayout<{ id: string }> = ({ id }) => {
   return <BookDetail id={id} />
@@ -39,6 +41,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   await Promise.all([
     apolloClient.query({ query: GET_VIEWER }),
     apolloClient.query({ query: GET_BOOKS }),
+    apolloClient.query({
+      query: GET_COMMENTS,
+      variables: {
+        refId: id,
+        type: CommentType.Book,
+      },
+    }),
   ])
 
   return addApolloState(apolloClient, {

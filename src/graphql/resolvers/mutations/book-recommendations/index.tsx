@@ -71,11 +71,11 @@ export async function createBookRecommendation(
   })
 
   if (data.comment) {
-    await ctx.prisma.bookComment.create({
+    await ctx.prisma.comment.create({
       data: {
         bookId: book.id,
         userId: ctx.viewer.id,
-        comment: data.comment,
+        text: data.comment,
       },
     })
   }
