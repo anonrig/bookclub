@@ -1,3 +1,4 @@
+name: bookclub
 schema: './src/graphql/type-defs/index.ts'
 scopes:
   AUTHENTICATED: 'cookie:__Secure-next-auth.session-token'
@@ -20,7 +21,6 @@ rules:
         - bookRecommendations
         - book
         - books
-        - viewer
     maxAge: 43200
     swr: 43200
     scope: AUTHENTICATED
