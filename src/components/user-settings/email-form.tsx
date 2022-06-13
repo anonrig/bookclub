@@ -38,7 +38,6 @@ export default function EmailForm(props: {
         },
       })
     },
-    onError() {},
     onCompleted() {
       setIsEditing(false)
     },

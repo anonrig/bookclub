@@ -1,8 +1,16 @@
-import { MutationCreateBookRecommendationArgs } from '~/graphql/types.generated'
+import {
+  MutationCreateBookRecommendationArgs,
+  MutationToggleBookRecommendationArgs,
+} from '~/graphql/types.generated'
 import { Context } from '~/graphql/context'
-import { UserInputError, ForbiddenError } from 'apollo-server-micro'
+import {
+  UserInputError,
+  ForbiddenError,
+  AuthenticationError,
+} from 'apollo-server-micro'
 import { getBookById } from '~/lib/google-books'
 import TurndownService from 'turndown'
+import { bookRecommendations } from '~/graphql/resolvers/queries/book-recommendations'
 
 const turndownService = new TurndownService()
 
@@ -22,7 +30,10 @@ export async function createBookRecommendation(
   const previousRecommendation = await ctx.prisma.bookRecommendation.findUnique(
     {
       where: {
-        bookId: data.id,
+        userId_bookId: {
+          userId: ctx.viewer.id,
+          bookId: data.id,
+        },
       },
     }
   )
@@ -55,10 +66,56 @@ export async function createBookRecommendation(
   await ctx.prisma.bookRecommendation.create({
     data: {
       bookId: book.id,
-      comment: data.comment,
       userId: ctx.viewer.id,
     },
   })
 
+  if (data.comment) {
+    await ctx.prisma.bookComment.create({
+      data: {
+        bookId: book.id,
+        userId: ctx.viewer.id,
+        comment: data.comment,
+      },
+    })
+  }
+
   return book
+}
+
+export async function toggleBookRecommendation(
+  _: unknown,
+  { id }: MutationToggleBookRecommendationArgs,
+  ctx: Context
+) {
+  if (!ctx.viewer) {
+    throw new AuthenticationError('Viewer is missing')
+  }
+
+  const reaction = await ctx.prisma.bookRecommendation.findFirst({
+    where: {
+      userId: ctx.viewer.id,
+      bookId: id,
+    },
+  })
+
+  if (reaction) {
+    await ctx.prisma.bookRecommendation.delete({
+      where: {
+        userId_bookId: {
+          userId: ctx.viewer.id,
+          bookId: id,
+        },
+      },
+    })
+  } else {
+    await ctx.prisma.bookRecommendation.create({
+      data: {
+        userId: ctx.viewer.id,
+        bookId: id,
+      },
+    })
+  }
+
+  return bookRecommendations(null, { id }, ctx)
 }

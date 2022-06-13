@@ -24,8 +24,18 @@ export default gql`
     publishedAt: Int!
     googleId: String!
     createdAt: Date!
+  }
 
-    recommendedBy: User!
+  type BookComment {
+    user: User!
+    bookId: ID!
+    comment: String!
+    createdAt: Date!
+  }
+
+  type BookRecommendations {
+    count: Int!
+    recommended: Boolean!
   }
 
   enum Role {
@@ -40,18 +50,20 @@ export default gql`
     email: String
   }
 
-  input CreateBookRecommendationInput {
-    id: String!
-    comment: String
-  }
-
   type Query {
+    bookRecommendations(id: ID!): BookRecommendations
     book(id: ID!): Book
     books: [Book!]!
     viewer: User
   }
 
+  input CreateBookRecommendationInput {
+    id: String!
+    comment: String
+  }
+
   type Mutation {
+    toggleBookRecommendation(id: ID!): BookRecommendations
     editUser(data: EditUserInput): User
     createBookRecommendation(data: CreateBookRecommendationInput): Book
   }

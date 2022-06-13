@@ -21,10 +21,6 @@ export const BookInfoDetailFragment = gql`
     publishedAt
     pageCount
     createdAt
-
-    recommendedBy {
-      ...UserInfo
-    }
   }
   ${BookInfoFragment}
   ${UserInfoFragment}

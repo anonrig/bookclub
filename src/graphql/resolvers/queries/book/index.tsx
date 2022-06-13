@@ -10,22 +10,18 @@ export function books(_: unknown, __: unknown, ctx: Context) {
 }
 
 export async function book(_: unknown, { id }: QueryBookArgs, ctx: Context) {
-  const recommendation = await ctx.prisma.bookRecommendation.findFirst({
+  const book = await ctx.prisma.book.findFirst({
+    where: { id },
+  })
+
+  const recommendations = await ctx.prisma.bookRecommendation.count({
     where: {
       bookId: id,
     },
-    include: {
-      user: true,
-      book: true,
-    },
   })
 
-  if (!recommendation) {
-    return null
-  }
-
   return {
-    ...recommendation.book,
-    recommendedBy: recommendation.user,
+    ...book,
+    recommendations,
   }
 }
