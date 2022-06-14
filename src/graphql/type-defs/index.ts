@@ -32,6 +32,8 @@ export default gql`
     text: String!
     createdAt: Date!
     updatedAt: Date!
+    viewerCanUpdate: Boolean!
+    viewerCanDelete: Boolean!
   }
 
   type BookRecommendations {

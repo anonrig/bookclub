@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 import { UserInfoFragment } from '~/graphql/fragments/user'
-import { BookInfoFragment } from '~/graphql/fragments/book'
 
 export const CommentInfoFragment = gql`
   fragment CommentInfo on Comment {
@@ -10,6 +9,8 @@ export const CommentInfoFragment = gql`
     author {
       ...UserInfo
     }
+    viewerCanUpdate
+    viewerCanDelete
   }
   ${UserInfoFragment}
 `

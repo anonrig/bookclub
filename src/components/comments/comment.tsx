@@ -112,8 +112,8 @@ export const Comment = memo(function MemoComment({
               <Avatar
                 user={{ name: comment.author.name! }}
                 src={comment.author.image as string}
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 quality={100}
                 layout="fixed"
                 className="rounded-full"
@@ -139,7 +139,13 @@ export const Comment = memo(function MemoComment({
           </div>
         </div>
 
-        <CommentMenu handleDelete={handleDelete} handleEdit={handleEdit} />
+        {(comment.viewerCanUpdate || comment.viewerCanDelete) && (
+          <CommentMenu
+            comment={comment}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
+        )}
       </div>
 
       {isEditing ? (

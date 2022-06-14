@@ -54,6 +54,8 @@ export type Comment = {
   id: Scalars['ID']
   text: Scalars['String']
   updatedAt: Scalars['Date']
+  viewerCanDelete: Scalars['Boolean']
+  viewerCanUpdate: Scalars['Boolean']
 }
 
 export enum CommentType {
@@ -184,6 +186,8 @@ export type CommentInfoFragment = {
   __typename: 'Comment'
   id: string
   text: string
+  viewerCanUpdate: boolean
+  viewerCanDelete: boolean
   author: {
     __typename: 'User'
     id: string
@@ -247,6 +251,8 @@ export type AddCommentMutation = {
     __typename: 'Comment'
     id: string
     text: string
+    viewerCanUpdate: boolean
+    viewerCanDelete: boolean
     author: {
       __typename: 'User'
       id: string
@@ -268,6 +274,8 @@ export type UpdateCommentMutation = {
     __typename: 'Comment'
     id: string
     text: string
+    viewerCanUpdate: boolean
+    viewerCanDelete: boolean
     author: {
       __typename: 'User'
       id: string
@@ -361,6 +369,8 @@ export type GetCommentsQuery = {
     __typename: 'Comment'
     id: string
     text: string
+    viewerCanUpdate: boolean
+    viewerCanDelete: boolean
     author: {
       __typename: 'User'
       id: string
@@ -447,6 +457,8 @@ export const CommentInfoFragmentDoc = gql`
     author {
       ...UserInfo
     }
+    viewerCanUpdate
+    viewerCanDelete
   }
   ${UserInfoFragmentDoc}
 `
