@@ -4,16 +4,18 @@ This is a private, invite-only book club to keep track of the books we've read t
 
 ### Features
 
-- [ ] Login with Google
+- [x] Login with Google
+- [ ] Book recommendation
+  - [x] Recommend a book
+  - [x] Comment on a book
+  - [ ] List people who recommended
 - [ ] Start reading a book together
   - [ ] Members can add their page numbers
-- [ ] Recommend new books
-  - [ ] Rate the recommended books
-- [ ] Create meetings
+- [ ] Meetings
   - [ ] Integrate Zoom
   - [ ] Send email notifications to active members
   - [ ] Keep track of attendance (Yes, Maybe, No)
-- [ ] Propose meetings
+  - [ ] Propose meetings
 
 ### Technologies
 
