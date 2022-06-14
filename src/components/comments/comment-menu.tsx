@@ -1,7 +1,8 @@
 import { Menu, Transition } from '@headlessui/react'
+import { DotsHorizontalIcon } from '@heroicons/react/outline'
 
 import { GhostButton } from '~/components/button'
-import { DotsHorizontalIcon } from '@heroicons/react/outline'
+import { Comment } from '~/graphql/types.generated'
 
 type Props = {
   comment: Comment

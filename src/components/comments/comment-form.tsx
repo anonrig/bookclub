@@ -32,6 +32,8 @@ export function CommentForm({ refId, type }: Props) {
           image: data?.viewer?.image,
           role: data?.viewer?.role,
         },
+        viewerCanDelete: true,
+        viewerCanUpdate: true,
       },
     },
     update(cache: any, { data: { addComment } }: any) {
