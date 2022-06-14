@@ -55,10 +55,6 @@ function getSize(size: BaseButtonProps['size']) {
   }
 }
 
-function getOpacity(disabled = false) {
-  return disabled ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
-}
-
 function getRadius(size: BaseButtonProps['size']) {
   switch (size) {
     case 'large': {
@@ -74,14 +70,13 @@ function getRadius(size: BaseButtonProps['size']) {
 }
 
 const baseClasses =
-  'flex space-x-2 flex-none items-center justify-center cursor-pointer leading-none transition-all font-semibold'
+  'flex space-x-2 flex-none items-center justify-center cursor-pointer leading-none transition-all font-semibold disabled:text-gray-500 disabled:hover:text-gray-500/50 disabled:cursor-not-allowed'
 
 export const Button = forwardRef((props: ButtonProps, ref) => {
   const classes = `text-gray-700 hover:text-gray-900 shadow-xs bg-white border border-gray-400 border-opacity-30 dark:border-gray-700 dark:hover:border-gray-600 dark:bg-white dark:bg-opacity-10 dark:text-gray-200 dark:hover:text-white hover:border-opacity-50 hover:shadow-sm`
   const size = getSize(props.size)
-  const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
-  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  const composed = `${baseClasses} ${size} ${radius} ${classes}`
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
 Button.displayName = 'Button'
@@ -89,9 +84,8 @@ Button.displayName = 'Button'
 export const GhostButton = forwardRef((props: ButtonProps, ref) => {
   const classes = `text-gray-700 hover:text-gray-900 bg-gray-200 bg-opacity-0 hover:bg-opacity-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white`
   const size = getSize(props.size)
-  const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
-  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  const composed = `${baseClasses} ${size} ${radius} ${classes}`
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
 GhostButton.displayName = 'GhostButton'
@@ -99,9 +93,8 @@ GhostButton.displayName = 'GhostButton'
 export const DeleteButton = forwardRef((props: ButtonProps, ref) => {
   const classes = `bg-white border border-gray-200 dark:border-red-500 dark:hover:border-red-500  dark:bg-red-500 dark:border-opacity-20 dark:bg-opacity-10 text-red-500 hover:border-red-500 hover:text-white hover:bg-red-600 focus:bg-red-600 dark:focus:text-white`
   const size = getSize(props.size)
-  const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
-  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  const composed = `${baseClasses} ${size} ${radius} ${classes}`
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
 DeleteButton.displayName = 'DeleteButton'
@@ -109,9 +102,8 @@ DeleteButton.displayName = 'DeleteButton'
 export const PrimaryButton = forwardRef((props: ButtonProps, ref) => {
   const classes = `text-white hover:text-white shadow-xs bg-blue-500 border border-blue-600 dark:border-blue-400 dark:border-opacity-50 hover:shadow-sm`
   const size = getSize(props.size)
-  const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
-  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  const composed = `${baseClasses} ${size} ${radius} ${classes}`
   return <BaseButton forwardedRef={ref} className={composed} {...props} />
 })
 PrimaryButton.displayName = 'PrimaryButton'
@@ -123,9 +115,8 @@ export const CommentButton = forwardRef((props: ButtonProps, ref) => {
       : 'border-blue-600 bg-blue-500 dark:bg-opacity-100 text-white hover:bg-blue-600 dark:border-blue-400'
   } shadow-xs bg-white border border-opacity-30 dark:bg-opacity-10 hover:border-opacity-50 hover:shadow-sm w-8 rounded`
   const size = getSize(props.size)
-  const opacity = getOpacity(props.disabled)
   const radius = getRadius(props.size)
-  const composed = `${baseClasses} ${size} ${opacity} ${radius} ${classes}`
+  const composed = `${baseClasses} ${size} ${radius} ${classes}`
   return <BaseButton className={composed} forwardedRef={ref} {...props} />
 })
 CommentButton.displayName = 'CommentButton'

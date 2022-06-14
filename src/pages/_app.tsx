@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/prose.css'
 import type { AppProps } from 'next/app'
 import Providers from '~/components/providers'
 import { SiteLayout } from '~/components/layouts'

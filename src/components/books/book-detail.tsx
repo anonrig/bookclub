@@ -70,9 +70,9 @@ export default function BookDetail({ id }: Props) {
         </MarkdownRenderer>
 
         <div className="py-6" />
-
-        <Comments refId={data.book.id} type={CommentType.Book} />
       </Detail.ContentContainer>
+
+      <Comments refId={data.book.id} type={CommentType.Book} />
     </Detail.Container>
   )
 }

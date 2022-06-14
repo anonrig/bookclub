@@ -68,7 +68,7 @@ export default function BookSearch({ onBookChange }: Props) {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Combobox.Options className="absolute z-10 absolute w-full bg-white dark:bg-gray-900 shadow-lg max-h-60 overflow-scroll rounded-md space-y-2">
+              <Combobox.Options className="absolute z-50 absolute w-full bg-white dark:bg-gray-900 shadow-lg max-h-60 overflow-scroll rounded-md space-y-2">
                 {results.map((book) => (
                   <Combobox.Option key={book.id} value={book}>
                     {({ active, selected }) => (

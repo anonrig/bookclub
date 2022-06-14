@@ -11,7 +11,7 @@ const SignIn: NextPageWithLayout = () => {
       <section className="items-center relative flex justify-center px-4 pt-12 overflow-hidden border-b md:pb-24 md:pt-32 md:px-8 border-neutral-200">
         <div className="z-20 w-full max-w-6xl space-y-10">
           <div className="flex flex-col w-full max-w-3xl space-y-4">
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl dark:text-white">
               book club
             </h1>
             <h3 className="text-xl text-gray-500 md:text-3xl lg:text-4xl lg:leading-[1.4]">

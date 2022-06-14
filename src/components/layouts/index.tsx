@@ -13,7 +13,7 @@ export function SiteLayout({
   sidebar?: boolean
 }>) {
   return (
-    <div className="relative flex h-full min-h-screen w-full">
+    <div className="relative flex h-full min-h-screen w-full bg-white dark:bg-black">
       {sidebar ? <Sidebar /> : null}
       <div className="flex flex-1">{children}</div>
     </div>
@@ -25,7 +25,7 @@ export function ListDetailView({
   detail,
   hasDetail = false,
 }: {
-  list?: ReactElement
+  list?: ReactElement | JSX.Element
   detail?: ReactElement | JSX.Element
   hasDetail?: boolean
 }) {
