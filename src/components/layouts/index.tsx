@@ -1,9 +1,9 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import { PropsWithChildren, ReactElement, ReactNode } from 'react'
 import Sidebar from '~/components/sidebar'
 import { NextPage } from 'next'
 
 export type NextPageWithLayout<T = unknown> = NextPage<T> & {
-  getLayout?: (children: any) => ReactElement
+  getLayout?: (children: ReactElement) => ReactNode
 }
 
 export function SiteLayout({
