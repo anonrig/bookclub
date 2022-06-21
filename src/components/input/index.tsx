@@ -1,4 +1,4 @@
-import TextareaAutosize from 'react-autosize-textarea'
+import TextareaAutosize from 'react-expanding-textarea'
 import { InputHTMLAttributes, SelectHTMLAttributes } from 'react'
 
 const styles =
@@ -8,14 +8,9 @@ export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={styles} {...props} />
 }
 
-export function Textarea({ maxRows = 8, rows = 1, ...props }) {
+export function Textarea({ rows = 1, ...props }) {
   return (
-    <TextareaAutosize
-      maxRows={maxRows}
-      rows={rows}
-      className={`${styles} block`}
-      {...props}
-    />
+    <TextareaAutosize rows={rows} className={`${styles} block`} {...props} />
   )
 }
 

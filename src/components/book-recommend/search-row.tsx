@@ -15,11 +15,13 @@ export default function BookSearchRow({ active, book }: Props) {
     book.authors && book.authors.length > 0
       ? `Written by ${book.authors.join(', ')}. `
       : ''
-  const publishedAt =
-    book.publishedDate.length === 4
+  const publishedAt = book.publishedDate
+    ? book.publishedDate?.length === 4
       ? book.publishedDate
       : timestampToCleanTime({ timestamp: book.publishedDate }).formatted
-  const subtitle = `${authors}Released at ${publishedAt}`
+    : null
+  const publishedAtSuffix = publishedAt ? `Released at ${publishedAt}` : ''
+  const subtitle = `${authors}${publishedAtSuffix}`
   return (
     <div className={classes}>
       <Image

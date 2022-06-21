@@ -9,7 +9,7 @@ export type GoogleBook = {
   }
   pageCount: number
   previewLink: string
-  publishedDate: string
+  publishedDate?: string
   title: string
   subtitle: string
   description: string

@@ -44,8 +44,8 @@ specifiers:
   prettier: ^2.7.1
   prisma: ^3.15.2
   react: 18.2.0
-  react-autosize-textarea: ^7.1.0
   react-dom: 18.2.0
+  react-expanding-textarea: ^2.3.6
   react-hot-toast: ^2.2.0
   react-markdown: ^8.0.3
   react-use: ^17.4.0
@@ -84,8 +84,8 @@ dependencies:
   postcss: 8.4.14
   prisma: 3.15.2
   react: 18.2.0
-  react-autosize-textarea: 7.1.0_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
+  react-expanding-textarea: 2.3.6_react@18.2.0
   react-hot-toast: 2.2.0_vt6aeitzauirmcdhimiad2yjxy
   react-markdown: 8.0.3_luyos4mouogwq6z3wafb3re4ce
   react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
@@ -2305,10 +2305,6 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /autosize/4.0.4:
-    resolution: {integrity: sha512-5yxLQ22O0fCRGoxGfeLSNt3J8LB1v+umtpMnPW6XjkTWXKoN0AmXAIhelJcDtFT/Y/wYWmfE+oqU10Q0b8FhaQ==}
-    dev: false
-
   /axe-core/4.4.2:
     resolution: {integrity: sha512-LVAaGp/wkkgYJcjmHsoKx4juT1aQvJyPcW09MLCjVTh3V2cc6PnyempiLMNH5iMdfIX/zdbjUx2KDjMLCTdPeA==}
     engines: {node: '>=12'}
@@ -2711,10 +2707,6 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
     dev: true
-
-  /computed-style/0.1.4:
-    resolution: {integrity: sha512-WpAmaKbMNmS3OProfHIdJiNleNJdgUrJfbKArXua28QF7+0CoZjlLn0lp6vlc+dl5r2/X9GQiQRQQU4BzSa69w==}
-    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -4575,13 +4567,6 @@ packages:
     resolution: {integrity: sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==}
     engines: {node: '>=10'}
 
-  /line-height/0.3.1:
-    resolution: {integrity: sha512-YExecgqPwnp5gplD2+Y8e8A5+jKpr25+DzMbFdI1/1UAr0FJrTFv4VkHLf8/6B590i1wUPJWMKKldkd/bdQ//w==}
-    engines: {node: '>= 4.0.0'}
-    dependencies:
-      computed-style: 0.1.4
-    dev: false
-
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
@@ -6239,19 +6224,6 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
-  /react-autosize-textarea/7.1.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-BHpjCDkuOlllZn3nLazY2F8oYO1tS2jHnWhcjTWQdcKiiMU6gHLNt/fzmqMSyerR0eTdKtfSIqtSeTtghNwS+g==}
-    peerDependencies:
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0
-      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0
-    dependencies:
-      autosize: 4.0.4
-      line-height: 0.3.1
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -6260,6 +6232,17 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-expanding-textarea/2.3.6_react@18.2.0:
+    resolution: {integrity: sha512-LjkyZv1LilMlt+6/yYn9F1FlcK8iQU96myeq6PwU/a7IaQMkSwndSB1SAhMKgxSrUR71VbqsqnAHQ741WbAU/Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      fast-shallow-equal: 1.0.0
+      react: 18.2.0
+      react-with-forwarded-ref: 0.3.5_react@18.2.0
+      tslib: 2.4.0
+    dev: false
 
   /react-hot-toast/2.2.0_vt6aeitzauirmcdhimiad2yjxy:
     resolution: {integrity: sha512-248rXw13uhf/6TNDVzagX+y7R8J183rp7MwUMNkcrBRyHj/jWOggfXTGlM8zAOuh701WyVW+eUaWG2LeSufX9g==}
@@ -6352,6 +6335,15 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-with-forwarded-ref/0.3.5_react@18.2.0:
+    resolution: {integrity: sha512-BJK4q0Nvqg4AFwc+LV+PZZb2nxS1ZqQlS9hY14TdIyg7Lapzirk/V/TtbYjPFSsm/fGm0wC4tsgI1IDhxSVVSQ==}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      tslib: 2.4.0
     dev: false
 
   /react/18.2.0:
