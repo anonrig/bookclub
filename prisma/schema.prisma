@@ -77,7 +77,7 @@ model Book {
   authors     Json     @db.Json
   identifiers Json     @db.Json
   thumbnail   String?  @db.Text
-  publishedAt Int?      @map("published_at") @db.Year
+  publishedAt Int?     @map("published_at") @db.Year
   createdAt   DateTime @default(now()) @map("created_at")
   isRead      Boolean  @default(false) @map("is_read")
 
