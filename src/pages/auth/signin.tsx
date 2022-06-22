@@ -15,7 +15,7 @@ const SignIn: NextPageWithLayout = () => {
               book club
             </h1>
             <h3 className="text-xl text-gray-500 md:text-3xl lg:text-4xl lg:leading-[1.4]">
-              a private read-only book club.
+              a private invite-only book club.
             </h3>
           </div>
           <div>
