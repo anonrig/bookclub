@@ -57,7 +57,9 @@ export async function createBookRecommendation(
       googleId: googleBook.id,
       authors: googleBook.authors ?? [],
       thumbnail: googleBook.imageLinks?.thumbnail,
-      publishedAt: parseInt(googleBook.publishedDate, 10),
+      publishedAt: googleBook.publishedDate
+        ? parseInt(googleBook.publishedDate, 10)
+        : null,
       url: googleBook.previewLink,
       identifiers: googleBook.industryIdentifiers,
     },
