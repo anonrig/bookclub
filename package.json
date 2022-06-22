@@ -9,7 +9,7 @@
     "lint": "next lint",
     "generate": "graphql-codegen",
     "generate:watch": "graphql-codegen --watch 'src/graphql/**/*.ts'",
-    "postinstall": "npm run generate && prisma generate",
+    "postinstall": "npm run generate && prisma generate --data-proxy",
     "db:dev": "pscale connect bookclub dev --port 3309",
     "db:prod": "pscale connect bookclub main --port 3309",
     "db:push": "prisma db push"
