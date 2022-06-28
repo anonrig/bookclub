@@ -40,7 +40,7 @@ export function UserFooter() {
           onClick={() => setIsOpen(false)}
         >
           <Avatar
-            user={{ name: data.viewer!.name! }}
+            user={{ name: data.viewer?.name ?? '' }}
             src={data.viewer?.image ?? ''}
             width={24}
             height={24}
