@@ -50,11 +50,11 @@ export function ReactionButton(props: Props) {
     >
       {hasReactedState ? (
         <span className="relative text-red-500">
-          <HeartIconSolid className="w-4 h-4" />
+          <HeartIconSolid className="h-4 w-4" />
         </span>
       ) : (
         <span className="text-gray-500">
-          <HeartIconOutline className="w-4 h-4" />
+          <HeartIconOutline className="h-4 w-4" />
         </span>
       )}
       <div className="relative -top-px h-3">

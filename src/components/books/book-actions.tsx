@@ -1,12 +1,9 @@
 import Button from '~/components/button'
 import { ReactionButton } from '~/components/button/reaction-button'
 import {
-  useCreateBookRecommendationMutation,
   useGetBookRecommendationsQuery,
   useToggleBookRecommendationMutation,
-  useViewerQuery,
 } from '~/graphql/types.generated'
-import { GET_BOOK_RECOMMENDATIONS } from '~/graphql/queries/book-recommendations'
 
 type Props = { book: { id: string; url: string } }
 
@@ -37,9 +34,7 @@ function BookReaction({ book }: Props) {
         data.bookRecommendations?.count ??
         0
       }
-      onClick={() => {
-        setRecommendation()
-      }}
+      onClick={() => setRecommendation()}
       loading={setRecommendationResponse.loading}
     />
   )

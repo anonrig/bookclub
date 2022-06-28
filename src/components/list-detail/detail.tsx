@@ -62,7 +62,7 @@ function Null() {
     <Container>
       <TitleBar title="Not found" />
       <div className="flex flex-1 flex-col items-center justify-center space-y-6 px-8 text-center lg:px-16">
-        <LocationMarkerIcon className="text-secondary w-8 h-8" />
+        <LocationMarkerIcon className="text-secondary h-8 w-8" />
         <div className="flex flex-col space-y-1">
           <p className="text-primary font-semibold">
             What you seek does not exist.

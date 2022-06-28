@@ -16,29 +16,22 @@ export default function Navigation() {
       items: [
         {
           href: '/',
-          label: 'Home',
-          icon: <HomeIcon className="w-4 h-4" />,
-          isActive: router.asPath === '/',
-          isExternal: false,
-        },
-        {
-          href: '/session',
           label: 'Session',
-          icon: <BookmarkIcon className="w-4 h-4" />,
-          isActive: router.asPath.indexOf('/session') >= 0,
+          icon: <BookmarkIcon className="h-4 w-4" />,
+          isActive: router.asPath === '/',
           isExternal: false,
         },
         {
           href: '/books',
           label: 'Books',
-          icon: <BookOpenIcon className="w-4 h-4" />,
+          icon: <BookOpenIcon className="h-4 w-4" />,
           isActive: router.asPath.indexOf('/books') >= 0,
           isExternal: false,
         },
         {
           href: '/meetings',
           label: 'Meetings',
-          icon: <PhoneIncomingIcon className="w-4 h-4" />,
+          icon: <PhoneIncomingIcon className="h-4 w-4" />,
           isActive: router.asPath.indexOf('/meetings') >= 0,
           isExternal: false,
         },
@@ -47,7 +40,7 @@ export default function Navigation() {
   ]
 
   return (
-    <div className="flex-1 px-3 py-3 space-y-1">
+    <div className="flex-1 space-y-1 px-3 py-3">
       {sections.map((section) => {
         return (
           <ul key={section.id} className="space-y-1">

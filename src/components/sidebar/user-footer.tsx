@@ -55,7 +55,7 @@ export function UserFooter() {
         size="small-square"
         href="/settings"
       >
-        <CogIcon className="w-4 h-4" />
+        <CogIcon className="h-4 w-4" />
       </GhostButton>
     </Container>
   )

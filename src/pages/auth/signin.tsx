@@ -8,21 +8,19 @@ const SignIn: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo title="Sign in" />
-      <section className="items-center relative flex justify-center px-4 pt-12 overflow-hidden border-b md:pb-24 md:pt-32 md:px-8 border-neutral-200">
+      <section className="relative flex items-center justify-center overflow-hidden border-b border-neutral-200 px-4 pt-12 md:px-8 md:pb-24 md:pt-32">
         <div className="z-20 w-full max-w-6xl space-y-10">
-          <div className="flex flex-col w-full max-w-3xl space-y-4">
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl dark:text-white">
+          <div className="flex w-full max-w-3xl flex-col space-y-4">
+            <h1 className="text-4xl font-extrabold tracking-tight dark:text-white md:text-5xl lg:text-6xl">
               book club
             </h1>
             <h3 className="text-xl text-gray-500 md:text-3xl lg:text-4xl lg:leading-[1.4]">
               a private invite-only book club.
             </h3>
           </div>
-          <div>
-            <Button size="large" onClick={() => signIn('google')}>
-              Sign in with Google
-            </Button>
-          </div>
+          <Button size="large" onClick={() => signIn('google')}>
+            Sign in with Google
+          </Button>
         </div>
       </section>
     </>

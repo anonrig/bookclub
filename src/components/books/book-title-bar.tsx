@@ -8,19 +8,18 @@ export default function BookTitleBar({
 }: {
   scrollContainerRef?: MutableRefObject<HTMLDivElement | null>
 }) {
-  function getAddButton() {
-    return (
-      <GhostButton
-        href="/books/recommend"
-        size="small-square"
-        aria-label="Recommend book"
-      >
-        <PlusIcon className="w-4 h-4" />
-      </GhostButton>
-    )
-  }
   function trailingAccessory() {
-    return <div className="flex space-x-2">{getAddButton()}</div>
+    return (
+      <div className="flex space-x-2">
+        <GhostButton
+          href="/books/recommend"
+          size="small-square"
+          aria-label="Recommend book"
+        >
+          <PlusIcon className="h-4 w-4" />
+        </GhostButton>
+      </div>
+    )
   }
 
   return (

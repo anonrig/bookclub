@@ -4,7 +4,6 @@ import { GoogleBook } from '~/lib/google-books'
 import BookSearchRow from '~/components/book-recommend/search-row'
 import { useEffect, useState } from 'react'
 import { Tooltip } from '~/components/tooltip'
-import Button from '~/components/button'
 
 type Props = {
   onBookChange: (book: GoogleBook | null) => void
@@ -54,7 +53,7 @@ export default function BookSearch({ onBookChange }: Props) {
           <>
             <Combobox.Input
               onChange={(event) => search(event.target.value)}
-              className="w-full rounded-md text-primary px-4 py-2 text-primary dark:bg-white dark:bg-opacity-5 bg-opacity-5 hover border-gray-200 dark:border-gray-700"
+              className="text-primary text-primary hover w-full rounded-md border-gray-200 bg-opacity-5 px-4 py-2 dark:border-gray-700 dark:bg-white dark:bg-opacity-5"
               placeholder="Hail Mary"
               autoFocus
               displayValue={(book: GoogleBook) => book?.title ?? ''}
@@ -68,7 +67,7 @@ export default function BookSearch({ onBookChange }: Props) {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Combobox.Options className="absolute z-50 absolute w-full bg-white dark:bg-gray-900 shadow-lg max-h-60 overflow-scroll rounded-md space-y-2">
+              <Combobox.Options className="absolute absolute z-50 max-h-60 w-full space-y-2 overflow-scroll rounded-md bg-white shadow-lg dark:bg-gray-900">
                 {results.map((book) => (
                   <Combobox.Option key={book.id} value={book}>
                     {({ active, selected }) => (

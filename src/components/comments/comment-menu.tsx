@@ -22,7 +22,7 @@ export function CommentMenu({ comment, handleDelete, handleEdit }: Props) {
                   aria-label="Open comment actions menu"
                   size="small-square"
                 >
-                  <DotsHorizontalIcon className="w-4 h-4" />
+                  <DotsHorizontalIcon className="h-4 w-4" />
                 </GhostButton>
               </Menu.Button>
 

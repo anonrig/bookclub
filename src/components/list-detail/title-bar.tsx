@@ -131,9 +131,9 @@ export function TitleBar({
                 className="flex cursor-pointer items-center justify-center rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-800 lg:hidden"
               >
                 {isOpen ? (
-                  <XIcon className="text-primary w-4 h-4" />
+                  <XIcon className="text-primary h-4 w-4" />
                 ) : (
-                  <MenuIcon className="text-primary w-4 h-4" />
+                  <MenuIcon className="text-primary h-4 w-4" />
                 )}
               </span>
             )}
@@ -141,7 +141,7 @@ export function TitleBar({
             {backButton && backButtonHref && (
               <Link href={backButtonHref}>
                 <a className="text-primary flex items-center justify-center rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-800 lg:hidden">
-                  <ArrowLeftIcon className="text-primary w-4 h-4" />
+                  <ArrowLeftIcon className="text-primary h-4 w-4" />
                 </a>
               </Link>
             )}

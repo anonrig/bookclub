@@ -34,9 +34,9 @@ export default function BookSearchRow({ active, book }: Props) {
         height={24}
         className="rounded-lg"
       />
-      <div className="space-y-0 py-0 shrink">
-        <span className="text-primary line-clamp-1 text-sm">{book.title}</span>
-        <span className="text-xs line-clamp-1 text-gray-900 text-opacity-40 dark:text-white dark:text-opacity-60">
+      <div className="shrink space-y-0 py-0">
+        <span className="text-primary text-sm line-clamp-1">{book.title}</span>
+        <span className="text-xs text-gray-900 text-opacity-40 line-clamp-1 dark:text-white dark:text-opacity-60">
           {subtitle}
         </span>
       </div>

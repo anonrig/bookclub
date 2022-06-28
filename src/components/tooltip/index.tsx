@@ -1,11 +1,12 @@
 import 'tippy.js/dist/tippy.css'
 
-import Tippy from '@tippy.js/react'
+import Tippy, { TippyProps } from '@tippy.js/react'
 
 type Props = {
   content: string
   style?: any
   children: any
+  placement?: TippyProps['placement']
 }
 
 export function Tooltip(props: Props) {
@@ -13,7 +14,7 @@ export function Tooltip(props: Props) {
 
   return (
     <Tippy
-      placement="top"
+      placement={props.placement ?? 'top'}
       touch={false}
       arrow={true}
       hideOnClick={false}
