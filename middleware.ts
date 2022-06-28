@@ -13,10 +13,9 @@ export function middleware(req: NextRequest) {
   }
 
   if (
-    !req.cookies['next-auth.session-token'] &&
-    !req.cookies['__Secure-next-auth.session-token']
+    !req.cookies.has('next-auth.session-token') &&
+    !req.cookies.has('__Secure-next-auth.session-token')
   ) {
-    url.pathname = '/auth/signin'
     return NextResponse.redirect(url)
   }
 
