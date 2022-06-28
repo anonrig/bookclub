@@ -129,10 +129,7 @@ export const Comment = memo(function MemoComment({
               </a>
             </Link>
             <p className="text-quaternary leading-snug">·</p>
-            <p
-              className="text-quaternary leading-snug line-clamp-1"
-              title={createdAt.raw}
-            >
+            <p className="text-quaternary leading-snug line-clamp-1">
               {createdAt.formatted}
             </p>
           </div>

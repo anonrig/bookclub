@@ -1,4 +1,8 @@
-import { CommentType, useGetBookQuery } from '~/graphql/types.generated'
+import {
+  CommentType,
+  useGetBookQuery,
+  useViewerQuery,
+} from '~/graphql/types.generated'
 import { Detail } from '~/components/list-detail/detail'
 import { useRef } from 'react'
 import { TitleBar } from '~/components/list-detail/title-bar'
@@ -15,6 +19,7 @@ type Props = {
 export default function BookDetail({ id }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLParagraphElement>(null)
+  const { data: viewerData } = useViewerQuery()
   const { data, loading, error } = useGetBookQuery({ variables: { id } })
 
   if (loading) {
@@ -36,7 +41,9 @@ export default function BookDetail({ id }: Props) {
         title={data.book.title}
         titleRef={titleRef}
         scrollContainerRef={scrollContainerRef}
-        trailingAccessory={<BookActions book={data.book} />}
+        trailingAccessory={
+          <BookActions book={data.book} viewer={viewerData?.viewer} />
+        }
       />
 
       <Detail.ContentContainer>

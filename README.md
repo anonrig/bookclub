@@ -4,12 +4,20 @@ This is a private, invite-only book club to keep track of the books we've read t
 
 ### Features
 
-- [x] Login with Google
+- Authentication
+  - [x] Login with Google
+- Users
+  - [x] Change name and email of an account
+  - [ ] Access read books, attended sessions
+- [ ] Books
+  - [ ] List books according to recommendation count
+  - [ ] List book according to recommendation time
 - [ ] Book recommendation
   - [x] Recommend a book
   - [x] Comment on a book
   - [ ] List people who recommended
 - [ ] Start reading a book together
+  - [ ] Admins can create a new session
   - [ ] Members can attend a session
   - [ ] Members can comment on the active session
   - [ ] Members can add their page numbers

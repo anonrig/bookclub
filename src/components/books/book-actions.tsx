@@ -1,11 +1,18 @@
-import Button, { GhostButton } from '~/components/button'
+import Button from '~/components/button'
 import { ReactionButton } from '~/components/button/reaction-button'
 import {
+  Role,
   useGetBookRecommendationsQuery,
   useToggleBookRecommendationMutation,
+  ViewerQuery,
 } from '~/graphql/types.generated'
+import { useCallback } from 'react'
+import CreateReadingSessionDialog from '~/components/reading-session/create-dialog'
 
-type Props = { book: { id: string; url: string } }
+type Props = {
+  book: { id: string; url: string; title: string; pageCount: number }
+  viewer: ViewerQuery['viewer']
+}
 
 function BookReaction({ book }: Props) {
   const { data, loading, error } = useGetBookRecommendationsQuery({
@@ -40,11 +47,23 @@ function BookReaction({ book }: Props) {
   )
 }
 
-export default function BookActions({ book }: Props) {
+export default function BookActions({ book, viewer }: Props) {
+  const startSessionButton = useCallback(() => {
+    if (viewer?.role === Role.Admin) {
+      return (
+        <CreateReadingSessionDialog
+          book={book}
+          trigger={<Button>Start Session</Button>}
+        />
+      )
+    }
+    return null
+  }, [book, viewer?.role])
+
   return (
     <div className="flex items-center space-x-2">
-      <GhostButton>Start session</GhostButton>
-      <BookReaction book={book} />
+      {startSessionButton()}
+      <BookReaction book={book} viewer={viewer} />
       <Button href={book.url} target="_blank">
         Visit
       </Button>

@@ -1,5 +1,4 @@
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()

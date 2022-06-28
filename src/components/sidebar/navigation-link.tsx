@@ -10,11 +10,13 @@ export type Link = {
   isExternal: boolean
 }
 
+type Props = {
+  link: Link
+}
+
 export function NavigationLink({
   link: { href, label, icon, isActive, isExternal },
-}: {
-  link: Link
-}) {
+}: Props) {
   const { setIsOpen } = useContext(GlobalNavigationContext)
 
   return (
