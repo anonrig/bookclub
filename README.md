@@ -17,9 +17,9 @@ This is a private, invite-only book club to keep track of the books we've read t
   - [x] Comment on a book
   - [ ] List people who recommended
 - [ ] Start reading a book together
-  - [ ] Admins can create a new session
-  - [ ] Members can attend a session
-  - [ ] Members can comment on the active session
+  - [x] Admins can create a new session
+  - [x] Members can attend a session
+  - [x] Members can comment on the active session
   - [ ] Members can add their page numbers
 - [ ] Meetings
   - [ ] Integrate Zoom

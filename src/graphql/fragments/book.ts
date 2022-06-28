@@ -8,6 +8,7 @@ export const BookInfoFragment = gql`
     title
     thumbnail
     authors
+    url
   }
 `
 

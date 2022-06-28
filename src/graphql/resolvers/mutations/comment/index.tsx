@@ -2,8 +2,8 @@ import { Context } from '~/graphql/context'
 import {
   CommentType,
   MutationAddCommentArgs,
-  MutationUpdateCommentArgs,
   MutationRemoveCommentArgs,
+  MutationUpdateCommentArgs,
 } from '~/graphql/types.generated'
 import { UserInputError } from 'apollo-server-micro'
 
@@ -25,6 +25,17 @@ export async function addComment(
         },
       })
     }
+    case CommentType.ReadingSession:
+      return ctx.prisma.comment.create({
+        data: {
+          readingSessionId: refId,
+          userId: ctx.viewer!.id,
+          text,
+        },
+        include: {
+          author: true,
+        },
+      })
     default:
       throw new UserInputError('Invalid comment type')
   }

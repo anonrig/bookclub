@@ -26,6 +26,10 @@ export type Scalars = {
   Date: any
 }
 
+export type AttendReadingSessionInput = {
+  id: Scalars['ID']
+}
+
 export type Book = {
   __typename?: 'Book'
   authors: Array<Scalars['String']>
@@ -68,6 +72,11 @@ export type CreateBookRecommendationInput = {
   id: Scalars['String']
 }
 
+export type CreateReadingSessionInput = {
+  bookId: Scalars['ID']
+  duration: Scalars['Int']
+}
+
 export type EditUserInput = {
   email?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
@@ -81,7 +90,9 @@ export type GetCommentsInput = {
 export type Mutation = {
   __typename?: 'Mutation'
   addComment?: Maybe<Comment>
+  attendReadingSession?: Maybe<ReadingSession>
   createBookRecommendation?: Maybe<Book>
+  createReadingSession?: Maybe<ReadingSession>
   editUser?: Maybe<User>
   removeComment?: Maybe<Scalars['Boolean']>
   toggleBookRecommendation?: Maybe<BookRecommendations>
@@ -94,8 +105,16 @@ export type MutationAddCommentArgs = {
   type: CommentType
 }
 
+export type MutationAttendReadingSessionArgs = {
+  data: AttendReadingSessionInput
+}
+
 export type MutationCreateBookRecommendationArgs = {
   data?: InputMaybe<CreateBookRecommendationInput>
+}
+
+export type MutationCreateReadingSessionArgs = {
+  data: CreateReadingSessionInput
 }
 
 export type MutationEditUserArgs = {
@@ -185,6 +204,7 @@ export type BookInfoFragment = {
   title: string
   thumbnail?: string | null
   authors: Array<string>
+  url: string
 }
 
 export type BookInfoDetailFragment = {
@@ -243,6 +263,7 @@ export type ReadingSessionInfoFragment = {
     title: string
     thumbnail?: string | null
     authors: Array<string>
+    url: string
   }
   members: Array<{
     __typename?: 'ReadingSessionMember'
@@ -285,6 +306,7 @@ export type CreateBookRecommendationMutation = {
     title: string
     thumbnail?: string | null
     authors: Array<string>
+    url: string
   } | null
 }
 
@@ -357,6 +379,78 @@ export type RemoveCommentMutation = {
   removeComment?: boolean | null
 }
 
+export type CreateReadingSessionMutationVariables = Exact<{
+  data: CreateReadingSessionInput
+}>
+
+export type CreateReadingSessionMutation = {
+  __typename?: 'Mutation'
+  createReadingSession?: {
+    __typename: 'ReadingSession'
+    id: string
+    attending: boolean
+    deadlineAt: any
+    createdAt: any
+    book: {
+      __typename: 'Book'
+      id: string
+      title: string
+      thumbnail?: string | null
+      authors: Array<string>
+      url: string
+    }
+    members: Array<{
+      __typename?: 'ReadingSessionMember'
+      pageNumber: number
+      createdAt: any
+      updatedAt: any
+      user: {
+        __typename: 'User'
+        id: string
+        name?: string | null
+        image?: string | null
+        role?: Role | null
+      }
+    }>
+  } | null
+}
+
+export type AttendReadingSessionMutationVariables = Exact<{
+  data: AttendReadingSessionInput
+}>
+
+export type AttendReadingSessionMutation = {
+  __typename?: 'Mutation'
+  attendReadingSession?: {
+    __typename: 'ReadingSession'
+    id: string
+    attending: boolean
+    deadlineAt: any
+    createdAt: any
+    book: {
+      __typename: 'Book'
+      id: string
+      title: string
+      thumbnail?: string | null
+      authors: Array<string>
+      url: string
+    }
+    members: Array<{
+      __typename?: 'ReadingSessionMember'
+      pageNumber: number
+      createdAt: any
+      updatedAt: any
+      user: {
+        __typename: 'User'
+        id: string
+        name?: string | null
+        image?: string | null
+        role?: Role | null
+      }
+    }>
+  } | null
+}
+
 export type EditUserMutationVariables = Exact<{
   data?: InputMaybe<EditUserInput>
 }>
@@ -395,6 +489,7 @@ export type GetBooksQuery = {
     title: string
     thumbnail?: string | null
     authors: Array<string>
+    url: string
   }>
 }
 
@@ -410,9 +505,9 @@ export type GetBookQuery = {
     title: string
     thumbnail?: string | null
     authors: Array<string>
+    url: string
     subtitle: string
     description: string
-    url: string
     googleId: string
     publishedAt: number
     pageCount: number
@@ -459,6 +554,7 @@ export type ReadingSessionQuery = {
       title: string
       thumbnail?: string | null
       authors: Array<string>
+      url: string
     }
     members: Array<{
       __typename?: 'ReadingSessionMember'
@@ -520,6 +616,7 @@ export const BookInfoFragmentDoc = gql`
     title
     thumbnail
     authors
+    url
   }
 `
 export const BookInfoDetailFragmentDoc = gql`
@@ -846,6 +943,108 @@ export type RemoveCommentMutationResult =
 export type RemoveCommentMutationOptions = Apollo.BaseMutationOptions<
   RemoveCommentMutation,
   RemoveCommentMutationVariables
+>
+export const CreateReadingSessionDocument = gql`
+  mutation createReadingSession($data: CreateReadingSessionInput!) {
+    createReadingSession(data: $data) {
+      ...ReadingSessionInfo
+    }
+  }
+  ${ReadingSessionInfoFragmentDoc}
+`
+export type CreateReadingSessionMutationFn = Apollo.MutationFunction<
+  CreateReadingSessionMutation,
+  CreateReadingSessionMutationVariables
+>
+
+/**
+ * __useCreateReadingSessionMutation__
+ *
+ * To run a mutation, you first call `useCreateReadingSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReadingSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReadingSessionMutation, { data, loading, error }] = useCreateReadingSessionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateReadingSessionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateReadingSessionMutation,
+    CreateReadingSessionMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateReadingSessionMutation,
+    CreateReadingSessionMutationVariables
+  >(CreateReadingSessionDocument, options)
+}
+export type CreateReadingSessionMutationHookResult = ReturnType<
+  typeof useCreateReadingSessionMutation
+>
+export type CreateReadingSessionMutationResult =
+  Apollo.MutationResult<CreateReadingSessionMutation>
+export type CreateReadingSessionMutationOptions = Apollo.BaseMutationOptions<
+  CreateReadingSessionMutation,
+  CreateReadingSessionMutationVariables
+>
+export const AttendReadingSessionDocument = gql`
+  mutation attendReadingSession($data: AttendReadingSessionInput!) {
+    attendReadingSession(data: $data) {
+      ...ReadingSessionInfo
+    }
+  }
+  ${ReadingSessionInfoFragmentDoc}
+`
+export type AttendReadingSessionMutationFn = Apollo.MutationFunction<
+  AttendReadingSessionMutation,
+  AttendReadingSessionMutationVariables
+>
+
+/**
+ * __useAttendReadingSessionMutation__
+ *
+ * To run a mutation, you first call `useAttendReadingSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttendReadingSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attendReadingSessionMutation, { data, loading, error }] = useAttendReadingSessionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAttendReadingSessionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AttendReadingSessionMutation,
+    AttendReadingSessionMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AttendReadingSessionMutation,
+    AttendReadingSessionMutationVariables
+  >(AttendReadingSessionDocument, options)
+}
+export type AttendReadingSessionMutationHookResult = ReturnType<
+  typeof useAttendReadingSessionMutation
+>
+export type AttendReadingSessionMutationResult =
+  Apollo.MutationResult<AttendReadingSessionMutation>
+export type AttendReadingSessionMutationOptions = Apollo.BaseMutationOptions<
+  AttendReadingSessionMutation,
+  AttendReadingSessionMutationVariables
 >
 export const EditUserDocument = gql`
   mutation editUser($data: EditUserInput) {

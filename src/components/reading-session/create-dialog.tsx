@@ -3,6 +3,8 @@ import { ReactElement, useMemo, useState } from 'react'
 import { Tooltip } from '~/components/tooltip'
 import { Button } from '~/components/button'
 import { timestampToCleanTime } from '~/lib/transformers'
+import { useCreateReadingSessionMutation } from '~/graphql/types.generated'
+import { LoadingSpinner } from '~/components/loading-spinner'
 
 type Props = {
   book: { id: string; title: string; url: string; pageCount: number }
@@ -31,6 +33,19 @@ export default function CreateReadingSessionDialog({ book, trigger }: Props) {
     const week = Math.ceil(recommendedDuration / 7)
     return durations.find((d) => d.value > week)?.value ?? 4
   })
+  const [setNewSession, setNewSessionResponse] =
+    useCreateReadingSessionMutation({
+      variables: {
+        data: {
+          duration,
+          bookId: book.id,
+        },
+      },
+    })
+
+  if (setNewSessionResponse.data?.createReadingSession?.createdAt) {
+    return null
+  }
 
   return (
     <DialogComponent
@@ -77,7 +92,17 @@ export default function CreateReadingSessionDialog({ book, trigger }: Props) {
             </select>
           </div>
 
-          <Button size="large">Start reading</Button>
+          <Button
+            size="large"
+            disabled={setNewSessionResponse.loading}
+            onClick={() => setNewSession()}
+          >
+            {setNewSessionResponse.loading ? (
+              <LoadingSpinner />
+            ) : (
+              'Start reading'
+            )}
+          </Button>
         </div>
       )}
     />

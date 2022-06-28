@@ -49,7 +49,9 @@ export default function ReadingSession() {
         title="Session"
         titleRef={titleRef}
         scrollContainerRef={scrollContainerRef}
-        trailingAccessory={<ReadingSessionActions />}
+        trailingAccessory={
+          <ReadingSessionActions session={data.readingSession} />
+        }
       />
       <Detail.ContentContainer>
         <Detail.Header>
@@ -121,11 +123,13 @@ export default function ReadingSession() {
                             content={member.user.name ?? ''}
                             placement="bottom"
                           >
-                            <Avatar
-                              className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
-                              user={{ name: member.user.name ?? '' }}
-                              src={member.user.image ?? ''}
-                            />
+                            <div>
+                              <Avatar
+                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                                user={{ name: member.user.name ?? '' }}
+                                src={member.user.image ?? ''}
+                              />
+                            </div>
                           </Tooltip>
                         </a>
                       </Link>
@@ -135,10 +139,13 @@ export default function ReadingSession() {
               </div>
             </div>
 
-            <ReadingSessionActions isFooter />
+            <ReadingSessionActions isFooter session={data.readingSession} />
           </div>
 
-          <Comments refId={'1'} type={CommentType.ReadingSession} />
+          <Comments
+            refId={data.readingSession.id}
+            type={CommentType.ReadingSession}
+          />
         </div>
       </Detail.ContentContainer>
     </Detail.Container>

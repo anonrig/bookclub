@@ -88,12 +88,23 @@ export default gql`
     viewer: User
   }
 
+  input AttendReadingSessionInput {
+    id: ID!
+  }
+
+  input CreateReadingSessionInput {
+    bookId: ID!
+    duration: Int!
+  }
+
   input CreateBookRecommendationInput {
     id: String!
     comment: String
   }
 
   type Mutation {
+    attendReadingSession(data: AttendReadingSessionInput!): ReadingSession
+    createReadingSession(data: CreateReadingSessionInput!): ReadingSession
     addComment(refId: ID!, type: CommentType!, text: String!): Comment
     updateComment(id: ID!, text: String!): Comment
     removeComment(id: ID!): Boolean

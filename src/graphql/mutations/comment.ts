@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 
-import { UserInfoFragment } from '~/graphql/fragments/user'
 import { CommentInfoFragment } from '~/graphql/fragments/comment'
 
 export const ADD_COMMENT = gql`

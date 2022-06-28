@@ -34,7 +34,6 @@ function LinkRenderer({ href, ...rest }: any) {
     }
     return <a target="_blank" rel="noreferrer" href={href} {...rest} />
   } catch (e) {
-    console.error(e)
     return <a target="_blank" rel="noreferrer" href={href} {...rest} />
   }
 }

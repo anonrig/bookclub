@@ -1,4 +1,4 @@
-import { requiresUser } from '~/graphql/helpers'
+import { requiresAdmin, requiresUser } from '~/graphql/helpers'
 import { editUser } from '~/graphql/resolvers/mutations/user'
 import {
   createBookRecommendation,
@@ -9,6 +9,10 @@ import {
   updateComment,
   removeComment,
 } from '~/graphql/resolvers/mutations/comment'
+import {
+  attendReadingSession,
+  createReadingSession,
+} from '~/graphql/resolvers/mutations/reading-session'
 
 export default {
   editUser: requiresUser(editUser),
@@ -19,4 +23,7 @@ export default {
   addComment: requiresUser(addComment),
   updateComment: requiresUser(updateComment),
   removeComment: requiresUser(removeComment),
+
+  attendReadingSession: requiresUser(attendReadingSession),
+  createReadingSession: requiresAdmin(createReadingSession),
 }
