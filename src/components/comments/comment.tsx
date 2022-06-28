@@ -115,7 +115,6 @@ export const Comment = memo(function MemoComment({
                 width={32}
                 height={32}
                 quality={100}
-                layout="fixed"
                 className="rounded-full"
               />
             </a>
