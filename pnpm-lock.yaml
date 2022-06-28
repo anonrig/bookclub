@@ -38,7 +38,7 @@ specifiers:
   lodash.isequal: ^4.5.0
   micro: ^9.3.4
   next: 12.2.0
-  next-auth: ^4.6.1
+  next-auth: ^4.7.0
   next-seo: ^5.4.0
   postcss: ^8.4.14
   prettier: ^2.7.1
@@ -66,7 +66,7 @@ dependencies:
   '@graphql-tools/utils': 8.8.0_graphql@16.5.0
   '@headlessui/react': 1.6.5_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 1.0.6_react@18.2.0
-  '@next-auth/prisma-adapter': 1.0.3_chqlhv5zvy2io22jhsgknf6s3i
+  '@next-auth/prisma-adapter': 1.0.3_n4bb4eq3e2c7enxf5qjt7rjuku
   '@prisma/client': 4.0.0_prisma@4.0.0
   '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.4
   '@tailwindcss/line-clamp': 0.4.0_tailwindcss@3.1.4
@@ -79,7 +79,7 @@ dependencies:
   graphql-tag: 2.12.6_graphql@16.5.0
   micro: 9.3.4
   next: 12.2.0_biqbaboplfbrettd7655fr4n2y
-  next-auth: 4.6.1_biqbaboplfbrettd7655fr4n2y
+  next-auth: 4.7.0_biqbaboplfbrettd7655fr4n2y
   next-seo: 5.4.0_24lkarzjpo3wcmj2o6qyrkug4y
   postcss: 8.4.14
   prisma: 4.0.0
@@ -1492,14 +1492,14 @@ packages:
       graphql: 16.5.0
     dev: true
 
-  /@next-auth/prisma-adapter/1.0.3_chqlhv5zvy2io22jhsgknf6s3i:
+  /@next-auth/prisma-adapter/1.0.3_n4bb4eq3e2c7enxf5qjt7rjuku:
     resolution: {integrity: sha512-3Lq1cD3ytKM3EGKJZ4UZvlqshLtlPvYxLeCrUV9ifYwYlq51kmDaHjsIawlp8EbH5pE1UhlsvtlXMery7RghtA==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4.0.1
     dependencies:
       '@prisma/client': 4.0.0_prisma@4.0.0
-      next-auth: 4.6.1_biqbaboplfbrettd7655fr4n2y
+      next-auth: 4.7.0_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /@next/env/12.2.0:
@@ -5361,8 +5361,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.6.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Fq0+NUZ0Kp7LhT0UZzZkSBcRb0W6DYlhgTUZragSqW5HXTJ7ShgFqOhH5aFoGSpXIxsZQmfFBbt9Oun09mf+aA==}
+  /next-auth/4.7.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-boXSIzHvCyNq1Jthi24LLnx12iKBsqsMxUKm5qq9alkfhVMeIRUR/wKP0FPSGc1s9WcGXMS3NmKQfADCEb0wow==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
       nodemailer: ^6.6.5
