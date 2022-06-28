@@ -65,7 +65,7 @@ export function createApolloClient({ initialState = {}, context = {} }) {
     ssrMode,
     link,
     cache,
-    ssrForceFetchDelay: 1000,
+    ssrForceFetchDelay: 100,
   })
 }
 
