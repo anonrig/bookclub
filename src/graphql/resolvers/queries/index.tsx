@@ -3,12 +3,13 @@ import { bookRecommendations } from '~/graphql/resolvers/queries/book-recommenda
 import { comments } from '~/graphql/resolvers/queries/comment'
 import { readingSession } from '~/graphql/resolvers/queries/reading-session'
 import { viewer } from '~/graphql/resolvers/queries/viewer'
+import { requiresUser } from '~/graphql/helpers'
 
 export default {
-  bookRecommendations,
-  book,
-  books,
-  comments,
-  readingSession,
-  viewer,
+  bookRecommendations: requiresUser(bookRecommendations),
+  book: requiresUser(book),
+  books: requiresUser(books),
+  comments: requiresUser(comments),
+  readingSession: requiresUser(readingSession),
+  viewer: requiresUser(viewer),
 }
