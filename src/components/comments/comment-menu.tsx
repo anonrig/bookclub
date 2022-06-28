@@ -12,7 +12,7 @@ type Props = {
 
 export function CommentMenu({ comment, handleDelete, handleEdit }: Props) {
   return (
-    <div className="flex items-center justify-center opacity-0 group-hover:opacity-100">
+    <div className="z-10 flex items-center justify-center opacity-0 group-hover:opacity-100">
       <div className="relative inline-block text-left">
         <Menu>
           {({ open }) => (
