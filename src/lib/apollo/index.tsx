@@ -15,7 +15,7 @@ import toast from 'react-hot-toast'
 
 import { APOLLO_STATE_PROP_NAME, GRAPHQL_ENDPOINT } from '~/graphql/constants'
 import { AppProps } from 'next/app'
-import { schema } from '~/graphql/schema'
+import { relayStylePagination } from '@apollo/client/utilities'
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
@@ -25,12 +25,13 @@ function createIsomorphLink({ context }: { context: Context }) {
     // in order to make sure that we're not shipping server-side code to the client
     // eslint-disable-next-line
     const { SchemaLink } = require('@apollo/client/link/schema')
+    const { schema } = require('~/graphql/schema')
     // eslint-disable-next-line
     return new SchemaLink({ schema, context })
   } else {
     return new HttpLink({
       uri: GRAPHQL_ENDPOINT || '/api/graphql',
-      credentials: 'include',
+      credentials: 'same-origin',
     })
   }
 }
@@ -59,7 +60,22 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 export function createApolloClient({ initialState = {}, context = {} }) {
   const link = ApolloLink.from([errorLink, createIsomorphLink({ context })])
   const ssrMode = typeof window === 'undefined'
-  const cache = new InMemoryCache().restore(initialState)
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Book: {
+        keyFields: ['id'],
+      },
+      Comment: {
+        keyFields: ['id'],
+      },
+      ReadingSession: {
+        keyFields: ['id'],
+      },
+      User: {
+        keyFields: ['id'],
+      },
+    },
+  }).restore(initialState)
 
   return new ApolloClient({
     ssrMode,
