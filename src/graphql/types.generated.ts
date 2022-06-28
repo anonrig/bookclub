@@ -60,6 +60,7 @@ export type Comment = {
 
 export enum CommentType {
   Book = 'BOOK',
+  ReadingSession = 'READING_SESSION',
 }
 
 export type CreateBookRecommendationInput = {
@@ -120,6 +121,7 @@ export type Query = {
   bookRecommendations?: Maybe<BookRecommendations>
   books: Array<Book>
   comments: Array<Comment>
+  readingSession?: Maybe<ReadingSession>
   viewer?: Maybe<User>
 }
 
@@ -134,6 +136,24 @@ export type QueryBookRecommendationsArgs = {
 export type QueryCommentsArgs = {
   refId: Scalars['ID']
   type: CommentType
+}
+
+export type ReadingSession = {
+  __typename?: 'ReadingSession'
+  attending: Scalars['Boolean']
+  book: Book
+  createdAt: Scalars['Date']
+  deadlineAt: Scalars['Date']
+  id: Scalars['ID']
+  members: Array<ReadingSessionMember>
+}
+
+export type ReadingSessionMember = {
+  __typename?: 'ReadingSessionMember'
+  createdAt: Scalars['Date']
+  pageNumber: Scalars['Int']
+  updatedAt: Scalars['Date']
+  user: User
 }
 
 export enum Role {
@@ -195,6 +215,48 @@ export type CommentInfoFragment = {
     image?: string | null
     role?: Role | null
   }
+}
+
+export type ReadingSessionMemberInfoFragment = {
+  __typename?: 'ReadingSessionMember'
+  pageNumber: number
+  createdAt: any
+  updatedAt: any
+  user: {
+    __typename: 'User'
+    id: string
+    name?: string | null
+    image?: string | null
+    role?: Role | null
+  }
+}
+
+export type ReadingSessionInfoFragment = {
+  __typename: 'ReadingSession'
+  id: string
+  attending: boolean
+  deadlineAt: any
+  createdAt: any
+  book: {
+    __typename: 'Book'
+    id: string
+    title: string
+    thumbnail?: string | null
+    authors: Array<string>
+  }
+  members: Array<{
+    __typename?: 'ReadingSessionMember'
+    pageNumber: number
+    createdAt: any
+    updatedAt: any
+    user: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
+  }>
 }
 
 export type UserInfoFragment = {
@@ -381,6 +443,39 @@ export type GetCommentsQuery = {
   }>
 }
 
+export type ReadingSessionQueryVariables = Exact<{ [key: string]: never }>
+
+export type ReadingSessionQuery = {
+  __typename?: 'Query'
+  readingSession?: {
+    __typename: 'ReadingSession'
+    id: string
+    attending: boolean
+    deadlineAt: any
+    createdAt: any
+    book: {
+      __typename: 'Book'
+      id: string
+      title: string
+      thumbnail?: string | null
+      authors: Array<string>
+    }
+    members: Array<{
+      __typename?: 'ReadingSessionMember'
+      pageNumber: number
+      createdAt: any
+      updatedAt: any
+      user: {
+        __typename: 'User'
+        id: string
+        name?: string | null
+        image?: string | null
+        role?: Role | null
+      }
+    }>
+  } | null
+}
+
 export type ViewerQueryVariables = Exact<{ [key: string]: never }>
 
 export type ViewerQuery = {
@@ -461,6 +556,34 @@ export const CommentInfoFragmentDoc = gql`
     viewerCanDelete
   }
   ${UserInfoFragmentDoc}
+`
+export const ReadingSessionMemberInfoFragmentDoc = gql`
+  fragment ReadingSessionMemberInfo on ReadingSessionMember {
+    user {
+      ...UserInfo
+    }
+    pageNumber
+    createdAt
+    updatedAt
+  }
+  ${UserInfoFragmentDoc}
+`
+export const ReadingSessionInfoFragmentDoc = gql`
+  fragment ReadingSessionInfo on ReadingSession {
+    __typename
+    id
+    attending
+    book {
+      ...BookInfo
+    }
+    deadlineAt
+    createdAt
+    members {
+      ...ReadingSessionMemberInfo
+    }
+  }
+  ${BookInfoFragmentDoc}
+  ${ReadingSessionMemberInfoFragmentDoc}
 `
 export const UserSettingsFragmentDoc = gql`
   fragment UserSettings on User {
@@ -992,6 +1115,64 @@ export type GetCommentsLazyQueryHookResult = ReturnType<
 export type GetCommentsQueryResult = Apollo.QueryResult<
   GetCommentsQuery,
   GetCommentsQueryVariables
+>
+export const ReadingSessionDocument = gql`
+  query readingSession {
+    readingSession {
+      ...ReadingSessionInfo
+    }
+  }
+  ${ReadingSessionInfoFragmentDoc}
+`
+
+/**
+ * __useReadingSessionQuery__
+ *
+ * To run a query within a React component, call `useReadingSessionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadingSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadingSessionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReadingSessionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ReadingSessionQuery,
+    ReadingSessionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ReadingSessionQuery, ReadingSessionQueryVariables>(
+    ReadingSessionDocument,
+    options
+  )
+}
+export function useReadingSessionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ReadingSessionQuery,
+    ReadingSessionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ReadingSessionQuery, ReadingSessionQueryVariables>(
+    ReadingSessionDocument,
+    options
+  )
+}
+export type ReadingSessionQueryHookResult = ReturnType<
+  typeof useReadingSessionQuery
+>
+export type ReadingSessionLazyQueryHookResult = ReturnType<
+  typeof useReadingSessionLazyQuery
+>
+export type ReadingSessionQueryResult = Apollo.QueryResult<
+  ReadingSessionQuery,
+  ReadingSessionQueryVariables
 >
 export const ViewerDocument = gql`
   query viewer {

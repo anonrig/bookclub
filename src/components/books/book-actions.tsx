@@ -1,4 +1,4 @@
-import Button from '~/components/button'
+import Button, { GhostButton } from '~/components/button'
 import { ReactionButton } from '~/components/button/reaction-button'
 import {
   useGetBookRecommendationsQuery,
@@ -43,6 +43,7 @@ function BookReaction({ book }: Props) {
 export default function BookActions({ book }: Props) {
   return (
     <div className="flex items-center space-x-2">
+      <GhostButton>Start session</GhostButton>
       <BookReaction book={book} />
       <Button href={book.url} target="_blank">
         Visit

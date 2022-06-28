@@ -3,7 +3,7 @@ import { LoadingSpinner } from '~/components/loading-spinner'
 import Button from '../button'
 import { TitleBar } from './title-bar'
 import { forwardRef, HTMLAttributes, PropsWithChildren } from 'react'
-import { LocationMarkerIcon } from '@heroicons/react/outline'
+import { BookOpenIcon, LocationMarkerIcon } from '@heroicons/react/outline'
 
 function ContentContainer(props: HTMLAttributes<HTMLDivElement>) {
   return (
@@ -57,22 +57,33 @@ function Loading() {
   )
 }
 
-function Null() {
+function Null({
+  title = 'Not found',
+  subtitle = 'What you seek does not exist.',
+  description = 'Maybe this link is broken. Maybe something was deleted, or moved. In any case, there’s nothing to see here...',
+  action = {
+    href: '/',
+    title: 'Go home',
+  },
+}: {
+  title?: string
+  subtitle?: string
+  description?: string
+  action?: {
+    href: string
+    title: string
+  }
+}) {
   return (
     <Container>
-      <TitleBar title="Not found" />
+      <TitleBar title={title} />
       <div className="flex flex-1 flex-col items-center justify-center space-y-6 px-8 text-center lg:px-16">
-        <LocationMarkerIcon className="text-secondary h-8 w-8" />
+        <BookOpenIcon className="text-secondary h-8 w-8" />
         <div className="flex flex-col space-y-1">
-          <p className="text-primary font-semibold">
-            What you seek does not exist.
-          </p>
-          <p className="text-tertiary">
-            Maybe this link is broken. Maybe something was deleted, or moved. In
-            any case, there’s nothing to see here...
-          </p>
+          <p className="text-primary font-semibold">{subtitle}</p>
+          <p className="text-tertiary">{description}</p>
         </div>
-        <Button href="/">Go home</Button>
+        <Button href={action.href}>{action.title}</Button>
       </div>
     </Container>
   )

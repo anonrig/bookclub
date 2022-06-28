@@ -1,3 +1,9 @@
+const _MS_PER_DAY = 1000 * 60 * 60 * 24
+
+export function timestampToDaysUntil(timestamp: Date) {
+  return Math.floor((timestamp.getMilliseconds() - Date.now()) / _MS_PER_DAY)
+}
+
 type Props = {
   timestamp?: number | string
   locale?: string
@@ -22,9 +28,11 @@ export function timestampToCleanTime({
   })
 
   const raw = date.toISOString()
+  const daysUntil = timestampToDaysUntil(date)
 
   return {
     formatted,
     raw,
+    daysUntil,
   }
 }

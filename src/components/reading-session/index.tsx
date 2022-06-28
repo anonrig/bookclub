@@ -1,7 +1,4 @@
-import {
-  CommentType,
-  useGetViewerWithSettingsQuery,
-} from '~/graphql/types.generated'
+import { CommentType, useReadingSessionQuery } from '~/graphql/types.generated'
 import { Detail } from '~/components/list-detail/detail'
 import { TitleBar } from '~/components/list-detail/title-bar'
 import { useRef } from 'react'
@@ -9,39 +6,41 @@ import { Comments } from '~/components/comments'
 import { Tooltip } from '~/components/tooltip'
 import Link from 'next/link'
 import ReadingSessionActions from '~/components/reading-session/actions'
+import { Avatar } from '~/components/avatar'
+import { timestampToCleanTime } from '~/lib/transformers'
 
-const applicants = [
-  {
-    name: 'Whitney Francis',
-    email: 'whitney.francis@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Leonard Krasner',
-    email: 'leonard.krasner@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Floyd Miles',
-    email: 'floy.dmiles@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-]
+const listFormatter = new Intl.ListFormat('en', {
+  style: 'long',
+  type: 'conjunction',
+})
 
 export default function ReadingSession() {
-  const { data, loading } = useGetViewerWithSettingsQuery({
-    fetchPolicy: 'network-only',
-  })
+  const { data, loading } = useReadingSessionQuery()
 
   const titleRef = useRef<HTMLParagraphElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  if (!data?.viewer && loading) {
+  if (loading || !data) {
     return <Detail.Loading />
   }
+
+  if (!data.readingSession) {
+    return (
+      <Detail.Null
+        title="Session"
+        subtitle="We're not reading any book right now"
+        description="Please recommend a new book, if you haven't already."
+        action={{
+          href: '/books',
+          title: 'Go to Recommendations',
+        }}
+      />
+    )
+  }
+
+  const deadline = timestampToCleanTime({
+    timestamp: data.readingSession.deadlineAt,
+  })
 
   return (
     <Detail.Container ref={scrollContainerRef}>
@@ -55,16 +54,22 @@ export default function ReadingSession() {
       <Detail.ContentContainer>
         <Detail.Header>
           <Detail.Title ref={titleRef}>Session</Detail.Title>
-          <p className="text-tertiary text-xl">Project Hail Mary</p>
+          <p className="text-tertiary text-xl">
+            {data.readingSession.book.title}
+          </p>
         </Detail.Header>
 
         <div className="divide-y divide-gray-200 py-12 dark:divide-gray-800">
           <div className="space-y-8 py-12">
             <div className="space-y-2">
-              <p className="text-primary font-semibold">Author</p>
+              <p className="text-primary font-semibold">
+                Author{data.readingSession.book.authors.length > 1 ? 's' : ''}
+              </p>
 
               <div className="text-primary flex space-x-2">
-                <span>Andy Weir</span>
+                <span>
+                  {listFormatter.format(data.readingSession.book.authors)}
+                </span>
               </div>
             </div>
 
@@ -73,8 +78,12 @@ export default function ReadingSession() {
 
               <div className="text-primary flex space-x-2">
                 <span>
-                  Until June 1, 2022{' '}
-                  <span className="text-tertiary">(32 days left)</span>
+                  {deadline.formatted}{' '}
+                  <span className="text-tertiary">
+                    {deadline.daysUntil > 0
+                      ? `(${deadline.daysUntil} days left)`
+                      : ''}
+                  </span>
                 </span>
               </div>
             </div>
@@ -99,20 +108,23 @@ export default function ReadingSession() {
               <div className="text-primary flex space-x-2">
                 <div className="flex-shrink-0">
                   <div className="flex -space-x-1 overflow-hidden">
-                    {applicants.map((applicant) => (
+                    {data.readingSession.members.map((member) => (
                       <Link
-                        key={applicant.email}
+                        key={member.user.id}
                         href={{
                           pathname: '/u/[id]',
-                          query: { id: applicant.email },
+                          query: { id: member.user.id },
                         }}
                       >
                         <a>
-                          <Tooltip content={applicant.name} placement="bottom">
-                            <img
+                          <Tooltip
+                            content={member.user.name ?? ''}
+                            placement="bottom"
+                          >
+                            <Avatar
                               className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
-                              src={applicant.imageUrl}
-                              alt={applicant.name}
+                              user={{ name: member.user.name ?? '' }}
+                              src={member.user.image ?? ''}
                             />
                           </Tooltip>
                         </a>
@@ -126,7 +138,7 @@ export default function ReadingSession() {
             <ReadingSessionActions isFooter />
           </div>
 
-          <Comments refId={'1'} type={CommentType.Book} />
+          <Comments refId={'1'} type={CommentType.ReadingSession} />
         </div>
       </Detail.ContentContainer>
     </Detail.Container>

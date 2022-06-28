@@ -8,6 +8,10 @@ function getWhereByType({ refId, type }: QueryCommentsArgs) {
       return {
         bookId: refId,
       }
+    case CommentType.ReadingSession:
+      return {
+        readingSessionId: refId,
+      }
     default:
       throw new UserInputError(`Invalid type ${type}`)
   }

@@ -20,7 +20,7 @@ export default function BookList() {
     )
   }
 
-  if (loading && !data?.books) {
+  if (loading || !data?.books) {
     return (
       <ListContainer ref={scrollContainerRef}>
         <BookTitleBar scrollContainerRef={scrollContainerRef} />

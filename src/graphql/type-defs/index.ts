@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro'
+import { gql } from '@apollo/client'
 
 export default gql`
   scalar Date
@@ -41,6 +41,22 @@ export default gql`
     recommended: Boolean!
   }
 
+  type ReadingSessionMember {
+    user: User!
+    pageNumber: Int!
+    createdAt: Date!
+    updatedAt: Date!
+  }
+
+  type ReadingSession {
+    id: ID!
+    attending: Boolean!
+    book: Book!
+    deadlineAt: Date!
+    createdAt: Date!
+    members: [ReadingSessionMember!]!
+  }
+
   enum Role {
     BLOCKED
     PENDING
@@ -50,6 +66,7 @@ export default gql`
 
   enum CommentType {
     BOOK
+    READING_SESSION
   }
 
   input EditUserInput {
@@ -67,6 +84,7 @@ export default gql`
     book(id: ID!): Book
     books: [Book!]!
     comments(refId: ID!, type: CommentType!): [Comment!]!
+    readingSession: ReadingSession
     viewer: User
   }
 
