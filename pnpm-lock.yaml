@@ -16,7 +16,7 @@ specifiers:
   '@tailwindcss/forms': ^0.5.2
   '@tailwindcss/line-clamp': ^0.4.0
   '@tailwindcss/typography': ^0.5.2
-  '@tippy.js/react': ^3.1.1
+  '@tippyjs/react': ^4.2.6
   '@types/lodash.debounce': ^4.0.7
   '@types/lodash.isequal': ^4.5.6
   '@types/node': 18.0.0
@@ -71,7 +71,7 @@ dependencies:
   '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.4
   '@tailwindcss/line-clamp': 0.4.0_tailwindcss@3.1.4
   '@tailwindcss/typography': 0.5.2_tailwindcss@3.1.4
-  '@tippy.js/react': 3.1.1_biqbaboplfbrettd7655fr4n2y
+  '@tippyjs/react': 4.2.6_biqbaboplfbrettd7655fr4n2y
   apollo-server-micro: 3.9.0_graphql@16.5.0+micro@9.3.4
   csstype: 3.1.0
   deepmerge: 4.2.2
@@ -1629,6 +1629,10 @@ packages:
     resolution: {integrity: sha512-MSAs9t3Go7GUkMhpKC44T58DJ5KGk2vBo+h1cqQeqlMfdGkxaVB78ZWpv9gYi/g2fa4sopag9gJsNvS8XGgWJA==}
     dev: false
 
+  /@popperjs/core/2.11.5:
+    resolution: {integrity: sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==}
+    dev: false
+
   /@prisma/client/3.15.2_prisma@3.15.2:
     resolution: {integrity: sha512-ErqtwhX12ubPhU4d++30uFY/rPcyvjk+mdifaZO5SeM21zS3t4jQrscy8+6IyB0GIYshl5ldTq6JSBo1d63i8w==}
     engines: {node: '>=12.6'}
@@ -1757,17 +1761,15 @@ packages:
       tailwindcss: 3.1.4
     dev: false
 
-  /@tippy.js/react/3.1.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-KF45vW/jKh/nBXk/2zzTFslv/T46zOMkIoDJ56ymZ+M00yHttk58J5wZ29oqGqDIUnobWSZD+cFpbR4u/UUvgw==}
-    deprecated: This package has moved to @tippyjs/react (the same but without a dot in the scoped organization) due to issues some shells had with the dot when installing the package.
+  /@tippyjs/react/4.2.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-91RicDR+H7oDSyPycI13q3b7o4O60wa2oRbjlz2fyRLmHImc4vyDwuUP8NtZaN0VARJY5hybvDYrFzhY9+Lbyw==}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
-      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      tippy.js: 5.2.1
+      tippy.js: 6.3.7
     dev: false
 
   /@tootallnate/once/2.0.0:
@@ -5791,11 +5793,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /popper.js/1.16.1:
-    resolution: {integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==}
-    deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
-    dev: false
-
   /postcss-calc/8.2.4_postcss@8.4.14:
     resolution: {integrity: sha512-SmWMSJmB8MRnnULldx0lQIyhSNvuDl9HfrZkaqqE/WHAhToYsAvDq+yAsA/kIyINDszOp3Rh0GFoNuH5Ypsm3Q==}
     peerDependencies:
@@ -7096,10 +7093,10 @@ packages:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
     dev: true
 
-  /tippy.js/5.2.1:
-    resolution: {integrity: sha512-66UT6JRVn3dXNCORE+0UvUK3JZqV/VhLlU6HTDm3FmrweUUFUxUGvT8tUQ7ycMp+uhuLAwQw6dBabyC+iKf/MA==}
+  /tippy.js/6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
     dependencies:
-      popper.js: 1.16.1
+      '@popperjs/core': 2.11.5
     dev: false
 
   /title-case/3.0.3:

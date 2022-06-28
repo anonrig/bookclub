@@ -1,6 +1,6 @@
 import 'tippy.js/dist/tippy.css'
 
-import Tippy, { TippyProps } from '@tippy.js/react'
+import Tippy, { TippyProps } from '@tippyjs/react'
 
 type Props = {
   content: string
@@ -24,11 +24,9 @@ export function Tooltip(props: Props) {
         </span>
       }
       popperOptions={{
-        modifiers: {
-          preventOverflow: {
-            boundariesElement: 'window',
-          },
-        },
+        modifiers: [
+          { name: 'preventOverflow', options: { element: 'window' } },
+        ],
       }}
       {...rest}
     />
