@@ -2,7 +2,6 @@ import {
   ApolloClient,
   ApolloLink,
   Context,
-  HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
   ServerError,
@@ -12,23 +11,19 @@ import merge from 'deepmerge'
 import isEqual from 'lodash.isequal'
 import { useMemo } from 'react'
 import toast from 'react-hot-toast'
+import { schema } from '~/graphql/schema'
 
 import { APOLLO_STATE_PROP_NAME, GRAPHQL_ENDPOINT } from '~/graphql/constants'
 import { AppProps } from 'next/app'
-import { relayStylePagination } from '@apollo/client/utilities'
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
 function createIsomorphLink({ context }: { context: Context }) {
   if (typeof window === 'undefined') {
-    // These have to imported dynamically, instead of at the root of the page,
-    // in order to make sure that we're not shipping server-side code to the client
-    // eslint-disable-next-line
     const { SchemaLink } = require('@apollo/client/link/schema')
-    const { schema } = require('~/graphql/schema')
-    // eslint-disable-next-line
     return new SchemaLink({ schema, context })
   } else {
+    const { HttpLink } = require('@apollo/client/link/http')
     return new HttpLink({
       uri: GRAPHQL_ENDPOINT || '/api/graphql',
       credentials: 'same-origin',
