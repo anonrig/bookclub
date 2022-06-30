@@ -121,5 +121,12 @@ export async function createReadingSession(
   const deadlineAt = new Date()
   deadlineAt.setDate(deadlineAt.getDate() + duration * 7)
 
+  await prisma.readingSession.create({
+    data: {
+      bookId,
+      deadlineAt,
+    },
+  })
+
   return true
 }

@@ -10,18 +10,16 @@ import { GET_VIEWER } from '~/graphql/queries/viewer'
 import { addApolloState, initApolloClient } from '~/lib/apollo'
 import { getContext } from '~/graphql/context'
 import { GET_BOOK, GET_BOOKS } from '~/graphql/queries/book'
-import { GET_COMMENTS } from '~/graphql/queries/comment'
-import { CommentType } from '~/graphql/types.generated'
 
 const BookDetailPage: NextPageWithLayout<{ id: string }> = ({ id }) => {
-  return <BookDetail id={id} />
-}
-
-BookDetailPage.getLayout = (page) => {
   return (
-    <SiteLayout>
-      <ListDetailView list={<BookList />} hasDetail detail={page} />
-    </SiteLayout>
+    <>
+      <ListDetailView
+        list={<BookList />}
+        hasDetail
+        detail={<BookDetail id={id} />}
+      />
+    </>
   )
 }
 
