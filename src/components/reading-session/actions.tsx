@@ -1,20 +1,58 @@
 import Button, { GhostButton } from '~/components/button'
 import {
   ReadingSession,
+  ReadingSessionMember,
   useAttendReadingSessionMutation,
+  User,
 } from '~/graphql/types.generated'
 import { LoadingSpinner } from '~/components/loading-spinner'
 import UpdateReadingSessionPageDialog from '~/components/reading-session/update-page-dialog'
+import { GET_READING_SESSION } from '~/graphql/queries/reading-session'
+import { GET_VIEWER } from '~/graphql/queries/viewer'
 
 type Props = {
+  refetch: VoidFunction
   session: ReadingSession
   isFooter?: boolean
 }
 
-export default function ReadingSessionActions({ session, isFooter }: Props) {
+export default function ReadingSessionActions({
+  refetch,
+  session,
+  isFooter,
+}: Props) {
   const [attend, attendResponse] = useAttendReadingSessionMutation({
     variables: {
       id: session.id,
+    },
+    optimisticResponse: {
+      attendReadingSession: true,
+    },
+    update(cache) {
+      const viewer = cache.readQuery<User>({ query: GET_VIEWER })
+      const previous = cache.readQuery<ReadingSession>({
+        query: GET_READING_SESSION,
+      })
+
+      const readingMember: ReadingSessionMember = {
+        user: viewer!,
+        pageNumber: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+
+      cache.writeQuery({
+        query: GET_READING_SESSION,
+        data: {
+          ...(previous ?? {}),
+          attending: true,
+          members: (previous?.members ?? []).concat([readingMember]),
+          viewer: readingMember,
+        },
+      })
+    },
+    onCompleted() {
+      refetch()
     },
   })
 
@@ -34,6 +72,7 @@ export default function ReadingSessionActions({ session, isFooter }: Props) {
         <UpdateReadingSessionPageDialog
           book={session.book}
           viewer={session.viewer}
+          refetch={refetch}
           trigger={
             <>
               {isFooter ? (

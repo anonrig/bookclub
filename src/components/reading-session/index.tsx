@@ -19,7 +19,7 @@ const listFormatter = new Intl.ListFormat('en', {
 })
 
 export default function ReadingSession() {
-  const { data, loading } = useReadingSessionQuery()
+  const { data, loading, refetch } = useReadingSessionQuery()
 
   const titleRef = useRef<HTMLParagraphElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -55,6 +55,7 @@ export default function ReadingSession() {
         scrollContainerRef={scrollContainerRef}
         trailingAccessory={
           <ReadingSessionActions
+            refetch={refetch}
             session={data.readingSession as ReadingSessionType}
           />
         }
@@ -116,6 +117,9 @@ export default function ReadingSession() {
               <div className="text-primary flex space-x-2">
                 <div className="flex-shrink-0">
                   <div className="flex -space-x-1 overflow-hidden">
+                    {data.readingSession.members.length === 0
+                      ? 'Nobody yet'
+                      : null}
                     {data.readingSession.members.map((member) => (
                       <Link
                         key={member.user.id}
@@ -147,6 +151,7 @@ export default function ReadingSession() {
 
             <ReadingSessionActions
               isFooter
+              refetch={refetch}
               session={data.readingSession as ReadingSessionType}
             />
           </div>

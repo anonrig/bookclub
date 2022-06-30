@@ -11,12 +11,14 @@ import { GET_READING_SESSION } from '~/graphql/queries/reading-session'
 
 type Props = {
   book: ReadingSession['book']
+  refetch: VoidFunction
   trigger: ReactElement
   viewer?: ReadingSession['viewer']
 }
 
 export default function UpdateReadingSessionPageDialog({
   book,
+  refetch,
   trigger,
   viewer,
 }: Props) {
@@ -38,6 +40,9 @@ export default function UpdateReadingSessionPageDialog({
           },
         },
       })
+    },
+    onCompleted() {
+      refetch()
     },
   })
 
