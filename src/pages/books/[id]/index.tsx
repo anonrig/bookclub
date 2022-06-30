@@ -40,7 +40,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   await Promise.all([
     apolloClient.query({ query: GET_VIEWER }),
-    apolloClient.query({ query: GET_BOOKS }),
+    apolloClient.query({
+      query: GET_BOOKS,
+      variables: { data: { filter: null } },
+    }),
     apolloClient.query({
       query: GET_COMMENTS,
       variables: {

@@ -24,7 +24,6 @@ export default function Providers({
 }>) {
   const client = useApollo(pageProps)
   const [isOpen, setIsOpen] = useState(false)
-  const state = useMemo(() => ({ isOpen, setIsOpen }), [isOpen])
 
   return (
     <>
@@ -32,7 +31,7 @@ export default function Providers({
       <Toast />
       <ApolloProvider client={client}>
         <SessionProvider session={session}>
-          <GlobalNavigationContext.Provider value={state}>
+          <GlobalNavigationContext.Provider value={{ isOpen, setIsOpen }}>
             {children}
           </GlobalNavigationContext.Provider>
         </SessionProvider>

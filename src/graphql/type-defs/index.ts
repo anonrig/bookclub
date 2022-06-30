@@ -69,20 +69,25 @@ export default gql`
     READING_SESSION
   }
 
+  enum BookFilterType {
+    RECOMMENDATION_COUNT
+    RECOMMENDED_AT
+    PAGE_COUNT
+  }
+
   input EditUserInput {
     name: String
     email: String
   }
 
-  input GetCommentsInput {
-    refId: ID!
-    type: CommentType!
+  input GetBooksInput {
+    filter: BookFilterType
   }
 
   type Query {
     bookRecommendations(id: ID!): BookRecommendations
     book(id: ID!): Book
-    books: [Book!]!
+    books(data: GetBooksInput): [Book!]!
     comments(refId: ID!, type: CommentType!): [Comment!]!
     readingSession: ReadingSession
     viewer: User

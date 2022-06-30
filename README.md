@@ -9,9 +9,10 @@ This is a private, invite-only book club to keep track of the books we've read t
 - Users
   - [x] Change name and email of an account
   - [ ] Access read books, attended sessions
-- [ ] Books
-  - [ ] List books according to recommendation count
-  - [ ] List book according to recommendation time
+- [x] Books
+  - [x] List books according to recommendation count
+  - [x] List books according to recommendation time
+  - [x] List books according to page count
 - [ ] Book recommendation
   - [x] Recommend a book
   - [x] Comment on a book

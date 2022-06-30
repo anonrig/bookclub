@@ -1,12 +1,37 @@
 import { Context } from '~/graphql/context'
-import { QueryBookArgs } from '~/graphql/types.generated'
+import {
+  BookFilterType,
+  QueryBookArgs,
+  QueryBooksArgs,
+} from '~/graphql/types.generated'
 
-export function books(_: unknown, __: unknown, ctx: Context) {
-  return ctx.prisma.book.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
+export function books(
+  _: unknown,
+  { data }: QueryBooksArgs,
+  { prisma }: Context
+) {
+  switch (data?.filter) {
+    case BookFilterType.PageCount:
+      return prisma.book.findMany({
+        orderBy: {
+          pageCount: 'desc',
+        },
+      })
+    case BookFilterType.RecommendationCount:
+      return prisma.book.findMany({
+        orderBy: {
+          recommendations: {
+            _count: 'desc',
+          },
+        },
+      })
+    default:
+      return prisma.book.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+  }
 }
 
 export async function book(_: unknown, { id }: QueryBookArgs, ctx: Context) {

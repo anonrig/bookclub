@@ -1,7 +1,8 @@
 import { GhostButton } from '~/components/button'
 import { TitleBar } from '~/components/list-detail/title-bar'
-import { PlusIcon } from '@heroicons/react/outline'
+import { DotsHorizontalIcon, PlusIcon } from '@heroicons/react/outline'
 import { MutableRefObject } from 'react'
+import BookFilterMenu from '~/components/books/filter-menu'
 
 type Props = {
   scrollContainerRef?: MutableRefObject<HTMLDivElement | null>
@@ -19,6 +20,7 @@ export default function BookTitleBar({ scrollContainerRef }: Props) {
           >
             <PlusIcon className="h-4 w-4" />
           </GhostButton>
+          <BookFilterMenu />
         </div>
       }
       title="Books"

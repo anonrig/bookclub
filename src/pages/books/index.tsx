@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   await Promise.all([
     client.query({ query: GET_VIEWER }),
-    client.query({ query: GET_BOOKS }),
+    client.query({ query: GET_BOOKS, variables: { data: { filter: null } } }),
   ])
 
   return addApolloState(client, {

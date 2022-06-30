@@ -45,6 +45,12 @@ export type Book = {
   url: Scalars['String']
 }
 
+export enum BookFilterType {
+  PageCount = 'PAGE_COUNT',
+  RecommendationCount = 'RECOMMENDATION_COUNT',
+  RecommendedAt = 'RECOMMENDED_AT',
+}
+
 export type BookRecommendations = {
   __typename?: 'BookRecommendations'
   count: Scalars['Int']
@@ -82,9 +88,8 @@ export type EditUserInput = {
   name?: InputMaybe<Scalars['String']>
 }
 
-export type GetCommentsInput = {
-  refId: Scalars['ID']
-  type: CommentType
+export type GetBooksInput = {
+  filter?: InputMaybe<BookFilterType>
 }
 
 export type Mutation = {
@@ -150,6 +155,10 @@ export type QueryBookArgs = {
 
 export type QueryBookRecommendationsArgs = {
   id: Scalars['ID']
+}
+
+export type QueryBooksArgs = {
+  data?: InputMaybe<GetBooksInput>
 }
 
 export type QueryCommentsArgs = {
@@ -479,7 +488,9 @@ export type GetBookRecommendationsQuery = {
   } | null
 }
 
-export type GetBooksQueryVariables = Exact<{ [key: string]: never }>
+export type GetBooksQueryVariables = Exact<{
+  data: GetBooksInput
+}>
 
 export type GetBooksQuery = {
   __typename?: 'Query'
@@ -1154,8 +1165,8 @@ export type GetBookRecommendationsQueryResult = Apollo.QueryResult<
   GetBookRecommendationsQueryVariables
 >
 export const GetBooksDocument = gql`
-  query getBooks {
-    books {
+  query getBooks($data: GetBooksInput!) {
+    books(data: $data) {
       ...BookInfo
     }
   }
@@ -1174,11 +1185,12 @@ export const GetBooksDocument = gql`
  * @example
  * const { data, loading, error } = useGetBooksQuery({
  *   variables: {
+ *      data: // value for 'data'
  *   },
  * });
  */
 export function useGetBooksQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(
