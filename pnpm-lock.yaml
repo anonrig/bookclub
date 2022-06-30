@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@apollo/client': ^3.6.9
   '@graphql-codegen/add': ^3.1.1
-  '@graphql-codegen/cli': ^2.6.2
+  '@graphql-codegen/cli': ^2.6.4
   '@graphql-codegen/typescript': ^2.5.1
   '@graphql-codegen/typescript-operations': ^2.4.2
   '@graphql-codegen/typescript-react-apollo': ^3.2.16
@@ -31,7 +31,7 @@ specifiers:
   eslint: 8.18.0
   eslint-config-next: 12.2.0
   eslint-config-prettier: ^8.5.0
-  eslint-plugin-prettier: ^4.1.0
+  eslint-plugin-prettier: ^4.2.1
   eslint-plugin-unused-imports: ^2.0.0
   graphql: ^16.5.0
   graphql-tag: ^2.12.6
@@ -101,7 +101,7 @@ dependencies:
 
 devDependencies:
   '@graphql-codegen/add': 3.1.1_graphql@16.5.0
-  '@graphql-codegen/cli': 2.6.2_bd2houww3rfjk53zactamwptje
+  '@graphql-codegen/cli': 2.6.4_bd2houww3rfjk53zactamwptje
   '@graphql-codegen/typescript': 2.5.1_graphql@16.5.0
   '@graphql-codegen/typescript-operations': 2.4.2_graphql@16.5.0
   '@graphql-codegen/typescript-react-apollo': 3.2.16_ubrtutz2urcxyhwqr2zvlqjzha
@@ -116,7 +116,7 @@ devDependencies:
   eslint: 8.18.0
   eslint-config-next: 12.2.0_b5e7v2qnwxfo6hmiq56u52mz3e
   eslint-config-prettier: 8.5.0_eslint@8.18.0
-  eslint-plugin-prettier: 4.1.0_xu6ewijrtliw5q5lksq5uixwby
+  eslint-plugin-prettier: 4.2.1_xu6ewijrtliw5q5lksq5uixwby
   eslint-plugin-unused-imports: 2.0.0_eslint@8.18.0
   lodash.isequal: 4.5.0
   prettier: 2.7.1
@@ -896,8 +896,8 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@graphql-codegen/cli/2.6.2_bd2houww3rfjk53zactamwptje:
-    resolution: {integrity: sha512-UO75msoVgvLEvfjCezM09cQQqp32+mR8Ma1ACsBpr7nroFvHbgcu2ulx1cMovg4sxDBCsvd9Eq/xOOMpARUxtw==}
+  /@graphql-codegen/cli/2.6.4_bd2houww3rfjk53zactamwptje:
+    resolution: {integrity: sha512-VNK5l4lRXOs3uueKkN4YKhO7ZldXaPw/6dZo4BnAzH2ip9XDroNJ0n+ESkbhSBd1bH6wVk3iCIzBfJOnfcsAcg==}
     hasBin: true
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -921,10 +921,7 @@ packages:
       common-tags: 1.8.2
       cosmiconfig: 7.0.1
       debounce: 1.2.1
-      dependency-graph: 0.11.0
       detect-indent: 6.1.0
-      glob: 7.2.3
-      globby: 11.1.0
       graphql: 16.5.0
       graphql-config: 4.3.1_bd2houww3rfjk53zactamwptje
       inquirer: 8.2.4
@@ -934,12 +931,9 @@ packages:
       listr: 0.14.3
       listr-update-renderer: 0.5.0_listr@0.14.3
       log-symbols: 4.1.0
-      minimatch: 4.2.1
       mkdirp: 1.0.4
       string-env-interpolation: 1.0.1
       ts-log: 2.2.4
-      tslib: 2.3.1
-      valid-url: 1.0.9
       wrap-ansi: 7.0.0
       yaml: 1.10.2
       yargs: 17.5.1
@@ -3439,8 +3433,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /eslint-plugin-prettier/4.1.0_xu6ewijrtliw5q5lksq5uixwby:
-    resolution: {integrity: sha512-A3AXIEfTnq3D5qDFjWJdQ9c4BLhw/TqhSR+6+SVaoPJBAWciFEuJiNQh275OnjRrAi7yssZzuWBRw66VG2g6UA==}
+  /eslint-plugin-prettier/4.2.1_xu6ewijrtliw5q5lksq5uixwby:
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       eslint: '>=7.28.0'
@@ -3959,7 +3953,7 @@ packages:
       '@graphql-tools/graphql-file-loader': 7.3.15_graphql@16.5.0
       '@graphql-tools/json-file-loader': 7.3.15_graphql@16.5.0
       '@graphql-tools/load': 7.5.14_graphql@16.5.0
-      '@graphql-tools/merge': 8.2.14_graphql@16.5.0
+      '@graphql-tools/merge': 8.3.0_graphql@16.5.0
       '@graphql-tools/url-loader': 7.9.24_qmryoiwmfkh3qj6lyx5gjomwma
       '@graphql-tools/utils': 8.8.0_graphql@16.5.0
       cosmiconfig: 7.0.1
@@ -6798,7 +6792,7 @@ packages:
     dev: true
 
   /slice-ansi/0.0.4:
-    resolution: {integrity: sha1-7b+JA/ZvfOL46v1s7tZeJkyDGzU=}
+    resolution: {integrity: sha512-up04hB2hR92PgjpyU3y/eg91yIBILyjVY26NvvciY3EVVPjybkMszMpXQ9QAkcS3I5rtJBDLoTxxg+qvW8c7rw==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -7382,7 +7376,7 @@ packages:
     dev: false
 
   /unixify/1.0.0:
-    resolution: {integrity: sha1-OmQcjC/7zk2mg6XHDwOkYpQMIJA=}
+    resolution: {integrity: sha512-6bc58dPYhCMHHuwxldQxO3RRNZ4eCogZ/st++0+fcC1nr0jiGUtAdBJ2qzmLQWSxbtz42pWt4QQMiZ9HvZf5cg==}
     engines: {node: '>=0.10.0'}
     dependencies:
       normalize-path: 2.1.1
@@ -7412,7 +7406,7 @@ packages:
     dev: true
 
   /url-parse-lax/3.0.0:
-    resolution: {integrity: sha1-FrXK/Afb42dsGxmZF3gj1lA6yww=}
+    resolution: {integrity: sha512-NjFKA0DidqPa5ciFcSrXnAltTtzz84ogy+NebPvfEgAck0+TNg4UJ4IN+fB7zRZfbgUf0syOo9MDxFkDSMuFaQ==}
     engines: {node: '>=4'}
     dependencies:
       prepend-http: 2.0.0
@@ -7449,10 +7443,6 @@ packages:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
 
-  /valid-url/1.0.9:
-    resolution: {integrity: sha1-HBRHm0DxOXp1eC8RXkCGRHQzogA=}
-    dev: true
-
   /value-or-promise/1.0.11:
     resolution: {integrity: sha512-41BrgH+dIbCFXClcSapVs5M6GkENd3gQOJpEfPDNa71LsUGMXDL0jMWpI/Rh7WhX+Aalfz2TTS3Zt5pUsbnhLg==}
     engines: {node: '>=12'}
@@ -7474,7 +7464,7 @@ packages:
     dev: false
 
   /wcwidth/1.0.1:
-    resolution: {integrity: sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=}
+    resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
     dependencies:
       defaults: 1.0.3
     dev: true
@@ -7535,7 +7525,7 @@ packages:
     dev: true
 
   /wrap-ansi/3.0.1:
-    resolution: {integrity: sha1-KIoE2H7aXChuBg3+jxNc6NAH+Lo=}
+    resolution: {integrity: sha512-iXR3tDXpbnTpzjKSylUJRkLuOrEC7hwEB221cgn6wtF8wpmz28puFXAEfPT5zrjM3wahygB//VuWEr1vTkDcNQ==}
     engines: {node: '>=4'}
     dependencies:
       string-width: 2.1.1
