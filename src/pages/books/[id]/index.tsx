@@ -33,24 +33,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   const context = await getContext(req)
   const apolloClient = initApolloClient({ context })
 
-  await apolloClient.query({
-    query: GET_BOOK,
-    variables: { id },
-  })
-
   await Promise.all([
+    apolloClient.query({ query: GET_BOOKS }),
+    apolloClient.query({ query: GET_BOOK, variables: { id } }),
     apolloClient.query({ query: GET_VIEWER }),
-    apolloClient.query({
-      query: GET_BOOKS,
-      variables: { data: { filter: null } },
-    }),
-    apolloClient.query({
-      query: GET_COMMENTS,
-      variables: {
-        refId: id,
-        type: CommentType.Book,
-      },
-    }),
   ])
 
   return addApolloState(apolloClient, {

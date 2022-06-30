@@ -462,7 +462,7 @@ export type GetBookRecommendationsQuery = {
 }
 
 export type GetBooksQueryVariables = Exact<{
-  data: GetBooksInput
+  data?: InputMaybe<GetBooksInput>
 }>
 
 export type GetBooksQuery = {
@@ -1200,7 +1200,7 @@ export type GetBookRecommendationsQueryResult = Apollo.QueryResult<
   GetBookRecommendationsQueryVariables
 >
 export const GetBooksDocument = gql`
-  query getBooks($data: GetBooksInput!) {
+  query getBooks($data: GetBooksInput) {
     books(data: $data) {
       ...BookInfo
     }
@@ -1225,7 +1225,7 @@ export const GetBooksDocument = gql`
  * });
  */
 export function useGetBooksQuery(
-  baseOptions: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(

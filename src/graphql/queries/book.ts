@@ -5,7 +5,7 @@ import {
 } from '~/graphql/fragments/book'
 
 export const GET_BOOKS = gql`
-  query getBooks($data: GetBooksInput!) {
+  query getBooks($data: GetBooksInput) {
     books(data: $data) {
       ...BookInfo
     }
