@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-micro'
+import { withSentry } from '@sentry/nextjs'
 
 import typeDefs from '~/graphql/type-defs'
 import resolvers from '~/graphql/resolvers'
@@ -28,5 +29,5 @@ const handler: NextApiHandler = async (req, res) => {
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res)
 }
 
-export default handler
+export default withSentry(handler)
 export const config = { api: { bodyParser: false } }
