@@ -9,6 +9,7 @@ This is a private, invite-only book club to keep track of the books we've read t
 - Users
   - [x] Change name and email of an account
   - [ ] Access read books, attended sessions
+  - [ ] Invite other users to the book club
 - [x] Books
   - [x] List books according to recommendation count
   - [x] List books according to recommendation time
@@ -22,6 +23,7 @@ This is a private, invite-only book club to keep track of the books we've read t
   - [x] Members can attend a session
   - [x] Members can comment on the active session
   - [x] Members can add their page numbers
+  - [ ] Members can see other users progress
 - [ ] Meetings
   - [ ] Integrate Zoom
   - [ ] Send email notifications to active members
