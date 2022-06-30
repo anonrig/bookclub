@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useMemo, useState } from 'react'
+import { createContext, PropsWithChildren, useState } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '~/lib/apollo'

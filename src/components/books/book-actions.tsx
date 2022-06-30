@@ -8,6 +8,7 @@ import {
 } from '~/graphql/types.generated'
 import { useCallback } from 'react'
 import CreateReadingSessionDialog from '~/components/reading-session/create-dialog'
+import { StarIcon } from '@heroicons/react/outline'
 
 type Props = {
   book: { id: string; url: string; title: string; pageCount: number }
@@ -53,7 +54,12 @@ export default function BookActions({ book, viewer }: Props) {
       return (
         <CreateReadingSessionDialog
           book={book}
-          trigger={<Button>Start Session</Button>}
+          trigger={
+            <Button>
+              <StarIcon className="mr-1 h-4 w-4" />
+              Session
+            </Button>
+          }
         />
       )
     }
