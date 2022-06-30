@@ -3,7 +3,6 @@ import { NavigationLink } from '~/components/sidebar/navigation-link'
 import {
   BookmarkIcon,
   BookOpenIcon,
-  HomeIcon,
   PhoneIncomingIcon,
 } from '@heroicons/react/outline'
 
