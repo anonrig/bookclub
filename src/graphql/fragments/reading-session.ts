@@ -27,6 +27,9 @@ export const ReadingSessionInfoFragment = gql`
     members {
       ...ReadingSessionMemberInfo
     }
+    viewer {
+      ...ReadingSessionMemberInfo
+    }
   }
   ${BookInfoFragment}
   ${ReadingSessionMemberInfoFragment}

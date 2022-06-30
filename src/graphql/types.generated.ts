@@ -26,10 +26,6 @@ export type Scalars = {
   Date: any
 }
 
-export type AttendReadingSessionInput = {
-  id: Scalars['ID']
-}
-
 export type Book = {
   __typename?: 'Book'
   authors: Array<Scalars['String']>
@@ -95,13 +91,14 @@ export type GetBooksInput = {
 export type Mutation = {
   __typename?: 'Mutation'
   addComment?: Maybe<Comment>
-  attendReadingSession?: Maybe<ReadingSession>
+  attendReadingSession?: Maybe<Scalars['Boolean']>
   createBookRecommendation?: Maybe<Book>
-  createReadingSession?: Maybe<ReadingSession>
+  createReadingSession?: Maybe<Scalars['Boolean']>
   editUser?: Maybe<User>
   removeComment?: Maybe<Scalars['Boolean']>
   toggleBookRecommendation?: Maybe<BookRecommendations>
   updateComment?: Maybe<Comment>
+  updateReadingSessionPage?: Maybe<Scalars['Boolean']>
 }
 
 export type MutationAddCommentArgs = {
@@ -111,7 +108,7 @@ export type MutationAddCommentArgs = {
 }
 
 export type MutationAttendReadingSessionArgs = {
-  data: AttendReadingSessionInput
+  id: Scalars['ID']
 }
 
 export type MutationCreateBookRecommendationArgs = {
@@ -137,6 +134,10 @@ export type MutationToggleBookRecommendationArgs = {
 export type MutationUpdateCommentArgs = {
   id: Scalars['ID']
   text: Scalars['String']
+}
+
+export type MutationUpdateReadingSessionPageArgs = {
+  pageNumber: Scalars['Int']
 }
 
 export type Query = {
@@ -174,6 +175,7 @@ export type ReadingSession = {
   deadlineAt: Scalars['Date']
   id: Scalars['ID']
   members: Array<ReadingSessionMember>
+  viewer?: Maybe<ReadingSessionMember>
 }
 
 export type ReadingSessionMember = {
@@ -214,6 +216,7 @@ export type BookInfoFragment = {
   thumbnail?: string | null
   authors: Array<string>
   url: string
+  pageCount: number
 }
 
 export type BookInfoDetailFragment = {
@@ -273,6 +276,7 @@ export type ReadingSessionInfoFragment = {
     thumbnail?: string | null
     authors: Array<string>
     url: string
+    pageCount: number
   }
   members: Array<{
     __typename?: 'ReadingSessionMember'
@@ -287,6 +291,19 @@ export type ReadingSessionInfoFragment = {
       role?: Role | null
     }
   }>
+  viewer?: {
+    __typename?: 'ReadingSessionMember'
+    pageNumber: number
+    createdAt: any
+    updatedAt: any
+    user: {
+      __typename: 'User'
+      id: string
+      name?: string | null
+      image?: string | null
+      role?: Role | null
+    }
+  } | null
 }
 
 export type UserInfoFragment = {
@@ -316,6 +333,7 @@ export type CreateBookRecommendationMutation = {
     thumbnail?: string | null
     authors: Array<string>
     url: string
+    pageCount: number
   } | null
 }
 
@@ -394,70 +412,25 @@ export type CreateReadingSessionMutationVariables = Exact<{
 
 export type CreateReadingSessionMutation = {
   __typename?: 'Mutation'
-  createReadingSession?: {
-    __typename: 'ReadingSession'
-    id: string
-    attending: boolean
-    deadlineAt: any
-    createdAt: any
-    book: {
-      __typename: 'Book'
-      id: string
-      title: string
-      thumbnail?: string | null
-      authors: Array<string>
-      url: string
-    }
-    members: Array<{
-      __typename?: 'ReadingSessionMember'
-      pageNumber: number
-      createdAt: any
-      updatedAt: any
-      user: {
-        __typename: 'User'
-        id: string
-        name?: string | null
-        image?: string | null
-        role?: Role | null
-      }
-    }>
-  } | null
+  createReadingSession?: boolean | null
 }
 
 export type AttendReadingSessionMutationVariables = Exact<{
-  data: AttendReadingSessionInput
+  id: Scalars['ID']
 }>
 
 export type AttendReadingSessionMutation = {
   __typename?: 'Mutation'
-  attendReadingSession?: {
-    __typename: 'ReadingSession'
-    id: string
-    attending: boolean
-    deadlineAt: any
-    createdAt: any
-    book: {
-      __typename: 'Book'
-      id: string
-      title: string
-      thumbnail?: string | null
-      authors: Array<string>
-      url: string
-    }
-    members: Array<{
-      __typename?: 'ReadingSessionMember'
-      pageNumber: number
-      createdAt: any
-      updatedAt: any
-      user: {
-        __typename: 'User'
-        id: string
-        name?: string | null
-        image?: string | null
-        role?: Role | null
-      }
-    }>
-  } | null
+  attendReadingSession?: boolean | null
+}
+
+export type UpdateReadingSessionPageMutationVariables = Exact<{
+  pageNumber: Scalars['Int']
+}>
+
+export type UpdateReadingSessionPageMutation = {
+  __typename?: 'Mutation'
+  updateReadingSessionPage?: boolean | null
 }
 
 export type EditUserMutationVariables = Exact<{
@@ -501,6 +474,7 @@ export type GetBooksQuery = {
     thumbnail?: string | null
     authors: Array<string>
     url: string
+    pageCount: number
   }>
 }
 
@@ -517,11 +491,11 @@ export type GetBookQuery = {
     thumbnail?: string | null
     authors: Array<string>
     url: string
+    pageCount: number
     subtitle: string
     description: string
     googleId: string
     publishedAt: number
-    pageCount: number
     createdAt: any
   } | null
 }
@@ -566,6 +540,7 @@ export type ReadingSessionQuery = {
       thumbnail?: string | null
       authors: Array<string>
       url: string
+      pageCount: number
     }
     members: Array<{
       __typename?: 'ReadingSessionMember'
@@ -580,6 +555,19 @@ export type ReadingSessionQuery = {
         role?: Role | null
       }
     }>
+    viewer?: {
+      __typename?: 'ReadingSessionMember'
+      pageNumber: number
+      createdAt: any
+      updatedAt: any
+      user: {
+        __typename: 'User'
+        id: string
+        name?: string | null
+        image?: string | null
+        role?: Role | null
+      }
+    } | null
   } | null
 }
 
@@ -628,6 +616,7 @@ export const BookInfoFragmentDoc = gql`
     thumbnail
     authors
     url
+    pageCount
   }
 `
 export const BookInfoDetailFragmentDoc = gql`
@@ -687,6 +676,9 @@ export const ReadingSessionInfoFragmentDoc = gql`
     deadlineAt
     createdAt
     members {
+      ...ReadingSessionMemberInfo
+    }
+    viewer {
       ...ReadingSessionMemberInfo
     }
   }
@@ -957,11 +949,8 @@ export type RemoveCommentMutationOptions = Apollo.BaseMutationOptions<
 >
 export const CreateReadingSessionDocument = gql`
   mutation createReadingSession($data: CreateReadingSessionInput!) {
-    createReadingSession(data: $data) {
-      ...ReadingSessionInfo
-    }
+    createReadingSession(data: $data)
   }
-  ${ReadingSessionInfoFragmentDoc}
 `
 export type CreateReadingSessionMutationFn = Apollo.MutationFunction<
   CreateReadingSessionMutation,
@@ -1007,12 +996,9 @@ export type CreateReadingSessionMutationOptions = Apollo.BaseMutationOptions<
   CreateReadingSessionMutationVariables
 >
 export const AttendReadingSessionDocument = gql`
-  mutation attendReadingSession($data: AttendReadingSessionInput!) {
-    attendReadingSession(data: $data) {
-      ...ReadingSessionInfo
-    }
+  mutation attendReadingSession($id: ID!) {
+    attendReadingSession(id: $id)
   }
-  ${ReadingSessionInfoFragmentDoc}
 `
 export type AttendReadingSessionMutationFn = Apollo.MutationFunction<
   AttendReadingSessionMutation,
@@ -1032,7 +1018,7 @@ export type AttendReadingSessionMutationFn = Apollo.MutationFunction<
  * @example
  * const [attendReadingSessionMutation, { data, loading, error }] = useAttendReadingSessionMutation({
  *   variables: {
- *      data: // value for 'data'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1057,6 +1043,55 @@ export type AttendReadingSessionMutationOptions = Apollo.BaseMutationOptions<
   AttendReadingSessionMutation,
   AttendReadingSessionMutationVariables
 >
+export const UpdateReadingSessionPageDocument = gql`
+  mutation updateReadingSessionPage($pageNumber: Int!) {
+    updateReadingSessionPage(pageNumber: $pageNumber)
+  }
+`
+export type UpdateReadingSessionPageMutationFn = Apollo.MutationFunction<
+  UpdateReadingSessionPageMutation,
+  UpdateReadingSessionPageMutationVariables
+>
+
+/**
+ * __useUpdateReadingSessionPageMutation__
+ *
+ * To run a mutation, you first call `useUpdateReadingSessionPageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateReadingSessionPageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateReadingSessionPageMutation, { data, loading, error }] = useUpdateReadingSessionPageMutation({
+ *   variables: {
+ *      pageNumber: // value for 'pageNumber'
+ *   },
+ * });
+ */
+export function useUpdateReadingSessionPageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateReadingSessionPageMutation,
+    UpdateReadingSessionPageMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateReadingSessionPageMutation,
+    UpdateReadingSessionPageMutationVariables
+  >(UpdateReadingSessionPageDocument, options)
+}
+export type UpdateReadingSessionPageMutationHookResult = ReturnType<
+  typeof useUpdateReadingSessionPageMutation
+>
+export type UpdateReadingSessionPageMutationResult =
+  Apollo.MutationResult<UpdateReadingSessionPageMutation>
+export type UpdateReadingSessionPageMutationOptions =
+  Apollo.BaseMutationOptions<
+    UpdateReadingSessionPageMutation,
+    UpdateReadingSessionPageMutationVariables
+  >
 export const EditUserDocument = gql`
   mutation editUser($data: EditUserInput) {
     editUser(data: $data) {

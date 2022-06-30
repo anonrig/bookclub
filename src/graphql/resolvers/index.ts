@@ -35,5 +35,25 @@ export default {
       }
       return Boolean(members.find((m) => m.user.id === viewer.id))
     },
+    viewer: (
+      { id }: ReadingSessionInfoFragment,
+      _: unknown,
+      { prisma, viewer }: Context
+    ) => {
+      if (!viewer?.id) {
+        return null
+      }
+      return prisma.readingSessionMember.findUnique({
+        include: {
+          user: true,
+        },
+        where: {
+          userId_readingSessionId: {
+            userId: viewer.id,
+            readingSessionId: id,
+          },
+        },
+      })
+    },
   },
 }

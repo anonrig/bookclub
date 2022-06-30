@@ -12,6 +12,7 @@ import {
 import {
   attendReadingSession,
   createReadingSession,
+  updateReadingSessionPage,
 } from '~/graphql/resolvers/mutations/reading-session'
 
 export default {
@@ -26,4 +27,5 @@ export default {
 
   attendReadingSession: requiresUser(attendReadingSession),
   createReadingSession: requiresAdmin(createReadingSession),
+  updateReadingSessionPage: requiresUser(updateReadingSessionPage),
 }

@@ -11,7 +11,10 @@ type Props = {
   }) => void
   trigger?: ReactElement
   title: string
-  modalContent: Function
+  modalContent: (props: {
+    closeModal: VoidFunction
+    openModal: VoidFunction
+  }) => ReactElement
 }
 
 export function DialogComponent({

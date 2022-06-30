@@ -1,35 +1,49 @@
 import Button, { GhostButton } from '~/components/button'
-import { useAttendReadingSessionMutation } from '~/graphql/types.generated'
+import {
+  ReadingSession,
+  useAttendReadingSessionMutation,
+} from '~/graphql/types.generated'
 import { LoadingSpinner } from '~/components/loading-spinner'
-import { ATTEND_READING_SESSION } from '~/graphql/mutations/reading-session'
-import { GET_READING_SESSION } from '~/graphql/queries/reading-session'
+import UpdateReadingSessionPageDialog from '~/components/reading-session/update-page-dialog'
 
 type Props = {
-  session: { id: string; attending: boolean; book: { url: string } }
+  session: ReadingSession
   isFooter?: boolean
 }
 
 export default function ReadingSessionActions({ session, isFooter }: Props) {
   const [attend, attendResponse] = useAttendReadingSessionMutation({
     variables: {
-      data: { id: session.id },
+      id: session.id,
     },
   })
 
   return (
     <div className="flex space-x-4 py-12">
-      <Button href={session.book.url} target="_blank">
-        Get book
-      </Button>
-
-      {!session.attending && (
-        <Button disabled={attendResponse.loading} onClick={() => attend()}>
-          {attendResponse.loading ? <LoadingSpinner /> : 'Attend'}
+      {isFooter && (
+        <Button href={session.book.url} target="_blank">
+          Get book
         </Button>
       )}
 
-      {isFooter && session.attending && (
-        <GhostButton disabled={true}>Update page</GhostButton>
+      {!session.attending ? (
+        <Button disabled={attendResponse.loading} onClick={() => attend()}>
+          {attendResponse.loading ? <LoadingSpinner /> : 'Attend'}
+        </Button>
+      ) : (
+        <UpdateReadingSessionPageDialog
+          book={session.book}
+          viewer={session.viewer}
+          trigger={
+            <>
+              {isFooter ? (
+                <Button>Update page</Button>
+              ) : (
+                <GhostButton>Update page</GhostButton>
+              )}
+            </>
+          }
+        />
       )}
     </div>
   )

@@ -1,4 +1,8 @@
-import { CommentType, useReadingSessionQuery } from '~/graphql/types.generated'
+import {
+  CommentType,
+  useReadingSessionQuery,
+  ReadingSession as ReadingSessionType,
+} from '~/graphql/types.generated'
 import { Detail } from '~/components/list-detail/detail'
 import { TitleBar } from '~/components/list-detail/title-bar'
 import { useRef } from 'react'
@@ -50,7 +54,9 @@ export default function ReadingSession() {
         titleRef={titleRef}
         scrollContainerRef={scrollContainerRef}
         trailingAccessory={
-          <ReadingSessionActions session={data.readingSession} />
+          <ReadingSessionActions
+            session={data.readingSession as ReadingSessionType}
+          />
         }
       />
       <Detail.ContentContainer>
@@ -139,7 +145,10 @@ export default function ReadingSession() {
               </div>
             </div>
 
-            <ReadingSessionActions isFooter session={data.readingSession} />
+            <ReadingSessionActions
+              isFooter
+              session={data.readingSession as ReadingSessionType}
+            />
           </div>
 
           <Comments

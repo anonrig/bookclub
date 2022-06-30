@@ -43,15 +43,11 @@ export default function CreateReadingSessionDialog({ book, trigger }: Props) {
       },
     })
 
-  if (setNewSessionResponse.data?.createReadingSession?.createdAt) {
-    return null
-  }
-
   return (
     <DialogComponent
       trigger={trigger}
       title="New Session"
-      modalContent={() => (
+      modalContent={({ closeModal }) => (
         <div className="text-primary flex flex-col space-y-4 p-4 text-left">
           <div className="space-y-2">
             <p className="text-primary font-semibold">Book</p>
@@ -95,7 +91,15 @@ export default function CreateReadingSessionDialog({ book, trigger }: Props) {
           <Button
             size="large"
             disabled={setNewSessionResponse.loading}
-            onClick={() => setNewSession()}
+            onClick={async () => {
+              try {
+                const result = await setNewSession()
+
+                if (!result.errors) {
+                  closeModal()
+                }
+              } catch {}
+            }}
           >
             {setNewSessionResponse.loading ? (
               <LoadingSpinner />

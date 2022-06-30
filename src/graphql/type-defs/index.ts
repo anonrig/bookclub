@@ -55,6 +55,7 @@ export default gql`
     deadlineAt: Date!
     createdAt: Date!
     members: [ReadingSessionMember!]!
+    viewer: ReadingSessionMember
   }
 
   enum Role {
@@ -93,10 +94,6 @@ export default gql`
     viewer: User
   }
 
-  input AttendReadingSessionInput {
-    id: ID!
-  }
-
   input CreateReadingSessionInput {
     bookId: ID!
     duration: Int!
@@ -108,8 +105,9 @@ export default gql`
   }
 
   type Mutation {
-    attendReadingSession(data: AttendReadingSessionInput!): ReadingSession
-    createReadingSession(data: CreateReadingSessionInput!): ReadingSession
+    attendReadingSession(id: ID!): Boolean
+    createReadingSession(data: CreateReadingSessionInput!): Boolean
+    updateReadingSessionPage(pageNumber: Int!): Boolean
     addComment(refId: ID!, type: CommentType!, text: String!): Comment
     updateComment(id: ID!, text: String!): Comment
     removeComment(id: ID!): Boolean

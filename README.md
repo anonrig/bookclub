@@ -21,7 +21,7 @@ This is a private, invite-only book club to keep track of the books we've read t
   - [x] Admins can create a new session
   - [x] Members can attend a session
   - [x] Members can comment on the active session
-  - [ ] Members can add their page numbers
+  - [x] Members can add their page numbers
 - [ ] Meetings
   - [ ] Integrate Zoom
   - [ ] Send email notifications to active members

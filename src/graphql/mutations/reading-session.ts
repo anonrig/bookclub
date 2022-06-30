@@ -1,21 +1,19 @@
 import { gql } from '@apollo/client'
 
-import { ReadingSessionInfoFragment } from '~/graphql/fragments/reading-session'
-
 export const CREATE_READING_SESSION = gql`
   mutation createReadingSession($data: CreateReadingSessionInput!) {
-    createReadingSession(data: $data) {
-      ...ReadingSessionInfo
-    }
+    createReadingSession(data: $data)
   }
-  ${ReadingSessionInfoFragment}
 `
 
 export const ATTEND_READING_SESSION = gql`
-  mutation attendReadingSession($data: AttendReadingSessionInput!) {
-    attendReadingSession(data: $data) {
-      ...ReadingSessionInfo
-    }
+  mutation attendReadingSession($id: ID!) {
+    attendReadingSession(id: $id)
   }
-  ${ReadingSessionInfoFragment}
+`
+
+export const UPDATE_READING_SESSION_PAGE = gql`
+  mutation updateReadingSessionPage($pageNumber: Int!) {
+    updateReadingSessionPage(pageNumber: $pageNumber)
+  }
 `

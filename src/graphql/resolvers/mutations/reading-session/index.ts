@@ -2,13 +2,14 @@ import { Context } from '~/graphql/context'
 import {
   MutationCreateReadingSessionArgs,
   MutationAttendReadingSessionArgs,
+  MutationUpdateReadingSessionPageArgs,
 } from '~/graphql/types.generated'
 import { UserInputError } from 'apollo-server-micro'
 import { timestampToCleanTime } from '~/lib/transformers'
 
 export async function attendReadingSession(
   _: unknown,
-  { data: { id } }: MutationAttendReadingSessionArgs,
+  { id }: MutationAttendReadingSessionArgs,
   { prisma, viewer }: Context
 ) {
   const session = await prisma.readingSession.findUnique({
@@ -34,8 +35,15 @@ export async function attendReadingSession(
     },
   })
 
-  return prisma.readingSession.findUnique({
-    where: { id },
+  return true
+}
+
+export async function updateReadingSessionPage(
+  _: unknown,
+  { pageNumber }: MutationUpdateReadingSessionPageArgs,
+  { prisma, viewer }: Context
+) {
+  const session = await prisma.readingSession.findFirst({
     include: {
       book: true,
       members: {
@@ -44,7 +52,46 @@ export async function attendReadingSession(
         },
       },
     },
+    orderBy: {
+      deadlineAt: 'desc',
+    },
   })
+
+  if (!session || !viewer) {
+    throw new UserInputError('Session does not exist')
+  }
+
+  const currentState = session.members.find((m) => m.userId === viewer.id)
+
+  if (!currentState) {
+    throw new UserInputError('That session does not have you as a member')
+  }
+
+  if (currentState.pageNumber > pageNumber) {
+    throw new UserInputError(
+      'That page number should not be smaller than previous page number'
+    )
+  }
+
+  if (pageNumber > session.book.pageCount) {
+    throw new UserInputError(
+      `That book is ${session.book.pageCount} pages long, but you read more than that!`
+    )
+  }
+
+  await prisma.readingSessionMember.update({
+    where: {
+      userId_readingSessionId: {
+        userId: viewer.id,
+        readingSessionId: session.id,
+      },
+    },
+    data: {
+      pageNumber,
+    },
+  })
+
+  return true
 }
 
 export async function createReadingSession(
@@ -74,18 +121,5 @@ export async function createReadingSession(
   const deadlineAt = new Date()
   deadlineAt.setDate(deadlineAt.getDate() + duration * 7)
 
-  return prisma.readingSession.create({
-    data: {
-      bookId,
-      deadlineAt,
-    },
-    include: {
-      book: true,
-      members: {
-        include: {
-          user: true,
-        },
-      },
-    },
-  })
+  return true
 }
