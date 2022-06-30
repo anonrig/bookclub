@@ -1,32 +1,38 @@
 import { ApolloServer } from 'apollo-server-micro'
 import { withSentry } from '@sentry/nextjs'
 
-import typeDefs from '~/graphql/type-defs'
-import resolvers from '~/graphql/resolvers'
 import context from '~/graphql/context'
+import { schema } from '~/graphql/schema'
 import { NextApiHandler } from 'next'
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   context,
-  introspection: false,
-  cache: 'bounded',
 })
 
-const startServer = apolloServer.start()
+let apolloHandler: NextApiHandler
+
+async function getApolloServerHandler() {
+  if (!apolloHandler) {
+    await apolloServer.start()
+
+    apolloHandler = apolloServer.createHandler({
+      path: '/api/graphql',
+    })
+  }
+
+  return apolloHandler
+}
 
 const handler: NextApiHandler = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Headers', '*')
+  const apolloHandler = await getApolloServerHandler()
+
   if (req.method === 'OPTIONS') {
     res.end()
     return false
   }
 
-  await startServer
-  await apolloServer.createHandler({ path: '/api/graphql' })(req, res)
+  return apolloHandler(req, res)
 }
 
 export default withSentry(handler)
