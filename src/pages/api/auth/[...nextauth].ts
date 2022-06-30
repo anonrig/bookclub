@@ -7,6 +7,8 @@ import { prisma } from '~/lib/prisma'
 
 const useSecureCookies = Boolean(process.env.VERCEL_URL)
 
+export const config = { api: { externalResolver: true } }
+
 export default withSentry(
   NextAuth({
     adapter: PrismaAdapter(prisma),

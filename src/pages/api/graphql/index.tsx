@@ -36,4 +36,4 @@ const handler: NextApiHandler = async (req, res) => {
 }
 
 export default withSentry(handler)
-export const config = { api: { bodyParser: false } }
+export const config = { api: { bodyParser: false, externalResolver: true } }
