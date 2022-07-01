@@ -11,6 +11,5 @@ Sentry.init({
   integrations: [
     new Integrations.Prisma({ client: prisma }),
     new Integrations.GraphQL(),
-    new Integrations.Apollo(),
   ],
 })
