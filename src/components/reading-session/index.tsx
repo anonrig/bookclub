@@ -7,11 +7,12 @@ import { Detail } from '~/components/list-detail/detail'
 import { TitleBar } from '~/components/list-detail/title-bar'
 import { useRef } from 'react'
 import { Comments } from '~/components/comments'
-import { Tooltip } from '~/components/tooltip'
 import Link from 'next/link'
 import ReadingSessionActions from '~/components/reading-session/actions'
-import { Avatar } from '~/components/avatar'
 import { timestampToCleanTime } from '~/lib/transformers'
+import ReadingSessionProgress from '~/components/reading-session/progress-bar'
+import { Tooltip } from '~/components/tooltip'
+import { Avatar } from '~/components/avatar'
 
 const listFormatter = new Intl.ListFormat('en', {
   style: 'long',
@@ -70,6 +71,10 @@ export default function ReadingSession() {
 
         <div className="divide-y divide-gray-200 py-12 dark:divide-gray-800">
           <div className="space-y-8 py-12">
+            <ReadingSessionProgress
+              session={data.readingSession as ReadingSessionType}
+            />
+
             <div className="space-y-2">
               <p className="text-primary font-semibold">
                 Author{data.readingSession.book.authors.length > 1 ? 's' : ''}
@@ -114,7 +119,7 @@ export default function ReadingSession() {
             <div className="space-y-2">
               <p className="text-primary font-semibold">Attendants</p>
 
-              <div className="text-primary flex space-x-2">
+              <div className="text-primary flex flex-col space-y-2">
                 <div className="flex-shrink-0">
                   <div className="flex -space-x-1 overflow-hidden">
                     {data.readingSession.members.length === 0
@@ -135,7 +140,7 @@ export default function ReadingSession() {
                           >
                             <div>
                               <Avatar
-                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-black"
                                 user={{ name: member.user.name ?? '' }}
                                 src={member.user.image ?? ''}
                               />
