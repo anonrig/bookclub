@@ -4,6 +4,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { withSentry } from '@sentry/nextjs'
 
 import { prisma } from '~/lib/prisma'
+import { Role } from '~/graphql/types.generated'
 
 const useSecureCookies = Boolean(process.env.VERCEL_URL)
 
@@ -37,5 +38,15 @@ export default withSentry(
         clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
       }),
     ],
+    callbacks: {
+      async session({ session, token, user }) {
+        if (session.user) {
+          session.user.id = user.id
+          session.user.role = user.role as Role
+        }
+
+        return session
+      },
+    },
   })
 )

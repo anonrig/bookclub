@@ -12,25 +12,11 @@ export type Context = {
   prisma: PrismaClient
 }
 
-export async function getViewer(req: IncomingMessage | undefined) {
-  const session = await getSession({ req })
-
-  let user = null
-
-  if (session?.user?.email) {
-    user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-    })
-  }
-
-  return user
-}
-
 export async function getContext(req: IncomingMessage | undefined) {
-  const viewer = await getViewer(req)
+  const viewer = await getSession({ req })
 
   return {
-    viewer,
+    viewer: viewer?.user ?? null,
     prisma,
   }
 }
