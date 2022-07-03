@@ -14,11 +14,6 @@ import ReadingSessionProgress from '~/components/reading-session/progress-bar'
 import { Tooltip } from '~/components/tooltip'
 import { Avatar } from '~/components/avatar'
 
-const listFormatter = new Intl.ListFormat('en', {
-  style: 'long',
-  type: 'conjunction',
-})
-
 export default function ReadingSession() {
   const { data, loading, refetch } = useReadingSessionQuery()
 
@@ -64,8 +59,14 @@ export default function ReadingSession() {
       <Detail.ContentContainer>
         <Detail.Header>
           <Detail.Title ref={titleRef}>Session</Detail.Title>
-          <p className="text-tertiary text-xl">
-            {data.readingSession.book.title}
+          <p className="text-tertiary space-x-1 text-xl">
+            <span>{data.readingSession.book.title}</span>
+            <span>·</span>
+            <Link href={`/books/${data.readingSession.book.id}`}>
+              <a className="cursor-pointer font-medium text-blue-500">
+                View book
+              </a>
+            </Link>
           </p>
         </Detail.Header>
 
@@ -74,18 +75,6 @@ export default function ReadingSession() {
             <ReadingSessionProgress
               session={data.readingSession as ReadingSessionType}
             />
-
-            <div className="space-y-2">
-              <p className="text-primary font-semibold">
-                Author{data.readingSession.book.authors.length > 1 ? 's' : ''}
-              </p>
-
-              <div className="text-primary flex space-x-2">
-                <span>
-                  {listFormatter.format(data.readingSession.book.authors)}
-                </span>
-              </div>
-            </div>
 
             <div className="space-y-2">
               <p className="text-primary font-semibold">Deadline</p>

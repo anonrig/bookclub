@@ -18,9 +18,12 @@ export default function ReadingSessionProgress({ session }: Props) {
     return parseFloat((elapsed / total).toFixed(2)) * 100
   }, [session.createdAt, session.deadlineAt])
 
-  const fastestReader = useMemo(() => {
-    const maximumPage = Math.max(...session.members.map((m) => m.pageNumber))
+  const maximumPage = useMemo(
+    () => Math.max(...session.members.map((m) => m.pageNumber)),
+    [session.members]
+  )
 
+  const fastestReader = useMemo(() => {
     if (maximumPage > 0) {
       const reader = session.members.find((m) => m.pageNumber === maximumPage)
 
@@ -37,7 +40,7 @@ export default function ReadingSessionProgress({ session }: Props) {
     }
 
     return 'No one started reading yet'
-  }, [session.book.pageCount, session.members])
+  }, [maximumPage, session.book.pageCount, session.members])
 
   return (
     <div className="space-y-2 rounded-md bg-gray-50 py-4 px-4 dark:bg-gray-900">
@@ -57,12 +60,16 @@ export default function ReadingSessionProgress({ session }: Props) {
                 style={{ left: `${currentProgress}%` }}
               >
                 <Tooltip
-                  content={`Progress should be at least ${currentProgress} pages`}
+                  content={`Progress is at ${(
+                    session.book.pageCount *
+                    (currentProgress / 100)
+                  ).toFixed(0)} pages`}
                   placement="bottom"
                 >
                   <div className="h-4 w-1 w-1 rounded-full bg-slate-700 bg-slate-700"></div>
                 </Tooltip>
               </div>
+
               {session.members.map((member) => (
                 <div
                   className="absolute -top-full -translate-x-1/2"
@@ -83,7 +90,7 @@ export default function ReadingSessionProgress({ session }: Props) {
                       <Avatar
                         user={{ name: member.user.name ?? '' }}
                         src={member.user.image ?? ''}
-                        className="h-6 w-6 rounded-full"
+                        className="h-6 w-6 rounded-full ring-2 ring-white dark:ring-black"
                       />
                     </div>
                   </Tooltip>

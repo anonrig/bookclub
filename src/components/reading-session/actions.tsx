@@ -58,12 +58,6 @@ export default function ReadingSessionActions({
 
   return (
     <div className="flex space-x-4 py-12">
-      {isFooter && (
-        <Button href={session.book.url} target="_blank">
-          Get book
-        </Button>
-      )}
-
       {!session.attending ? (
         <Button disabled={attendResponse.loading} onClick={() => attend()}>
           {attendResponse.loading ? <LoadingSpinner /> : 'Attend'}
@@ -76,9 +70,9 @@ export default function ReadingSessionActions({
           trigger={
             <>
               {isFooter ? (
-                <Button>Update page</Button>
+                <Button>Update Progress</Button>
               ) : (
-                <GhostButton>Update page</GhostButton>
+                <GhostButton>Update Progress</GhostButton>
               )}
             </>
           }
