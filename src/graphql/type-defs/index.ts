@@ -6,7 +6,7 @@ export default gql`
   type User {
     id: ID!
     name: String
-    email: String!
+    email: String
     emailVerified: Date
     image: String
     role: Role
@@ -91,6 +91,7 @@ export default gql`
     books(data: GetBooksInput): [Book!]!
     comments(refId: ID!, type: CommentType!): [Comment!]!
     readingSession: ReadingSession
+    user(id: ID!): User
     viewer: User
   }
 

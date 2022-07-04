@@ -29,7 +29,7 @@ export async function editUser(
 
     if (Object.keys(updated).length > 0) {
       return ctx.prisma.user.update({
-        where: { email: ctx.viewer.email },
+        where: { id: ctx.viewer.id },
         data: updated,
       })
     }
