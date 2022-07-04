@@ -1,5 +1,5 @@
 import { Context } from '~/graphql/context'
-import { AuthenticationError } from 'apollo-server-micro'
+import { AuthenticationError } from 'apollo-server-errors'
 import { QueryBookRecommendationsArgs } from '~/graphql/types.generated'
 
 export async function bookRecommendations(

@@ -7,7 +7,7 @@ import {
   UserInputError,
   ForbiddenError,
   AuthenticationError,
-} from 'apollo-server-micro'
+} from 'apollo-server-errors'
 import { getBookById } from '~/lib/google-books'
 import TurndownService from 'turndown'
 import { bookRecommendations } from '~/graphql/resolvers/queries/book-recommendations'

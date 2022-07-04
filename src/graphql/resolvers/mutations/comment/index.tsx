@@ -5,7 +5,7 @@ import {
   MutationRemoveCommentArgs,
   MutationUpdateCommentArgs,
 } from '~/graphql/types.generated'
-import { UserInputError } from 'apollo-server-micro'
+import { UserInputError } from 'apollo-server-errors'
 
 export async function addComment(
   _: unknown,

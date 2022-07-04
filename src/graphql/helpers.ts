@@ -1,4 +1,4 @@
-import { AuthenticationError } from 'apollo-server-micro'
+import { AuthenticationError } from 'apollo-server-errors'
 import { Context } from '~/graphql/context'
 import { Role } from '~/graphql/types.generated'
 

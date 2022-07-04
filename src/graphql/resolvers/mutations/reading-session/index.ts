@@ -4,7 +4,7 @@ import {
   MutationAttendReadingSessionArgs,
   MutationUpdateReadingSessionPageArgs,
 } from '~/graphql/types.generated'
-import { UserInputError } from 'apollo-server-micro'
+import { UserInputError } from 'apollo-server-errors'
 import { timestampToCleanTime } from '~/lib/transformers'
 
 export async function attendReadingSession(

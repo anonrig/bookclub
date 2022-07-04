@@ -1,39 +1,12 @@
-import { ApolloServer } from 'apollo-server-micro'
-import { withSentry } from '@sentry/nextjs'
-
-import context from '~/graphql/context'
 import { schema } from '~/graphql/schema'
-import { NextApiHandler } from 'next'
+import { getContext } from '~/graphql/context'
+import { createGraphQLHandler } from '~/lib/graphql'
 
-const apolloServer = new ApolloServer({
+export default createGraphQLHandler({
   schema,
-  context,
+  context: (req) => getContext(req),
 })
 
-let apolloHandler: NextApiHandler
-
-async function getApolloServerHandler() {
-  if (!apolloHandler) {
-    await apolloServer.start()
-
-    apolloHandler = apolloServer.createHandler({
-      path: '/api/graphql',
-    })
-  }
-
-  return apolloHandler
+export const config = {
+  api: { externalResolver: true },
 }
-
-const handler: NextApiHandler = async (req, res) => {
-  const apolloHandler = await getApolloServerHandler()
-
-  if (req.method === 'OPTIONS') {
-    res.end()
-    return false
-  }
-
-  return apolloHandler(req, res)
-}
-
-export default withSentry(handler)
-export const config = { api: { bodyParser: false, externalResolver: true } }

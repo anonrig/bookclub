@@ -1,6 +1,6 @@
 import { MutationEditUserArgs } from '~/graphql/types.generated'
 import { Context } from '~/graphql/context'
-import { UserInputError } from 'apollo-server-micro'
+import { UserInputError } from 'apollo-server-errors'
 
 export async function editUser(
   _: unknown,

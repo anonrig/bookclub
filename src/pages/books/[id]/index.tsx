@@ -1,8 +1,4 @@
-import {
-  ListDetailView,
-  NextPageWithLayout,
-  SiteLayout,
-} from '~/components/layouts'
+import { ListDetailView, NextPageWithLayout } from '~/components/layouts'
 import BookList from '~/components/books/book-list'
 import BookDetail from '~/components/books/book-detail'
 import { GetServerSideProps } from 'next'

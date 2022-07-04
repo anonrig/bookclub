@@ -1,6 +1,6 @@
 import { Context } from '~/graphql/context'
 import { CommentType, QueryCommentsArgs } from '~/graphql/types.generated'
-import { UserInputError } from 'apollo-server-micro'
+import { UserInputError } from 'apollo-server-errors'
 
 function getWhereByType({ refId, type }: QueryCommentsArgs) {
   switch (type) {

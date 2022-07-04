@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { NextPageContext } from 'next'
 
 import { prisma } from '~/lib/prisma'
 import { getSession } from 'next-auth/react'
@@ -19,8 +18,4 @@ export async function getContext(req: IncomingMessage | undefined) {
     viewer: viewer?.user ?? null,
     prisma,
   }
-}
-
-export default function context(ctx: NextPageContext) {
-  return getContext(ctx.req)
 }
