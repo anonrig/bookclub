@@ -4,7 +4,7 @@ import { createGraphQLHandler } from '~/lib/graphql'
 
 export default createGraphQLHandler({
   schema,
-  context: (req) => getContext(req),
+  context: (req, res) => getContext(req, res),
 })
 
 export const config = {

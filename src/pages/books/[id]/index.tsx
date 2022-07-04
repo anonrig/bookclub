@@ -22,9 +22,10 @@ const BookDetailPage: NextPageWithLayout<{ id: string }> = ({ id }) => {
 export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
+  res,
 }) => {
   const id = params?.id as string
-  const context = await getContext(req)
+  const context = await getContext(req, res)
   const apolloClient = initApolloClient({ context })
 
   await Promise.all([

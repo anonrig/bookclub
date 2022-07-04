@@ -1,4 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from 'next'
 import { GraphQLSchema } from 'graphql'
 
 import { getGraphQLParameters, processRequest, sendResult } from 'graphql-helix'
@@ -22,7 +26,10 @@ export const createGraphQLHandler = (
     context,
   }: {
     schema: GraphQLSchema
-    context: (req: NextApiRequest) => unknown | Promise<unknown>
+    context: (
+      req: GetServerSidePropsContext['req'],
+      res: GetServerSidePropsContext['res']
+    ) => unknown | Promise<unknown>
   },
   { useLogger, useImmediateIntrospection, useTiming }: Options = {}
 ) => {
@@ -35,7 +42,7 @@ export const createGraphQLHandler = (
 
   const getEnveloped = envelop({ plugins })
 
-  const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  return async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
       res.writeHead(200, {
         'content-type': 'text/html',
@@ -52,13 +59,11 @@ export const createGraphQLHandler = (
         ...enveloped,
         ...params,
         contextFactory: () => {
-          return context(req)
+          return context(req, res)
         },
       })
 
       return sendResult(result, res)
     }
   }
-
-  return handler
 }

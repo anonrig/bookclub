@@ -1,21 +1,25 @@
 import { PrismaClient } from '@prisma/client'
 
 import { prisma } from '~/lib/prisma'
-import { getSession } from 'next-auth/react'
 
 import { User } from '~/graphql/types.generated'
-import { IncomingMessage } from 'http'
+import { unstable_getServerSession } from 'next-auth'
+import { authOptions } from '~/pages/api/auth/[...nextauth]'
+import { GetServerSidePropsContext } from 'next'
 
 export type Context = {
   viewer: User | null
   prisma: PrismaClient
 }
 
-export async function getContext(req: IncomingMessage | undefined) {
-  const viewer = await getSession({ req })
+export async function getContext(
+  req: GetServerSidePropsContext['req'],
+  res: GetServerSidePropsContext['res']
+) {
+  const session = await unstable_getServerSession(req, res, authOptions)
 
   return {
-    viewer: viewer?.user ?? null,
+    viewer: session?.user ?? null,
     prisma,
   }
 }

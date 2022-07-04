@@ -16,8 +16,8 @@ const BooksPage: NextPage = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const context = await getContext(req)
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const context = await getContext(req, res)
   const client = initApolloClient({ context })
 
   await Promise.all([
