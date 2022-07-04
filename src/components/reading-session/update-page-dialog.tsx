@@ -60,6 +60,7 @@ export default function UpdateReadingSessionPageDialog({
           <div className="space-y-2">
             <p className="text-primary font-semibold">Page</p>
             <Input
+              autoFocus
               type="number"
               min={viewer?.pageNumber ?? 0}
               max={book.pageCount}
