@@ -1,4 +1,4 @@
-import { Role, useUserQuery } from '~/graphql/types.generated'
+import { Role, useUserQuery, useViewerQuery } from '~/graphql/types.generated'
 import { Detail } from '~/components/list-detail/detail'
 import { TitleBar } from '~/components/list-detail/title-bar'
 import { useRef } from 'react'
@@ -22,6 +22,7 @@ function getRole(role?: Role | null) {
 }
 
 export default function UserDetail({ id }: Props) {
+  const { data: viewer } = useViewerQuery()
   const { data, loading } = useUserQuery({
     variables: { id },
   })
@@ -59,13 +60,15 @@ export default function UserDetail({ id }: Props) {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <p className="text-primary font-semibold">Role</p>
+              {viewer?.viewer?.role === Role.Admin && (
+                <div className="space-y-2">
+                  <p className="text-primary font-semibold">Role</p>
 
-                <div className="text-primary flex space-x-2">
-                  {getRole(data.user.role)}
+                  <div className="text-primary flex space-x-2">
+                    {getRole(data.user.role)}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </Detail.ContentContainer>
