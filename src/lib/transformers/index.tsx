@@ -6,6 +6,18 @@ export function timestampToDaysUntil(timestamp: Date, origin?: number) {
   )
 }
 
+export function timestampToRelative(timestamp: Date, origin?: number) {
+  const deltaDays =
+    (timestamp.getTime() - (origin ?? Date.now())) / (1000 * 3600 * 24)
+  const formatter = new Intl.RelativeTimeFormat()
+
+  if (Math.round(deltaDays) === 0) {
+    return 'today'
+  }
+
+  return formatter.format(Math.round(deltaDays), 'days')
+}
+
 type Props = {
   timestamp?: number | string
   locale?: string
@@ -31,10 +43,12 @@ export function timestampToCleanTime({
 
   const raw = date.toISOString()
   const daysUntil = timestampToDaysUntil(date)
+  const relativeDays = timestampToRelative(date)
 
   return {
     formatted,
     raw,
     daysUntil,
+    relativeDays,
   }
 }
