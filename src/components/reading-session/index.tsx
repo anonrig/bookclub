@@ -129,9 +129,11 @@ export default function ReadingSession() {
                           >
                             <div>
                               <Avatar
-                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-black"
+                                className="inline-block rounded-full ring-2 ring-white dark:ring-black"
                                 user={{ name: member.user.name ?? '' }}
                                 src={member.user.image ?? ''}
+                                width={24}
+                                height={24}
                               />
                             </div>
                           </Tooltip>

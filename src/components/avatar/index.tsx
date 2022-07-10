@@ -5,10 +5,14 @@ import { Maybe } from '~/graphql/types.generated'
 export function Avatar({
   user,
   src,
+  width,
+  height,
   ...props
 }: {
   user: { name: string }
   src?: Maybe<string>
+  width: number
+  height: number
 } & ImageProps) {
   const fallbackUrl = '/static/img/fallback-avatar.png'
   const [srcState, setSrcState] = useState(src || fallbackUrl)
@@ -24,6 +28,8 @@ export function Avatar({
     <Image
       alt={`${user.name}'s profile photo`}
       src={srcState}
+      width={width}
+      height={height}
       {...props}
       onError={() => {
         setSrcState(fallbackUrl)

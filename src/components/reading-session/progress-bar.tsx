@@ -66,7 +66,9 @@ export default function ReadingSessionProgress({ session }: Props) {
                         <Avatar
                           user={{ name: member.user.name ?? '' }}
                           src={member.user.image ?? ''}
-                          className="h-6 w-6 rounded-full ring-2 ring-white dark:ring-black"
+                          width={24}
+                          height={24}
+                          className="rounded-full ring-2 ring-white dark:ring-black"
                         />
                       </div>
                     </Tooltip>

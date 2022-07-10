@@ -110,8 +110,8 @@ export const Comment = memo(function MemoComment({
           <Link href={`/u/${comment.author.id}`}>
             <a className="inline-flex">
               <Avatar
-                user={{ name: comment.author.name! }}
-                src={comment.author.image as string}
+                user={{ name: comment.author.name ?? '' }}
+                src={comment.author.image ?? ''}
                 width={32}
                 height={32}
                 quality={100}
