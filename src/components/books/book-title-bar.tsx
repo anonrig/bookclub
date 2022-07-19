@@ -1,6 +1,6 @@
 import { GhostButton } from '~/components/button'
 import { TitleBar } from '~/components/list-detail/title-bar'
-import { DotsHorizontalIcon, PlusIcon } from '@heroicons/react/outline'
+import { PlusIcon } from '@heroicons/react/outline'
 import { MutableRefObject } from 'react'
 import BookFilterMenu from '~/components/books/filter-menu'
 

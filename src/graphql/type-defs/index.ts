@@ -12,6 +12,10 @@ export default gql`
     role: Role
   }
 
+  type BookCount {
+    recommendations: Int!
+  }
+
   type Book {
     id: ID!
     title: String!
@@ -24,6 +28,7 @@ export default gql`
     publishedAt: Int!
     googleId: String!
     createdAt: Date!
+    _count: BookCount!
   }
 
   type Comment {

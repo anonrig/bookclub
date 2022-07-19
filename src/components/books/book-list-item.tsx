@@ -1,15 +1,10 @@
-import { Book } from '~/graphql/types.generated'
-import { ListItem } from '~/components/list-detail/list-item'
 import Image from 'next/image'
+import { ListItem } from '~/components/list-detail/list-item'
+import { BookInfoFragment } from '~/graphql/types.generated'
 
 type Props = {
   active: boolean
-  book: {
-    id: string
-    title: string
-    thumbnail?: string | null
-    authors: string[]
-  }
+  book: BookInfoFragment
 }
 
 export default function BookListItem({ active, book }: Props) {
@@ -24,6 +19,7 @@ export default function BookListItem({ active, book }: Props) {
       objectFit="cover"
     />
   ) : null
+
   return (
     <ListItem
       key={book.id}
@@ -31,7 +27,7 @@ export default function BookListItem({ active, book }: Props) {
       leadingAccessory={leadingAccessory}
       active={active}
       href={`/books/${book.id}`}
-      byline={book.authors.at(0)}
+      byline={`${book.authors.at(0)} (${book._count.recommendations} people)`}
     />
   )
 }

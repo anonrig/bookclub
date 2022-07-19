@@ -10,6 +10,9 @@ export const BookInfoFragment = gql`
     authors
     url
     pageCount
+    _count {
+      recommendations
+    }
   }
 `
 

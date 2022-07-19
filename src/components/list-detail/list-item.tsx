@@ -8,6 +8,7 @@ type Props = {
   description?: string | ReactElement
   byline?: string | ReactElement
   leadingAccessory?: ReactElement | null
+  trailingAccessory?: ReactElement | null
   onClick?: (e: any) => void
 }
 
@@ -18,6 +19,7 @@ export function ListItem({
   href,
   active,
   leadingAccessory,
+  trailingAccessory,
   onClick,
 }: Props) {
   return (
@@ -31,36 +33,41 @@ export function ListItem({
         }`}
       >
         {leadingAccessory && <>{leadingAccessory}</>}
-        <div className="flex flex-col justify-center space-y-1">
-          <div
-            className={`font-medium line-clamp-3 ${
-              active ? 'text-white' : 'text-gray-900 dark:text-gray-100'
-            }`}
-          >
-            {title}
+
+        <div className="flex flex-grow flex-row items-center justify-between">
+          <div className="flex flex-col justify-center space-y-1">
+            <div
+              className={`font-medium line-clamp-3 ${
+                active ? 'text-white' : 'text-gray-900 dark:text-gray-100'
+              }`}
+            >
+              {title}
+            </div>
+            {description && (
+              <div
+                className={`line-clamp-2 ${
+                  active
+                    ? 'text-white text-opacity-80'
+                    : 'text-gray-900 text-opacity-60 dark:text-white'
+                }`}
+              >
+                {description}
+              </div>
+            )}
+            {byline && (
+              <div
+                className={`line-clamp-1 ${
+                  active
+                    ? 'text-white text-opacity-60'
+                    : 'text-gray-900 text-opacity-40 dark:text-white dark:text-opacity-60'
+                }`}
+              >
+                {byline}
+              </div>
+            )}
           </div>
-          {description && (
-            <div
-              className={`line-clamp-2 ${
-                active
-                  ? 'text-white text-opacity-80'
-                  : 'text-gray-900 text-opacity-60 dark:text-white'
-              }`}
-            >
-              {description}
-            </div>
-          )}
-          {byline && (
-            <div
-              className={`line-clamp-1 ${
-                active
-                  ? 'text-white text-opacity-60'
-                  : 'text-gray-900 text-opacity-40 dark:text-white dark:text-opacity-60'
-              }`}
-            >
-              {byline}
-            </div>
-          )}
+
+          {trailingAccessory && <>{trailingAccessory}</>}
         </div>
       </a>
     </Link>

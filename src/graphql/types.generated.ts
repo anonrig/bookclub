@@ -28,6 +28,7 @@ export type Scalars = {
 
 export type Book = {
   __typename?: 'Book'
+  _count: BookCount
   authors: Array<Scalars['String']>
   createdAt: Scalars['Date']
   description: Scalars['String']
@@ -39,6 +40,11 @@ export type Book = {
   thumbnail?: Maybe<Scalars['String']>
   title: Scalars['String']
   url: Scalars['String']
+}
+
+export type BookCount = {
+  __typename?: 'BookCount'
+  recommendations: Scalars['Int']
 }
 
 export enum BookFilterType {
@@ -222,6 +228,7 @@ export type BookInfoFragment = {
   authors: Array<string>
   url: string
   pageCount: number
+  _count: { __typename?: 'BookCount'; recommendations: number }
 }
 
 export type BookInfoDetailFragment = {
@@ -237,6 +244,7 @@ export type BookInfoDetailFragment = {
   title: string
   thumbnail?: string | null
   authors: Array<string>
+  _count: { __typename?: 'BookCount'; recommendations: number }
 }
 
 export type CommentInfoFragment = {
@@ -282,6 +290,7 @@ export type ReadingSessionInfoFragment = {
     authors: Array<string>
     url: string
     pageCount: number
+    _count: { __typename?: 'BookCount'; recommendations: number }
   }
   members: Array<{
     __typename?: 'ReadingSessionMember'
@@ -339,6 +348,7 @@ export type CreateBookRecommendationMutation = {
     authors: Array<string>
     url: string
     pageCount: number
+    _count: { __typename?: 'BookCount'; recommendations: number }
   } | null
 }
 
@@ -480,6 +490,7 @@ export type GetBooksQuery = {
     authors: Array<string>
     url: string
     pageCount: number
+    _count: { __typename?: 'BookCount'; recommendations: number }
   }>
 }
 
@@ -502,6 +513,7 @@ export type GetBookQuery = {
     googleId: string
     publishedAt: number
     createdAt: any
+    _count: { __typename?: 'BookCount'; recommendations: number }
   } | null
 }
 
@@ -546,6 +558,7 @@ export type ReadingSessionQuery = {
       authors: Array<string>
       url: string
       pageCount: number
+      _count: { __typename?: 'BookCount'; recommendations: number }
     }
     members: Array<{
       __typename?: 'ReadingSessionMember'
@@ -637,6 +650,9 @@ export const BookInfoFragmentDoc = gql`
     authors
     url
     pageCount
+    _count {
+      recommendations
+    }
   }
 `
 export const BookInfoDetailFragmentDoc = gql`
