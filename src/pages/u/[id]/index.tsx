@@ -7,11 +7,7 @@ import { GET_USER } from '~/graphql/queries/user'
 import UserDetail from '~/components/user'
 
 const UserDetailPage: NextPageWithLayout<{ id: string }> = ({ id }) => {
-  return (
-    <>
-      <ListDetailView hasDetail detail={<UserDetail id={id} />} />
-    </>
-  )
+  return <ListDetailView hasDetail detail={<UserDetail id={id} />} />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({

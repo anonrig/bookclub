@@ -6,6 +6,7 @@ import { NextPageContext } from 'next'
 import { Session } from 'next-auth'
 import { Toast } from '~/components/providers/toast'
 import SEO from '~/components/providers/seo'
+import { FathomProvider } from '~/components/providers/fathom'
 
 const globalNavigationContext = {
   isOpen: false,
@@ -27,6 +28,7 @@ export default function Providers({
 
   return (
     <>
+      <FathomProvider />
       <SEO />
       <Toast />
       <ApolloProvider client={client}>

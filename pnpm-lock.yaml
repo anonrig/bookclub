@@ -34,6 +34,7 @@ specifiers:
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-unused-imports: ^2.0.0
+  fathom-client: ^3.5.0
   graphql: ^16.5.0
   graphql-helix: ^1.13.0
   graphql-tag: ^2.12.6
@@ -78,6 +79,7 @@ dependencies:
   apollo-server-errors: 3.3.1_graphql@16.5.0
   csstype: 3.1.0
   deepmerge: 4.2.2
+  fathom-client: 3.5.0
   graphql: 16.5.0
   graphql-helix: 1.13.0_graphql@16.5.0
   graphql-tag: 2.12.6_graphql@16.5.0
@@ -3379,6 +3381,10 @@ packages:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
     dependencies:
       reusify: 1.0.4
+
+  /fathom-client/3.5.0:
+    resolution: {integrity: sha512-BiRDS9Q9a8Zma0H717FWC5cvf545K/CsxBpxKT22TcSl1EbRhhlHWIJgrdeiQUfdorBK2ppy09TwMOhRsbos/A==}
+    dev: false
 
   /fb-watchman/2.0.1:
     resolution: {integrity: sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==}
