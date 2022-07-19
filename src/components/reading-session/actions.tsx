@@ -21,6 +21,8 @@ export default function ReadingSessionActions({
   session,
   isFooter,
 }: Props) {
+  const memberFinishedBook =
+    session.viewer?.pageNumber === session.book.pageCount
   const [attend, attendResponse] = useAttendReadingSessionMutation({
     variables: {
       id: session.id,
@@ -58,11 +60,19 @@ export default function ReadingSessionActions({
 
   return (
     <div className="flex space-x-4 py-12">
-      {!session.attending ? (
+      {!session.attending && (
         <Button disabled={attendResponse.loading} onClick={() => attend()}>
           {attendResponse.loading ? <LoadingSpinner /> : 'Attend'}
         </Button>
-      ) : (
+      )}
+
+      {isFooter && (
+        <Button href="/books/recommend" aria-label="Recommend book">
+          Recommend a book
+        </Button>
+      )}
+
+      {session.attending && !memberFinishedBook && (
         <UpdateReadingSessionPageDialog
           book={session.book}
           viewer={session.viewer}

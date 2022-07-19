@@ -17,7 +17,7 @@ export default function useReadingSession({ session }: Props) {
     const createdAt = new Date(session.createdAt)
     const total = timestampToDaysUntil(deadline, createdAt.getTime())
     const elapsed = timestampToDaysUntil(new Date(), createdAt.getTime())
-    return parseFloat((elapsed / total).toFixed(2)) * 100
+    return Math.min(100, parseFloat((elapsed / total).toFixed(2)) * 100)
   }, [session.createdAt, session.deadlineAt])
 
   const progress = useMemo(
@@ -67,13 +67,17 @@ export default function useReadingSession({ session }: Props) {
       timestamp: session.viewer.updatedAt,
     })
 
-    // If viewer finished the book do nothing
-    if (session.viewer.pageNumber === session.book.pageCount) {
+    // If deadline exceeded for this reading session
+    if (deadlineAt.daysUntil < 0) {
+      return null
+    }
+    // If viewer finished the book, do nothing
+    else if (session.viewer.pageNumber === session.book.pageCount) {
       return null
     }
     // Viewer did not update more than 7 days ago.
     else if (updatedAt.daysUntil < -7) {
-      return `Did you read while you're away? Your last update was ${updatedAt.relativeDays}.`
+      return `Your last update was ${updatedAt.relativeDays}.`
     }
     // Viewer is behind schedule.
     else if (session.viewer.pageNumber < progress) {

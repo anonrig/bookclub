@@ -17,7 +17,9 @@ export type GoogleBook = {
 }
 
 export async function searchBooks(keyword: string): Promise<GoogleBook[]> {
-  const response = await fetch(`${BOOKS_VOLUME_BASE}?q=${keyword}`)
+  const response = await fetch(
+    `${BOOKS_VOLUME_BASE}?q=intitle:${keyword}&maxResults=40`
+  )
   const json = await response.json()
 
   return json.items.map((item: any) => ({ id: item.id, ...item.volumeInfo }))
