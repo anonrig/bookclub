@@ -36,7 +36,7 @@ export type Book = {
   id: Scalars['ID']
   pageCount: Scalars['Int']
   publishedAt: Scalars['Int']
-  subtitle: Scalars['String']
+  subtitle?: Maybe<Scalars['String']>
   thumbnail?: Maybe<Scalars['String']>
   title: Scalars['String']
   url: Scalars['String']
@@ -233,7 +233,7 @@ export type BookInfoFragment = {
 
 export type BookInfoDetailFragment = {
   __typename: 'Book'
-  subtitle: string
+  subtitle?: string | null
   description: string
   url: string
   googleId: string
@@ -508,7 +508,7 @@ export type GetBookQuery = {
     authors: Array<string>
     url: string
     pageCount: number
-    subtitle: string
+    subtitle?: string | null
     description: string
     googleId: string
     publishedAt: number

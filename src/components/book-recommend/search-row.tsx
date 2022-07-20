@@ -10,7 +10,9 @@ type Props = {
 
 export default function BookSearchRow({ active, book }: Props) {
   const activeClass = active ? 'bg-gray-50 dark:bg-gray-800' : ''
-  const classes = `flex flex-row space-x-2 items-center py-2 px-3.5 cursor-pointer ${activeClass}`
+  const classes = `flex flex-row space-x-2 items-center py-2 px-3.5 ${activeClass} ${
+    book.pageCount ? 'cursor-pointer' : 'cursor-not-allowed'
+  }`
   const authors =
     book.authors && book.authors.length > 0
       ? `Written by ${book.authors.join(', ')}. `

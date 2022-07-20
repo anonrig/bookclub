@@ -31,15 +31,17 @@ export default function BookSearch({ onBookChange }: Props) {
             Cancel
           </button>
         </div>
-        <p className="text-quaternary text-sm">
-          It would take an average person{' '}
-          <Tooltip content="Average person reads 20 to 30 pages per day.">
-            <span className="underline">
-              {Math.floor(selectedBook.pageCount / 25)} days
-            </span>
-          </Tooltip>{' '}
-          to read this book.
-        </p>
+        {selectedBook.pageCount && (
+          <p className="text-quaternary text-sm">
+            It would take an average person{' '}
+            <Tooltip content="Average person reads 20 to 30 pages per day.">
+              <span className="underline">
+                {Math.floor(selectedBook.pageCount / 25)} days
+              </span>
+            </Tooltip>{' '}
+            to read this book.
+          </p>
+        )}
       </div>
     )
   }
@@ -69,7 +71,11 @@ export default function BookSearch({ onBookChange }: Props) {
             >
               <Combobox.Options className="absolute absolute z-50 max-h-60 w-full space-y-2 overflow-scroll rounded-md bg-white shadow-lg dark:bg-gray-900">
                 {results.map((book) => (
-                  <Combobox.Option key={book.id} value={book}>
+                  <Combobox.Option
+                    key={book.id}
+                    value={book}
+                    disabled={!book.pageCount}
+                  >
                     {({ active, selected }) => (
                       <BookSearchRow
                         book={book}

@@ -19,7 +19,7 @@ export default gql`
   type Book {
     id: ID!
     title: String!
-    subtitle: String!
+    subtitle: String
     description: String!
     pageCount: Int!
     url: String!

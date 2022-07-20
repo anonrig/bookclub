@@ -71,7 +71,7 @@ model Book {
   id          String   @id @default(cuid())
   googleId    String   @unique @map("google_id")
   title       String   @db.Text
-  subtitle    String   @db.Text
+  subtitle    String?   @db.Text
   description String   @db.Text
   pageCount   Int      @map("page_count")
   url         String   @db.Text

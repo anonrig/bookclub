@@ -27,19 +27,21 @@ export async function createBookRecommendation(
     throw new UserInputError('Recommendation is missing')
   }
 
-  const previousRecommendation = await ctx.prisma.bookRecommendation.findUnique(
-    {
-      where: {
-        userId_bookId: {
-          userId: ctx.viewer.id,
-          bookId: data.id,
+  const previousBook = await ctx.prisma.book.findUnique({
+    where: {
+      googleId: data.id,
+    },
+    include: {
+      _count: {
+        select: {
+          recommendations: true,
         },
       },
-    }
-  )
+    },
+  })
 
-  if (previousRecommendation) {
-    throw new UserInputError('That recommendation already exists')
+  if (previousBook) {
+    return previousBook
   }
 
   const googleBook = await getBookById(data.id)
@@ -48,11 +50,17 @@ export async function createBookRecommendation(
     throw new UserInputError('That book does not exist')
   }
 
+  if (!googleBook.pageCount) {
+    throw new ForbiddenError(
+      'Google Books API does not include that books page count'
+    )
+  }
+
   const book = await ctx.prisma.book.create({
     data: {
       title: googleBook.title,
       subtitle: googleBook.subtitle,
-      description: turndownService.turndown(googleBook.description),
+      description: turndownService.turndown(googleBook.description ?? ''),
       pageCount: googleBook.pageCount,
       googleId: googleBook.id,
       authors: googleBook.authors ?? [],
@@ -61,7 +69,14 @@ export async function createBookRecommendation(
         ? parseInt(googleBook.publishedDate, 10)
         : null,
       url: googleBook.previewLink,
-      identifiers: googleBook.industryIdentifiers,
+      identifiers: googleBook.industryIdentifiers ?? [],
+    },
+    include: {
+      _count: {
+        select: {
+          recommendations: true,
+        },
+      },
     },
   })
 
@@ -100,22 +115,20 @@ export async function toggleBookRecommendation(
       bookId: id,
     },
   })
+  const query = {
+    userId: ctx.viewer.id,
+    bookId: id,
+  }
 
   if (reaction) {
     await ctx.prisma.bookRecommendation.delete({
       where: {
-        userId_bookId: {
-          userId: ctx.viewer.id,
-          bookId: id,
-        },
+        userId_bookId: query,
       },
     })
   } else {
     await ctx.prisma.bookRecommendation.create({
-      data: {
-        userId: ctx.viewer.id,
-        bookId: id,
-      },
+      data: query,
     })
   }
 

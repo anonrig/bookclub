@@ -7,12 +7,12 @@ export type GoogleBook = {
     smallThumbnail: string
     thumbnail: string
   }
-  pageCount: number
+  pageCount?: number
   previewLink: string
   publishedDate?: string
   title: string
-  subtitle: string
-  description: string
+  subtitle?: string
+  description?: string
   industryIdentifiers: { type: string; identifier: string }[]
 }
 

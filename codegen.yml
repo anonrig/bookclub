@@ -17,8 +17,4 @@ generates:
       - typescript-operations
       - typescript-react-apollo
     config:
-      withHOC: false
-      withHooks: true
-      withComponent: false
-      reactApolloVersion: 3
       preResolveTypes: true
