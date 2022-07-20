@@ -5,10 +5,18 @@ import BookSearch from '~/components/book-recommend/search'
 import { GoogleBook } from '~/lib/google-books'
 import Button from '~/components/button'
 import { Textarea } from '~/components/input'
-import { useCreateBookRecommendationMutation } from '~/graphql/types.generated'
+import {
+  BookInfoFragment,
+  CreateBookRecommendationMutation,
+  CreateBookRecommendationMutationResult,
+  GetBookQuery,
+  GetBooksQuery,
+  GetBooksQueryResult,
+  useCreateBookRecommendationMutation,
+} from '~/graphql/types.generated'
 import { LoadingSpinner } from '~/components/loading-spinner'
 import { useRouter } from 'next/router'
-import toast from 'react-hot-toast'
+import { GET_BOOKS } from '~/graphql/queries/book'
 
 export default function BookRecommend() {
   const router = useRouter()
@@ -25,6 +33,25 @@ export default function BookRecommend() {
           id: book?.id ?? '',
           comment,
         },
+      },
+      update(cache, data) {
+        const result = data as CreateBookRecommendationMutationResult
+        const cachedData = cache.readQuery<any>({
+          query: GET_BOOKS,
+        }) as GetBooksQuery
+
+        if (cachedData?.books && result.data) {
+          cache.writeQuery({
+            query: GET_BOOKS,
+            data: {
+              __typename: cachedData.__typename,
+              books: [
+                result.data.createBookRecommendation,
+                ...cachedData.books,
+              ],
+            },
+          })
+        }
       },
       onCompleted() {
         router.push({
