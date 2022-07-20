@@ -8,8 +8,6 @@ export function FathomProvider() {
 
   useEffect(() => {
     Fathom.load(FATHOM_SITE_ID, {
-      includedDomains: ['nizipli.com'],
-      excludedDomains: ['vercel.app,localhost'],
       url: FATHOM_CUSTOM_URL,
       spa: 'auto',
     })
