@@ -32,7 +32,9 @@ export function ListItem({
             : 'sm:hover:bg-gray-200 sm:dark:hover:bg-gray-800'
         }`}
       >
-        {leadingAccessory && <>{leadingAccessory}</>}
+        {leadingAccessory && (
+          <div className="flex-shrink-0">{leadingAccessory}</div>
+        )}
 
         <div className="flex flex-grow flex-row items-center justify-between">
           <div className="flex flex-col justify-center space-y-1">
