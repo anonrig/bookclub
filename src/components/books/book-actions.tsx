@@ -6,9 +6,9 @@ import {
   useToggleBookRecommendationMutation,
   ViewerQuery,
 } from '~/graphql/types.generated'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import CreateReadingSessionDialog from '~/components/reading-session/create-dialog'
-import { StarIcon } from '@heroicons/react/outline'
+import { GlobeAltIcon, ShareIcon, StarIcon } from '@heroicons/react/outline'
 
 type Props = {
   book: { id: string; url: string; title: string; pageCount: number }
@@ -49,15 +49,16 @@ function BookReaction({ book }: Props) {
 }
 
 export default function BookActions({ book, viewer }: Props) {
-  const startSessionButton = useCallback(() => {
+  const sharingAvailable =
+    typeof window !== 'undefined' && window.navigator.share
+  const startSessionButton = useMemo(() => {
     if (viewer?.role === Role.Admin) {
       return (
         <CreateReadingSessionDialog
           book={book}
           trigger={
             <Button>
-              <StarIcon className="mr-1 h-4 w-4" />
-              Session
+              <StarIcon className="h-4 w-4" />
             </Button>
           }
         />
@@ -68,11 +69,23 @@ export default function BookActions({ book, viewer }: Props) {
 
   return (
     <div className="flex items-center space-x-2">
-      {startSessionButton()}
+      {startSessionButton}
       <BookReaction book={book} viewer={viewer} />
       <Button href={book.url} target="_blank">
-        Visit
+        <GlobeAltIcon className="h-4 w-4" />
       </Button>
+      {sharingAvailable && (
+        <Button
+          onClick={() => {
+            window.navigator.share({
+              title: book.title,
+              url: `https://nizipli.com/books/${book.id}`,
+            })
+          }}
+        >
+          <ShareIcon className="h-4 w-4" />
+        </Button>
+      )}
     </div>
   )
 }
