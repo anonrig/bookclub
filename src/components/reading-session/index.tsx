@@ -151,13 +151,13 @@ export default function ReadingSession() {
               session={data.readingSession as ReadingSessionType}
             />
           </div>
-
-          <Comments
-            refId={data.readingSession.id}
-            type={CommentType.ReadingSession}
-          />
         </div>
       </Detail.ContentContainer>
+
+      <Comments
+        refId={data.readingSession.id}
+        type={CommentType.ReadingSession}
+      />
     </Detail.Container>
   )
 }
