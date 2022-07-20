@@ -13,7 +13,7 @@ export default function BookListItem({ active, book }: Props) {
       alt={`The cover of "${book.title}"`}
       src={book.thumbnail}
       width={32}
-      height={32}
+      height={44}
       className="rounded-md"
       objectPosition="center"
       objectFit="cover"

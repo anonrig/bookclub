@@ -22,18 +22,26 @@ export default function BookSearchRow({ active, book }: Props) {
     : null
   const publishedAtSuffix = publishedAt ? `Released at ${publishedAt}` : ''
   const subtitle = `${authors}${publishedAtSuffix}`
+
   return (
-    <div className={classes}>
-      <Image
-        alt={book.title}
-        src={
-          book.imageLinks?.smallThumbnail ??
-          'http://books.google.com/books/content?id=N3TGDgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'
-        }
-        width={24}
-        height={24}
-        className="rounded-lg"
-      />
+    <div
+      className={classes}
+      style={{
+        opacity: book.pageCount ? 1 : 0.4,
+      }}
+    >
+      <div className="flex-shrink-0">
+        <Image
+          alt={book.title}
+          src={
+            book.imageLinks?.smallThumbnail ??
+            'http://books.google.com/books/content?id=N3TGDgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'
+          }
+          width={32}
+          height={44}
+          className="rounded-md"
+        />
+      </div>
       <div className="shrink space-y-0 py-0">
         <span className="text-primary text-sm line-clamp-1">{book.title}</span>
         <span className="text-xs text-gray-900 text-opacity-40 line-clamp-1 dark:text-white dark:text-opacity-60">
